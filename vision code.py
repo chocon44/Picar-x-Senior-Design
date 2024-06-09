@@ -11,7 +11,7 @@ user = os.getlogin()
 user_home = os.path.expanduser(f'~{user}')
 
 reset_mcu()
-sleep(0.2)
+#sleep(0.2)
 
 manual = '''
 Press key to call the function(non-case sensitive):
