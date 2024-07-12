@@ -513,8 +513,8 @@ def Mobilize(dummyStart):
                     time.sleep(ydiff)
                     
                 # update new orientation 
-                direction[0] = 1
-                direction[1] = 0
+                direction[0] = 0
+                direction[1] = 1
                 direction[2] = 0
                 direction[3] = 0
             
