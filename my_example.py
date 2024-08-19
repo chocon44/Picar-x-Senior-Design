@@ -14,7 +14,7 @@ import time
 import math
 
 path = []
-power = 70
+power = 40
 
 # This function returns the target destination 
 # Returns a list of x,y
@@ -50,7 +50,7 @@ def turn_right():
     car.forward(0)  # stop the car
     car.set_dir_servo_angle(40) # rotate servo angle to the right
     car.forward(power) # go forward for 1 sec
-    time.sleep(0.5)
+    time.sleep(1)   # CHANGED FROM 0.5
     reset_turn_servo()  # reset turning angle back to 0
 
 def turn_left():
@@ -58,7 +58,7 @@ def turn_left():
     car.forward(0)  # stop the car 
     car.set_dir_servo_angle(-40)    # turn servo to left turn 
     car.forward(power)  
-    time.sleep(0.5) # pause for half a second then reset servo angle to go straight
+    time.sleep(1) # pause for half a second then reset servo angle to go straight
     reset_turn_servo()
 
 
