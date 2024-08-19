@@ -537,8 +537,8 @@ def Mobilize(dummyStart):
 def main():
     
     global path
-    
-    car = Picarx()
+    global power
+
     
     # reading start and end coordinates 
     initial = get_initial_coord()
@@ -578,7 +578,9 @@ def main():
     # After knowing where to go, mobilize through all the coordinates in path
     
     Mobilize(dummyStart)
+    car.forward(0)
     
 
-
+car = Picarx()
 main()
+    
