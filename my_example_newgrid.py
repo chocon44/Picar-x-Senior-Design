@@ -1,21 +1,21 @@
-
- 
 #-----------------
 # CODE FROM MY-EXAMPLE
 #
-# LAST UPDATED: 9/2/24 
+# LAST UPDATED: 9/4/24 
 #
-# DESCRIPTION: PATH SEARCHING TESTING
-#   
-# NOTES: New grid implemented
+# FOR PICARX
+# DESCRIPTION: PATH SEARCHING TESTING 
+# 
+# NOTES: New grid implemented - want obstacle emergency stop - want reroute 
 #-----------------
 
 from picarx import Picarx
-import time
 import math
+import time
 
 path = []
 power = 40
+turningTime = 1     # for 90 degrees
 
 # This function returns the target destination 
 # Returns a list of x,y
@@ -23,7 +23,7 @@ def get_final_coord():
     endx = int(input("Enter destination x coordinate: "))
     endy = int(input("Enter destination y coordinate: "))
     end = [endx,endy]
-    return end
+    
     
 # This function returns the starting position 
 # Returns a list of x,y
@@ -31,6 +31,7 @@ def get_initial_coord():
     startx = int(input("Enter starting x coordinate: "))
     starty = int(input("Enter starting y coordinate: "))
     start = [startx,starty]
+    
     return start
 
 
@@ -62,9 +63,6 @@ def turn_left():
     time.sleep(1) # pause for half a second then reset servo angle to go straight
     reset_turn_servo()
 
-
-
-
 # This function returns error value in respect with the goal coordinate
 def CalculateError(current, goal):
     # error is calculated using distance formula
@@ -74,7 +72,7 @@ def CalculateError(current, goal):
 
 
 
-path = []
+
 # This function returns a list of coordinates the car needs to travel to get
 # to the input goal location
 def GetPath(current, goal):
@@ -108,52 +106,59 @@ def GetPath(current, goal):
     # error list, values stored in order (up, down, left, right)
     errorList = []
     
-    # if (odd, odd) possible directions are down and right
-    if ((xc%2 != 0) and (yc%2 !=0 )):
-        # Raise corresponding direction flags
-        down = 1 
+    left_ylist = [8,4,0]
+    right_ylist = [6,2]
+    up_xlist = [2,6]
+    down_xlist = [0,4,8]
+    
+    if xc in up_xlist:
+        up = 1
+    elif xc in down_xlist:
+        down = 1
+    if yc in left_ylist:
+        left = 1
+    elif yc in right_ylist:
         right = 1
-        
-        # Calculate possible next coordinate for respective direction
+    
+    # Possible moves are down and right
+    if (down == 1) and (right == 1):
         while (down == 1):
-            # Cannot go further down if y == 0
+            # Cannot go further down is y == 0
             if (yc == 0):
-                break   # break out of this while loop
-                
-            # Can go down futher if y is not 0 
+                break
+            # if current y is not 0 
             else:
                 xD = xc 
-                yD = yc -2
+                yD = yc-2
             
-            # append new coordinate to the corresponding list
+            # Append new coordinate to corresponding list 
             choiceDown.append(xD)
             choiceDown.append(yD)
             
             # Calculate error of this coordinate 
             errorDown = CalculateError(choiceDown, goal)
             
-            down = 0    # lower flag to move on to next while loop
-        
+            # Lower down flag 
+            down = 0
+            
         while (right == 1):
-            # cannot go further right if x == 8
+            # Cannot go further right if x == 8
             if (xc == 8):
                 break
-            # can go further right if x is not 3
+            # if the current x is not 8
             else:
                 yR = yc
-                xR = xc + 2
+                xR = xc+2
             
-            # append new coordinate to the corresponding list
+            # Append new coordinate to the list 
             choiceRight.append(xR)
             choiceRight.append(yR)
             
             # Calculate error of this coordinate 
             errorRight = CalculateError(choiceRight, goal)
-            # lower flag 
             right = 0
             
-        
-        # Compare the 2 error values and choose the one with the smaller error
+        # Compare the 2 error values and choose the smaller one 
         
         # if errorDown is smaller, append the corresponding coordinate into path
         if (errorDown < errorRight):
@@ -164,7 +169,6 @@ def GetPath(current, goal):
                 return
             else:
                 print("Down")
-                
                 
         elif (errorDown > errorRight):
             path.append(choiceRight)
@@ -178,14 +182,8 @@ def GetPath(current, goal):
         else:
             path.append(choiceDown)
             print("else, down")
-            
     
-    
-    # (even, even) possible directions are up and left
-    elif ((xc%2 == 0) and (yc%2 ==0 )):
-        up = 1
-        left = 1
-    
+    elif (up == 1) and (left == 1):
         while (up == 1):
             # Cannot go further up if y == 8
             if (yc == 8):
@@ -201,7 +199,7 @@ def GetPath(current, goal):
             # Calculate error of this coordinate 
             errorUp = CalculateError(choiceUp, goal)
             up = 0  # lower flag
-        
+            
         while (left == 1):
             # cannot go further left if x == 0
             if (xc == 0):
@@ -218,7 +216,7 @@ def GetPath(current, goal):
             # Calculate error of this coordinate 
             errorLeft = CalculateError(choiceLeft, goal)
             left = 0
-    
+            
         # Compare the 2 error values and choose the one with the smaller error
     
         # if errorUp is smaller, append the corresponding coordinate into path
@@ -239,14 +237,9 @@ def GetPath(current, goal):
         else:   # if 2 errors are equal
             path.append(choiceUp)
             print("else, up")
-            
     
     
-    # (odd, even) possible directions are down and left
-    elif ((xc%2 != 0) and (yc%2 ==0 )):
-        down = 1
-        left = 1
-        
+    elif (down == 1) and (left == 1):
         while (down == 1):
             # cannot go further down if y == 0
             if (yc == 0):
@@ -281,7 +274,7 @@ def GetPath(current, goal):
             
         # Compare the 2 error values and choose the one with the smaller error
     
-        # if errorUp is smaller, append the corresponding coordinate into path
+        # if errorDown is smaller, append the corresponding coordinate into path
         if (errorDown < errorLeft):
             path.append(choiceDown)
             if (errorDown == 0):
@@ -289,6 +282,7 @@ def GetPath(current, goal):
                 return 
             else:
                 print("down")
+                
         elif (errorDown > errorLeft):
             path.append(choiceLeft)
             if (errorLeft == 0):
@@ -296,17 +290,13 @@ def GetPath(current, goal):
                 return
             else:
                 print("left")
+                
         else:   # if 2 errors are equal
             path.append(choiceDown)
-            
-        
-        
-    # (even, odd) possible directions are up and right
-    else:
-        # raise direction flags 
-        up = 1 
-        right = 1 
-        
+    
+    
+    
+    else: # (up == 1) and (right == 1):
         while (up == 1):
             # Cannot go further up if y == 8
             if (yc == 8):
@@ -365,13 +355,16 @@ def GetPath(current, goal):
         
         # By this point, the list path is completed
         
-    return     
+    return 
+            
+            
             
 
 # This function drives the car through all coordinates in path
 def Mobilize(dummyStart):
     global path
     global power 
+    global turningTime
     
     # read initial coordinates 
     xStart = dummyStart[0]
@@ -387,17 +380,20 @@ def Mobilize(dummyStart):
     direction = [0,0,0,0]
     
     # inidicate the car's orientation originally (what direction the car is facing)
-    if (yStart%2==0):    # starting on even row
-        if (xStart%2 ==0):  # (even, even) -- turn on upward signal
-            direction[0] = 1   
-        else:   # (even, odd) -- turn on right signal
-            direction[3] = 1
-        
-    else:   # starting on odd row
-        if (xStart%2 ==0):  # (odd, even) -- turn on left signal
-            direction[2] = 1    
-        else:   # (odd, odd) -- turn on down signal
-            direction[1] = 1
+    left_ylist = [8,4,0]
+    right_ylist = [6,2]
+    up_xlist = [2,6]
+    down_xlist = [0,4,8]
+    
+    if yStart in left_ylist:
+        direction[2] = 1
+    elif yStart in right_ylist:
+        direction[3] = 1
+    if xStart in up_xlist:
+        direction[0] = 1
+    elif xStart in down_xlist:
+        direction[1] = 1
+    
     
     
     # getting the car from one point to another by going thru
@@ -417,6 +413,9 @@ def Mobilize(dummyStart):
         
         # check the orientation 
         if (x2 < x1):   # want to go left...
+            
+            # check for obstacle
+            
             # check orientation 
             if (direction[0] == 1): # facing up -- turn left first 
                 turn_left()
@@ -433,7 +432,7 @@ def Mobilize(dummyStart):
                 time.sleep(xdiff/2)
                 
             else:   # facing right, error 
-                print("Error")
+                print("None")
                 
             # update new orientation 
             direction[0] = 0
@@ -455,7 +454,7 @@ def Mobilize(dummyStart):
                 time.sleep(xdiff/2)
             
             elif (direction[2] == 1): # facing left -- error
-                print("Error")
+                print("None")
                 
             else:   # facing right, go forward 
                 car.forward(power)
@@ -475,7 +474,7 @@ def Mobilize(dummyStart):
                     time.sleep(ydiff/2)
                 
                 elif (direction[1] == 1): # facing down -- error
-                    print("Error")
+                    print("None")
                 
                 elif (direction[2] == 1): # facing left -- turn right
                     turn_right()
@@ -497,7 +496,7 @@ def Mobilize(dummyStart):
             elif (y2 < y1): # want to go down...
                 # check orientation 
                 if (direction[0] == 1): # facing up -- error
-                    print("Error")
+                    print("None")
                 
                 elif (direction[1] == 1): # facing down -- go forward
                     car.forward(power)
@@ -523,10 +522,6 @@ def Mobilize(dummyStart):
             else:   
                 print("Done")
         
-        
-        
-        
-        
         i += 1
         j += 1
    
@@ -534,9 +529,10 @@ def Mobilize(dummyStart):
     # End of Mobilize function    
     return
    
+   
 
 def main():
-    
+
     global path
     global power
 
@@ -555,12 +551,7 @@ def main():
         initial = path[-1]
         GetPath(initial,final)
     
-    # TEST PRINTING
-    print("Path list:")
-    for i in range(len(path)):
-        for j in range(len(path[i])):
-            print(path[i][j], end = " ")
-        print()
+   
     
     
     # The list path should have all items by this point, 
@@ -579,9 +570,13 @@ def main():
     # After knowing where to go, mobilize through all the coordinates in path
     
     Mobilize(dummyStart)
-    car.forward(0)
+    car.move("stop")
     
 
-car = Picarx()
-main()
-    
+
+
+try:
+    main()
+
+finally:
+    car.move("stop")
