@@ -361,17 +361,19 @@ def Mobilize(dummyStart):
     direction = [0,0,0,0]
     
     # inidicate the car's orientation originally (what direction the car is facing)
-    if (yStart%2==0):    # starting on even row
-        if (xStart%2 ==0):  # (even, even) -- turn on upward signal
-            direction[0] = 1   
-        else:   # (even, odd) -- turn on right signal
-            direction[3] = 1
-        
-    else:   # starting on odd row
-        if (xStart%2 ==0):  # (odd, even) -- turn on left signal
-            direction[2] = 1    
-        else:   # (odd, odd) -- turn on down signal
-            direction[1] = 1
+    left_ylist = [8,4,0]
+    right_ylist = [6,2]
+    up_xlist = [2,6]
+    down_xlist = [0,4,8]
+    
+    if yStart in left_ylist:
+        direction[2] = 1
+    elif yStart in right_ylist:
+        direction[3] = 1
+    if xStart in up_xlist:
+        direction[0] = 1
+    elif xStart in down_xlist:
+        direction[1] = 1
     
     
     # getting the car from one point to another by going thru
