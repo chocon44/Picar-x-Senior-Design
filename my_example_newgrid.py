@@ -106,7 +106,8 @@ def GetPath(current, goal):
     
     # error list, values stored in order (up, down, left, right)
     errorList = []
-    
+
+    # Noting orientation of the car
     left_ylist = [8,4,0]
     right_ylist = [6,2]
     up_xlist = [2,6]
@@ -390,10 +391,7 @@ def Mobilize(dummyStart):
         direction[2] = 1
     elif yStart in right_ylist:
         direction[3] = 1
-    if xStart in up_xlist:
-        direction[0] = 1
-    elif xStart in down_xlist:
-        direction[1] = 1
+    
     
     
     
