@@ -52,15 +52,15 @@ def turn_right():
     global power
     car.forward(0)  # stop the car
     car.set_dir_servo_angle(30) # rotate servo angle to the right
-    car.forward(20) # go forward for 1 sec
+    car.forward(10) # go forward for 1 sec
     time.sleep(0.7)   # CHANGED FROM 0.5
     reset_turn_servo()  # reset turning angle back to 0
 
 def turn_left():
     global power
     car.forward(0)  # stop the car 
-    car.set_dir_servo_angle(-50)    # turn servo to left turn 
-    car.forward(20)  
+    car.set_dir_servo_angle(-30)    # turn servo to left turn 
+    car.forward(10)  
     time.sleep(0.7) # pause for half a second then reset servo angle to go straight
     reset_turn_servo()
 
