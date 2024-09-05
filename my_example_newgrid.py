@@ -1,7 +1,7 @@
 #-----------------
 # CODE FROM MY-EXAMPLE
 #
-# LAST UPDATED: 9/5/24 3:24
+# LAST UPDATED: 9/5/24 3:55
 #
 # FOR PICARX
 # DESCRIPTION: PATH SEARCHING TESTING 
@@ -411,10 +411,10 @@ def Mobilize(dummyStart):
         ydiff = abs(y2 - y1)
 
         ### Check for black line ###
-
+        print("Lane check")
         # read data from grayscale
         gm_val_list = car.get_grayscale_data()
-
+        
         # re-orient the car based on grayscale reading 
         if (gm_val_list[0] < 200):    # the black line is on the left of the car, move right 
             car.forward(0)  # stop the car
