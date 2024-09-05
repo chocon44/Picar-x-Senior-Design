@@ -3,7 +3,7 @@
 
 from picarx import Picarx
 import time
-from vilib import Vilib
+#from vilib import Vilib
 
 power = 30
 turningPower = 30     # To adjust better turning angle
@@ -37,29 +37,29 @@ def turn_left():
     reset_turn_servo()
 
 
-def Color_Testing():
-    global power 
+#def Color_Testing():
+    #global power 
     
-    reset_turn_servo()
+    #reset_turn_servo()
     
-    Vilib.camera_start()    # start camera
-    Vilib.display()    # display camera feed
+    #Vilib.camera_start()    # start camera
+    #Vilib.display()    # display camera feed
     # Enable color detection and specify target as "red"
-    Vilib.color_detect("red")   
+    #Vilib.color_detect("red")   
 
-    while True:
+    #while True:
         # check if the color red is detected 
-        if Vilib.detect_obj_parameter['color_n'] != 0:
+        #if Vilib.detect_obj_parameter['color_n'] != 0:
             
             # Coordinate x and y are for tilting camera servo, these are coordinates of the red color detected
-            coordinate_x = Vilib.detect_obj_parameter['color_x']
-            coordinate_y = Vilib.detect_obj_parameter['color_y']
+            #coordinate_x = Vilib.detect_obj_parameter['color_x']
+            #coordinate_y = Vilib.detect_obj_parameter['color_y']
 
             # When red is detected, the car will stop
-            car.forward(0)    # stop the car when red is detected
+            #car.forward(0)    # stop the car when red is detected
 
-        else:    # if red is not detected, the car will continue going straight
-            car.forward(power) # go straight if there is no red
+        #else:    # if red is not detected, the car will continue going straight
+            #car.forward(power) # go straight if there is no red
 
 
 def Obstacle_Testing():
