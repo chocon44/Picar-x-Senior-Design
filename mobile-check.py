@@ -85,7 +85,7 @@ def Grayscale_Testing():
     # read data from grayscale
     gm_val_list = car.get_grayscale_data()
 
-    for i in range(len(3)):
+    for i in range(len(gm_val_list)):
         print(gm_val_list[i], end = ' ')
 
 
