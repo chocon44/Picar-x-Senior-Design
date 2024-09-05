@@ -82,11 +82,15 @@ def Obstacle_Testing():
 def Grayscale_Testing():
     global power
     reset_turn_servo()
-    
+    # read data from grayscale
+    gm_val_list = px.get_grayscale_data()
+
+    for i in range(len(3)):
+        print(gm_val_list[i], end = ' ')
 
 
 def main():
-    Color_Testing() 
+    Grayscale_Testing()
     
     
     
