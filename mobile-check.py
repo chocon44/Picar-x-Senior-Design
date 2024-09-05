@@ -79,6 +79,10 @@ def Obstacle_Testing():
         else:
             car.forward(0)
 
+def Grayscale_Testing():
+    global power
+    reset_turn_servo()
+    
 
 
 def main():
