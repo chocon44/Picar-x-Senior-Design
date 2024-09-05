@@ -409,11 +409,29 @@ def Mobilize(dummyStart):
         
         xdiff = abs(x2 - x1)
         ydiff = abs(y2 - y1)
+
+        ### Check for black line ###
+
+        # read data from grayscale
+        gm_val_list = car.get_grayscale_data()
+
+        # re-orient the car based on grayscale reading 
+        if (gm_val_list[0] < 200):    # the black line is on the left of the car, move right 
+            car.forward(0)  # stop the car
+            car.set_dir_servo_angle(20) # rotate servo angle to the right
+            car.forward(power) # go forward for 1 sec
+            time.sleep(0.5)   # CHANGED FROM 0.5
+            reset_turn_servo()  # reset turning angle back to 0
+        elif (gm_val_list[2] < 200):    # the black line is on the right of the car, move left 
+            car.forward(0)  # stop the car 
+            car.set_dir_servo_angle(-20)    # turn servo to left turn 
+            car.forward(power)  
+            time.sleep(0.5) # pause for half a second then reset servo angle to go straight
+            reset_turn_servo()
+
         
         # check the orientation 
         if (x2 < x1):   # want to go left...
-            
-            # check for white line
             
             # check orientation 
             if (direction[0] == 1): # facing up -- turn left first 
