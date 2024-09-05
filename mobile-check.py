@@ -87,6 +87,7 @@ def Grayscale_Testing():
 
     for i in range(len(gm_val_list)):
         print(gm_val_list[i], end = ' ')
+    print()
 
 
 def main():
