@@ -23,6 +23,7 @@ def get_final_coord():
     endx = int(input("Enter destination x coordinate: "))
     endy = int(input("Enter destination y coordinate: "))
     end = [endx,endy]
+    return end
     
     
 # This function returns the starting position 
@@ -414,7 +415,7 @@ def Mobilize(dummyStart):
         # check the orientation 
         if (x2 < x1):   # want to go left...
             
-            # check for obstacle
+            # check for white line
             
             # check orientation 
             if (direction[0] == 1): # facing up -- turn left first 
@@ -570,13 +571,14 @@ def main():
     # After knowing where to go, mobilize through all the coordinates in path
     
     Mobilize(dummyStart)
-    car.move("stop")
+    car.forward(0)
     
 
 
 
 try:
+    car = Picarx()
     main()
 
 finally:
-    car.move("stop")
+    car.forward(0)
