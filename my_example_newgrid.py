@@ -14,8 +14,8 @@ import math
 import time
 
 path = []
-power = 40
-turningTime = 1     # for 90 degrees
+power = 30
+turningTime = 0.7     # for 90 degrees
 
 # This function returns the target destination 
 # Returns a list of x,y
@@ -51,17 +51,17 @@ def reset_turn_servo():
 def turn_right():
     global power
     car.forward(0)  # stop the car
-    car.set_dir_servo_angle(40) # rotate servo angle to the right
-    car.forward(power) # go forward for 1 sec
-    time.sleep(1)   # CHANGED FROM 0.5
+    car.set_dir_servo_angle(30) # rotate servo angle to the right
+    car.forward(20) # go forward for 1 sec
+    time.sleep(0.7)   # CHANGED FROM 0.5
     reset_turn_servo()  # reset turning angle back to 0
 
 def turn_left():
     global power
     car.forward(0)  # stop the car 
-    car.set_dir_servo_angle(-40)    # turn servo to left turn 
-    car.forward(power)  
-    time.sleep(1) # pause for half a second then reset servo angle to go straight
+    car.set_dir_servo_angle(-50)    # turn servo to left turn 
+    car.forward(20)  
+    time.sleep(0.7) # pause for half a second then reset servo angle to go straight
     reset_turn_servo()
 
 # This function returns error value in respect with the goal coordinate
