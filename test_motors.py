@@ -28,8 +28,11 @@ RIGHT = 2
 # turn left 
 motors[LEFT].speed(70)
 motors[RIGHT].speed(70)
-time.sleep(1.2)
+time.sleep(1.6)     # turn 90 degrees
 motors.stop()
 
 # turn right
-
+motors[LEFT].speed(-70)
+motors[RIGHT].speed(-70)
+time.sleep(1.6)
+motors.stop()
