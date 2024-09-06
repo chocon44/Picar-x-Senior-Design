@@ -26,8 +26,8 @@ RIGHT = 2
 #motors.stop()
 
 # turn left 
-motors[LEFT].speed(50)
-motors[RIGHT].speed(50)
+motors[LEFT].speed(70)
+motors[RIGHT].speed(70)
 time.sleep(1)
 motors.stop()
 
