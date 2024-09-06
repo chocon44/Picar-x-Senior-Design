@@ -15,13 +15,13 @@ RIGHT = 2
 # go forward
 motors[LEFT].speed(-50)
 motors[RIGHT].speed(50)
-time.sleep(3)
+time.sleep(0.5)
 motors.stop()
-time.sleep(2)
+time.sleep(1)
 
 # reverse
 motors[LEFT].speed(50)
 motors[RIGHT}.speed(-50)
-time.sleep(3)
+time.sleep(0.5)
 motors.stop()
 
