@@ -21,7 +21,7 @@ time.sleep(1)
 
 # reverse
 motors[LEFT].speed(50)
-motors[RIGHT}.speed(-50)
+motors[RIGHT].speed(-50)
 time.sleep(0.5)
 motors.stop()
 
