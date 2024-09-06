@@ -25,3 +25,11 @@ motors[RIGHT].speed(-50)
 time.sleep(0.5)
 motors.stop()
 
+# turn left 
+motors[LEFT].speed(50)
+motors[RIGHT].speed(50)
+time.sleep(0.5)
+motors.stop()
+
+# turn right
+
