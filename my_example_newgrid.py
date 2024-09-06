@@ -52,7 +52,8 @@ def turn_right():
     global power
     car.forward(0)  # stop the car
     car.set_dir_servo_angle(30) # rotate servo angle to the right
-    car.forward(10) # go forward for 1 sec
+    LaneCheck()
+    car.forward(10) # go forward 
     time.sleep(0.7)   # CHANGED FROM 0.5
     reset_turn_servo()  # reset turning angle back to 0
 
@@ -60,6 +61,7 @@ def turn_left():
     global power
     car.forward(0)  # stop the car 
     car.set_dir_servo_angle(-70)    # turn servo to left turn 
+    LaneCheck()
     car.forward(50)  
     time.sleep(0.7) # pause for half a second then reset servo angle to go straight
     reset_turn_servo()
@@ -359,7 +361,29 @@ def GetPath(current, goal):
         
     return 
             
-            
+def LaneCheck():    # this function checks for black line
+   
+    print("Lane check")
+    
+    # read data from grayscale
+    gm_val_list = car.get_grayscale_data()
+        
+    # re-orient the car based on grayscale reading 
+    
+    if (gm_val_list[0] < 200):    # the black line is on the left of the car, move right 
+        car.forward(0)  # stop the car
+        car.set_dir_servo_angle(20) # rotate servo angle to the right
+        car.forward(power) # go forward for 1 sec
+        time.sleep(0.5)   # CHANGED FROM 0.5
+        reset_turn_servo()  # reset turning angle back to 0
+        
+    elif (gm_val_list[2] < 200):    # the black line is on the right of the car, move left 
+        car.forward(0)  # stop the car 
+        car.set_dir_servo_angle(-20)    # turn servo to left turn 
+        car.forward(power)  
+        time.sleep(0.5) # pause for half a second then reset servo angle to go straight
+         reset_turn_servo()
+
             
 
 # This function drives the car through all coordinates in path
@@ -410,25 +434,9 @@ def Mobilize(dummyStart):
         xdiff = abs(x2 - x1)
         ydiff = abs(y2 - y1)
 
-        ### Check for black line ###
-        print("Lane check")
-        # read data from grayscale
-        gm_val_list = car.get_grayscale_data()
+        # make sure the car stays in lane every iteration
+        LaneCheck()
         
-        # re-orient the car based on grayscale reading 
-        if (gm_val_list[0] < 200):    # the black line is on the left of the car, move right 
-            car.forward(0)  # stop the car
-            car.set_dir_servo_angle(20) # rotate servo angle to the right
-            car.forward(power) # go forward for 1 sec
-            time.sleep(0.5)   # CHANGED FROM 0.5
-            reset_turn_servo()  # reset turning angle back to 0
-        elif (gm_val_list[2] < 200):    # the black line is on the right of the car, move left 
-            car.forward(0)  # stop the car 
-            car.set_dir_servo_angle(-20)    # turn servo to left turn 
-            car.forward(power)  
-            time.sleep(0.5) # pause for half a second then reset servo angle to go straight
-            reset_turn_servo()
-
         
         # check the orientation 
         if (x2 < x1):   # want to go left...
