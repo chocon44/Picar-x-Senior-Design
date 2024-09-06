@@ -1,17 +1,19 @@
 #-----------------
 # CODE FROM MY-EXAMPLE
 #
-# LAST UPDATED: 9/6/24 12:10
+# LAST UPDATED: 9/6/24 2:00
 #
 # FOR PICARX
 # DESCRIPTION: PATH SEARCHING TESTING 
 # 
-# NOTES: New grid implemented - want obstacle emergency stop - want reroute 
+# NOTES: New grid implemented -added pivot turn instead of arc turn
 #-----------------
 
 from picarx import Picarx
+from robot_hat import Motors
 import math
 import time
+
 
 path = []
 power = 30
@@ -44,6 +46,34 @@ def reset_turn_servo():
     car.forward(0)  # stop the car
     car.set_dir_servo_angle(0)  # reset servo angle to 0
     time.sleep(0.2)
+
+# create motors obj from class Motors
+motors = Motors() 
+# identify each motor
+LEFT = 1
+RIGHT = 2
+
+# Have the cars pivot turn instead of arc turn
+def PivotRight():
+    global motors
+    global LEFT
+    global RIGHT
+
+    motors[LEFT].speed(-70)
+    motors[RIGHT].speed(-70)
+    time.sleep(1.6)    # for 90 degrees, may change with time
+    motors.stop()
+    
+def PivotLeft():
+    global motors
+    global LEFT
+    global RIGHT
+
+    motors[LEFT].speed(70)
+    motors[RIGHT].speed(70)
+    time.sleep(1.6)
+    motors.stop()
+
 
 # Turn right and left functions tilt the front wheels to 
 # respective direction, go forward then reset the 
