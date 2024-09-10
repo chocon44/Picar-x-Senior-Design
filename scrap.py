@@ -1,3 +1,6 @@
+# Note: 1.25 sec for 1 grid
+# Last updated 9/10
+
 
 from robot_hat import Motors
 
@@ -33,8 +36,8 @@ def PivotLeft():
     time.sleep(2)
     motors.stop()
 
-PivotLeft()
-motors.stop()
 Forward()
-time.sleep(1.25)
+time.sleep(1.25*2)
+motors.stop()
+PivotRight()
 motors.stop()
