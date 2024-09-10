@@ -18,7 +18,7 @@ import time
 path = []
 power = 30
 turningTime = 0.7     # for 90 degrees
-car = Picarx()
+
 
 # This function returns the target destination 
 # Returns a list of x,y
