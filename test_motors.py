@@ -1,8 +1,10 @@
 # This file is created to test inputing different power level to each motor
 # Last updated: 8/28/24
 
+from picarx import Picarx
 from robot_hat import Motors
 import time
+import math
 
 motors = Motors()  # create motors object from class Motors
 
