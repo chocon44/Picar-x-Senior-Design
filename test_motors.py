@@ -552,7 +552,6 @@ def main():
     
     global path
     global power
-    car = Picarx()
     
     # reading start and end coordinates 
     initial = get_initial_coord()
