@@ -9,7 +9,7 @@
 # NOTES: New grid implemented -added pivot turn instead of arc turn
 #-----------------
 
-from test_motors import PivotLeft, PivotRight
+from robot_hat import Motors
 from picarx import Picarx
 import math
 import time
@@ -18,6 +18,31 @@ import time
 path = []
 power = 30
 turningTime = 0.7     # for 90 degrees
+
+
+# mobility functions (motors-based)
+def Forward():
+    global motors
+    motors[LEFT].speed(-50)
+    motors[RIGHT].speed(50)
+
+def Reverse():
+    global motors
+    motors[LEFT].speed(50)
+    motors[RIGHT].speed(-50)
+
+def PivotLeft():
+    motors[LEFT].speed(70)
+    motors[RIGHT].speed(70)
+    time.sleep(1.6)     # turn 90 degrees
+    motors.stop()
+
+def PivotRight():
+    global motors
+    motors[LEFT].speed(-70)
+    motors[RIGHT].speed(-70)
+    time.sleep(1.6)
+    motors.stop()
 
 # This function returns the target destination 
 # Returns a list of x,y
@@ -34,46 +59,11 @@ def get_initial_coord():
     startx = int(input("Enter starting x coordinate: "))
     starty = int(input("Enter starting y coordinate: "))
     start = [startx,starty]
-    
     return start
 
 
-# This function resets the turning servo of the car back to 0
-# Front wheels to be heading forward
-def reset_turn_servo():
-    global power
-    time.sleep(0.2)
-    car.forward(0)  # stop the car
-    car.set_dir_servo_angle(0)  # reset servo angle to 0
-    time.sleep(0.2)
 
-def stop_car_temp():
-    car.forward(0)
-    time.sleep(0.5)
 
-def stop_car():
-    car.forward(0)
-
-# Turn right and left functions tilt the front wheels to 
-# respective direction, go forward then reset the 
-# front wheels back to its original position (heading forward)
-def turn_right():
-    global power
-    car.forward(0)  # stop the car
-    car.set_dir_servo_angle(30) # rotate servo angle to the right
-    LaneCheck()
-    car.forward(10) # go forward 
-    time.sleep(0.7)   # CHANGED FROM 0.5
-    reset_turn_servo()  # reset turning angle back to 0
-
-def turn_left():
-    global power
-    car.forward(0)  # stop the car 
-    car.set_dir_servo_angle(-70)    # turn servo to left turn 
-    LaneCheck()
-    car.forward(50)  
-    time.sleep(0.7) # pause for half a second then reset servo angle to go straight
-    reset_turn_servo()
 
 # This function returns error value in respect with the goal coordinate
 def CalculateError(current, goal):
