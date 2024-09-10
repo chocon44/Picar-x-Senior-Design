@@ -15,6 +15,17 @@ def Forward():
     motors[LEFT].speed(-50)
     motors[RIGHT].speed(70)
 
+def PivotRight():
+    global motors
+    global LEFT
+    global RIGHT
+    motors[LEFT].speed(-70)
+    motors[RIGHT].speed(-70)
+    time.sleep(1.6)    # for 90 degrees, may change with time
+    motors.stop()
+
 Forward()
 time.sleep(1.25)
+motors.stop()
+PivotRight()
 motors.stop()
