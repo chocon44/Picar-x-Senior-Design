@@ -1,7 +1,7 @@
 #-----------------
 # CODE FROM MY-EXAMPLE
 #
-# LAST UPDATED: 9/10/24
+# LAST UPDATED: 9/10/24 1:44
 #
 # FOR PICARX
 # DESCRIPTION: PATH SEARCHING TESTING 
@@ -378,29 +378,29 @@ def GetPath(current, goal):
         
     return 
             
-def LaneCheck():    # this function checks for black line
+#def LaneCheck():    # this function checks for black line
    
-    print("Lane check")
-    car = Picarx()
+    #print("Lane check")
+    
     
     # read data from grayscale
-    gm_val_list = car.get_grayscale_data()
+    #gm_val_list = car.get_grayscale_data()
         
     # re-orient the car based on grayscale reading 
     
-    if (gm_val_list[0] < 200):    # the black line is on the left of the car, move right 
-        car.forward(0)  # stop the car
-        car.set_dir_servo_angle(20) # rotate servo angle to the right
-        car.forward(power) # go forward for 1 sec
-        time.sleep(0.5)   # CHANGED FROM 0.5
-        reset_turn_servo()  # reset turning angle back to 0
+    #if (gm_val_list[0] < 200):    # the black line is on the left of the car, move right 
+        #car.forward(0)  # stop the car
+        #car.set_dir_servo_angle(20) # rotate servo angle to the right
+        #car.forward(power) # go forward for 1 sec
+        #time.sleep(0.5)   # CHANGED FROM 0.5
+        #reset_turn_servo()  # reset turning angle back to 0
         
-    elif (gm_val_list[2] < 200):    # the black line is on the right of the car, move left 
-        car.forward(0)  # stop the car 
-        car.set_dir_servo_angle(-20)    # turn servo to left turn 
-        car.forward(power)  
-        time.sleep(0.5) # pause for half a second then reset servo angle to go straight
-        reset_turn_servo()
+    #elif (gm_val_list[2] < 200):    # the black line is on the right of the car, move left 
+        #car.forward(0)  # stop the car 
+        #car.set_dir_servo_angle(-20)    # turn servo to left turn 
+        #car.forward(power)  
+        #time.sleep(0.5) # pause for half a second then reset servo angle to go straight
+        #reset_turn_servo()
 
             
 
@@ -453,7 +453,7 @@ def Mobilize(dummyStart):
         ydiff = abs(y2 - y1)
 
         # make sure the car stays in lane every iteration
-        LaneCheck()
+        #LaneCheck()
         
         
         # check the orientation 
@@ -462,16 +462,16 @@ def Mobilize(dummyStart):
             # check orientation 
             if (direction[0] == 1): # facing up -- turn left first 
                 PivotLeft()
-                car.forward(power)
+                Forward()
                 time.sleep(xdiff/2) # new grid
             
             elif (direction[1] == 1): # facing down -- turn right first 
                 PivotRight()
-                car.forward(power)
+                Forward()
                 time.sleep(xdiff/2)
             
             elif (direction[2] == 1): # facing left -- go forward 
-                car.forward(power)
+                Forward()
                 time.sleep(xdiff/2)
                 
             else:   # facing right, error 
@@ -488,19 +488,19 @@ def Mobilize(dummyStart):
             # check orientation 
             if (direction[0] == 1): # facing up -- turn right first 
                 PivotRight()
-                car.forward(power)
+                Forward()
                 time.sleep(xdiff/2)
             
             elif (direction[1] == 1): # facing down -- turn left first 
                 PivotLeft()
-                car.forward(power)
+                Forward()
                 time.sleep(xdiff/2)
             
             elif (direction[2] == 1): # facing left -- error
                 print("None")
                 
             else:   # facing right, go forward 
-                car.forward(power)
+                Forward()
                 time.sleep(xdiff/2)
                 
             # update new orientation 
@@ -513,7 +513,7 @@ def Mobilize(dummyStart):
             if (y2 > y1):   # want to go up...
                 # check orientation 
                 if (direction[0] == 1): # facing up -- go forward
-                    car.forward(power)
+                    Forward()
                     time.sleep(ydiff/2)
                 
                 elif (direction[1] == 1): # facing down -- error
@@ -521,12 +521,12 @@ def Mobilize(dummyStart):
                 
                 elif (direction[2] == 1): # facing left -- turn right
                     PivotRight()
-                    car.forward(power)
+                    Forward()
                     time.sleep(ydiff/2)
                     
                 else:               # facing right -- turn left 
                     PivotLeft()
-                    car.forward(power)
+                    Forward()
                     time.sleep(ydiff/2)
                     
                 # update new orientation 
@@ -542,17 +542,17 @@ def Mobilize(dummyStart):
                     print("None")
                 
                 elif (direction[1] == 1): # facing down -- go forward
-                    car.forward(power)
+                    Forward()
                     time.sleep(ydiff/2)
                 
                 elif (direction[2] == 1): # facing left -- turn left
                     PivotLeft()
-                    car.forward(power)
+                    Forward()
                     time.sleep(ydiff/2)
                     
                 else:               # facing right -- turn right 
                     PivotRight()
-                    car.forward(power)
+                    Forward()
                     time.sleep(ydiff/2)
                     
                 # update new orientation 
@@ -613,14 +613,14 @@ def main():
     # After knowing where to go, mobilize through all the coordinates in path
     
     Mobilize(dummyStart)
-    car.forward(0)
+    Stop()
     
 
 
 
 try:
-    car = Picarx()
+    #car = Picarx()
     main()
 
 finally:
-    car.forward(0)
+    Stop()
