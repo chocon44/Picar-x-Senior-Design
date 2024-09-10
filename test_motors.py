@@ -45,5 +45,13 @@ def PivotRight():
     time.sleep(1.6)
     motors.stop()
 
-car = Picarx()
+def LaneCheck():
+    
+    print("Lane check")
+    car = Picarx()
+    
+    # read data from grayscale
+    gm_val_list = car.get_grayscale_data()
+    return gm_val_list
+
 PivotLeft()
