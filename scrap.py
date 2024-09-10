@@ -1,6 +1,6 @@
-from picarx import Picarx
+
 from robot_hat import Motors
-import math
+
 import time
 
 motors = Motors() 
