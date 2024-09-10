@@ -21,7 +21,7 @@ def PivotRight():
     global RIGHT
     motors[LEFT].speed(-70)
     motors[RIGHT].speed(-70)
-    time.sleep(1.6)    # for 90 degrees, may change with time
+    time.sleep(2.2)    # for 90 degrees, may change with time
     motors.stop()
 
 PivotRight()
