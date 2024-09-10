@@ -1,4 +1,5 @@
 # Note: 1.25 sec for 1 grid
+# Last updated 9/10
 
 
 from robot_hat import Motors
