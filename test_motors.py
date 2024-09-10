@@ -6,7 +6,7 @@ from robot_hat import Motors
 import time
 import math
 
-car = Picarx()
+
 path = []
 power = 30
 turningTime = 0.7     # for 90 degrees
@@ -549,10 +549,10 @@ def Mobilize(dummyStart):
 
 
 def main():
-
+    
     global path
     global power
-
+    car = Picarx()
     
     # reading start and end coordinates 
     initial = get_initial_coord()
