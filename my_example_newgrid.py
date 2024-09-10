@@ -1,7 +1,7 @@
 #-----------------
 # CODE FROM MY-EXAMPLE
 #
-# LAST UPDATED: 9/6/24 2:00
+# LAST UPDATED: 9/10/24 
 #
 # FOR PICARX
 # DESCRIPTION: PATH SEARCHING TESTING 
@@ -47,6 +47,13 @@ def reset_turn_servo():
     car.set_dir_servo_angle(0)  # reset servo angle to 0
     time.sleep(0.2)
 
+def stop_car_temp():
+    car.forward(0)
+    time.sleep(0.5)
+
+def stop_car():
+    car.forward(0)
+
 # create motors obj from class Motors
 motors = Motors() 
 # identify each motor
@@ -58,7 +65,7 @@ def PivotRight():
     global motors
     global LEFT
     global RIGHT
-
+    stop_car_temp()
     motors[LEFT].speed(-70)
     motors[RIGHT].speed(-70)
     time.sleep(1.6)    # for 90 degrees, may change with time
@@ -68,7 +75,7 @@ def PivotLeft():
     global motors
     global LEFT
     global RIGHT
-
+    stop_car_temp()
     motors[LEFT].speed(70)
     motors[RIGHT].speed(70)
     time.sleep(1.6)
@@ -473,12 +480,12 @@ def Mobilize(dummyStart):
             
             # check orientation 
             if (direction[0] == 1): # facing up -- turn left first 
-                turn_left()
+                PivotLeft()
                 car.forward(power)
                 time.sleep(xdiff/2) # new grid
             
             elif (direction[1] == 1): # facing down -- turn right first 
-                turn_right()
+                PivotRight()
                 car.forward(power)
                 time.sleep(xdiff/2)
             
@@ -499,12 +506,12 @@ def Mobilize(dummyStart):
         elif (x2 > x1): # want to go right....
             # check orientation 
             if (direction[0] == 1): # facing up -- turn right first 
-                turn_right()
+                PivotRight()
                 car.forward(power)
                 time.sleep(xdiff/2)
             
             elif (direction[1] == 1): # facing down -- turn left first 
-                turn_left()
+                PivotLeft()
                 car.forward(power)
                 time.sleep(xdiff/2)
             
@@ -532,12 +539,12 @@ def Mobilize(dummyStart):
                     print("None")
                 
                 elif (direction[2] == 1): # facing left -- turn right
-                    turn_right()
+                    PivotRight()
                     car.forward(power)
                     time.sleep(ydiff/2)
                     
                 else:               # facing right -- turn left 
-                    turn_left()
+                    PivotLeft()
                     car.forward(power)
                     time.sleep(ydiff/2)
                     
@@ -558,12 +565,12 @@ def Mobilize(dummyStart):
                     time.sleep(ydiff/2)
                 
                 elif (direction[2] == 1): # facing left -- turn left
-                    turn_left()
+                    PivotLeft()
                     car.forward(power)
                     time.sleep(ydiff/2)
                     
                 else:               # facing right -- turn right 
-                    turn_right()
+                    PivotRight()
                     car.forward(power)
                     time.sleep(ydiff/2)
                     
