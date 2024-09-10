@@ -56,3 +56,4 @@ def LaneCheck():
 
 PivotLeft()
 list = LaneCheck()
+print(list[0])
