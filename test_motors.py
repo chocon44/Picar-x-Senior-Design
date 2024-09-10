@@ -545,6 +545,48 @@ def Mobilize(dummyStart):
    
     # End of Mobilize function    
     return
+
+
+def main():
+
+    global path
+    global power
+
+    
+    # reading start and end coordinates 
+    initial = get_initial_coord()
+    dummyStart = initial
+    final = get_final_coord()
+    
+    # path returns a list of coordinates that the car needs to go thru 
+    # to get to its destination
+    GetPath(initial, final)
+    
+    # RECURSION
+    while (CalculateError(path[-1], final) != 0):
+        initial = path[-1]
+        GetPath(initial,final)
+    
    
+    
+    
+    # The list path should have all items by this point, 
+    # From here, the list will be sorted to only have the main coordinates,
+    # This prevents the car from stop-and-go while moving in a straight line
+    
+    
+    path.insert(0, dummyStart)
+    # TEST PRINTING
+    print("Path list after insertion:")
+    for i in range(len(path)):
+        for j in range(len(path[i])):
+            print(path[i][j], end = " ")
+        print()
+    
+    # After knowing where to go, mobilize through all the coordinates in path
+    
+    Mobilize(dummyStart)
+    car.forward(0)
+
 
 PivotLeft()
