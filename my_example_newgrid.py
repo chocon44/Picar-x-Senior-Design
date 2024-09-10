@@ -35,7 +35,7 @@ def Forward():
     global LEFT
     global RIGHT
     motors[LEFT].speed(-50)
-    motors[RIGHT].speed(50)
+    motors[RIGHT].speed(70)
 
 def Reverse():
     global motors
