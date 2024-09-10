@@ -24,8 +24,8 @@ def PivotRight():
     time.sleep(1.6)    # for 90 degrees, may change with time
     motors.stop()
 
+PivotRight()
+motors.stop()
 Forward()
 time.sleep(1.25)
-motors.stop()
-PivotRight()
 motors.stop()
