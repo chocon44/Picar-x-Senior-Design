@@ -419,7 +419,7 @@ def LaneCheck():    # this function checks for black line
         car.set_dir_servo_angle(-20)    # turn servo to left turn 
         car.forward(power)  
         time.sleep(0.5) # pause for half a second then reset servo angle to go straight
-         reset_turn_servo()
+        reset_turn_servo()
 
             
 
