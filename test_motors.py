@@ -6,6 +6,7 @@ from robot_hat import Motors
 import time
 import math
 
+car = Picarx()
 path = []
 power = 30
 turningTime = 0.7     # for 90 degrees
