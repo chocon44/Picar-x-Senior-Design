@@ -589,4 +589,11 @@ def main():
     car.forward(0)
 
 
-PivotLeft()
+try:
+    car = Picarx()
+    main()
+
+finally:
+    car.forward(0)
+
+#PivotLeft()
