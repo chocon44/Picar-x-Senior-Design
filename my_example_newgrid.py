@@ -6,7 +6,7 @@
 # FOR PICARX
 # DESCRIPTION: PATH SEARCHING TESTING 
 # 
-# NOTES: New grid implemented -added pivot turn instead of arc turn
+# NOTES: using motors to avoid car = Picarx(), this library contests with robot_hat -- LaneCheck
 #-----------------
 
 from robot_hat import Motors
@@ -20,18 +20,34 @@ power = 30
 turningTime = 0.7     # for 90 degrees
 
 
+
 # mobility functions (motors-based)
+
+motors = Motors()  # create motors object from class Motors
+
+# identify each motor
+LEFT = 1  
+RIGHT = 2
+
+
 def Forward():
     global motors
+    global LEFT
+    global RIGHT
     motors[LEFT].speed(-50)
     motors[RIGHT].speed(50)
 
 def Reverse():
     global motors
+    global LEFT
+    global RIGHT
     motors[LEFT].speed(50)
     motors[RIGHT].speed(-50)
 
 def PivotLeft():
+    global motors
+    global LEFT
+    global RIGHT
     motors[LEFT].speed(70)
     motors[RIGHT].speed(70)
     time.sleep(1.6)     # turn 90 degrees
@@ -39,9 +55,14 @@ def PivotLeft():
 
 def PivotRight():
     global motors
+    global LEFT
+    global RIGHT
     motors[LEFT].speed(-70)
     motors[RIGHT].speed(-70)
     time.sleep(1.6)
+    motors.stop()
+
+def Stop():
     motors.stop()
 
 # This function returns the target destination 
@@ -60,9 +81,6 @@ def get_initial_coord():
     starty = int(input("Enter starting y coordinate: "))
     start = [startx,starty]
     return start
-
-
-
 
 
 # This function returns error value in respect with the goal coordinate
@@ -363,6 +381,7 @@ def GetPath(current, goal):
 def LaneCheck():    # this function checks for black line
    
     print("Lane check")
+    car = Picarx()
     
     # read data from grayscale
     gm_val_list = car.get_grayscale_data()
