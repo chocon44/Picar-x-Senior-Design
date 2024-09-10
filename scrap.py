@@ -37,7 +37,7 @@ def PivotLeft():
     motors.stop()
 
 Forward()
-time.sleep(1.25*2)
+time.sleep(1.25*3)
 motors.stop()
 PivotRight()
 motors.stop()
