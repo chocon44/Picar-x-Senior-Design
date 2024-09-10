@@ -50,7 +50,7 @@ def PivotLeft():
     global RIGHT
     motors[LEFT].speed(70)
     motors[RIGHT].speed(70)
-    time.sleep(1.6)     # turn 90 degrees
+    time.sleep(1.8)     # turn 90 degrees
     motors.stop()
 
 def PivotRight():
@@ -59,7 +59,7 @@ def PivotRight():
     global RIGHT
     motors[LEFT].speed(-70)
     motors[RIGHT].speed(-70)
-    time.sleep(1.6)
+    time.sleep(1.8)
     motors.stop()
 
 def Stop():
