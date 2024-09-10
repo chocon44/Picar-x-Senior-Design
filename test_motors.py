@@ -2,7 +2,7 @@
 # Last updated: 9/10
 
 
-from LaneCheck import LaneCheck
+from LaneCheck import LaneChecking
 from robot_hat import Motors
 import time
 
