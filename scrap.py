@@ -17,3 +17,4 @@ def Forward():
 
 Forward()
 time.sleep(1)
+motors.stop()
