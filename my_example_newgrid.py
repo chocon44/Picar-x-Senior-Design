@@ -642,4 +642,4 @@ try:
     main()
 
 finally:
-    car.forward(0)
+    stop_car()
