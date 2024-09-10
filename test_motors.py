@@ -378,6 +378,173 @@ def LaneCheck():    # this function checks for black line
         time.sleep(0.5) # pause for half a second then reset servo angle to go straight
         reset_turn_servo()
 
+# This function drives the car through all coordinates in path
+def Mobilize(dummyStart):
+    global path
+    global power 
+    global turningTime
+    
+    # read initial coordinates 
+    xStart = dummyStart[0]
+    yStart = dummyStart[1]
+    
+    # Initialize current x and y 
+    xCurr = dummyStart[0]
+    yCurr = dummyStart[1]
+    
+    
+    # list of direction indicating where the car is facing
+    # in order: up, down, left, right
+    direction = [0,0,0,0]
+    
+    # inidicate the car's orientation originally (what direction the car is facing)
+    left_ylist = [8,4,0]
+    right_ylist = [6,2]
+    up_xlist = [2,6]
+    down_xlist = [0,4,8]
+    
+    if yStart in left_ylist:
+        direction[2] = 1
+    elif yStart in right_ylist:
+        direction[3] = 1
+    
+    
+    
+    
+    # getting the car from one point to another by going thru
+    # every point in the path list 
+    
+    i = 0
+    j = i+1
+    while j < len(path):
+        
+        x1 = path[i][0]
+        x2 = path[j][0]
+        y1 = path[i][1]
+        y2 = path[j][1]
+        
+        xdiff = abs(x2 - x1)
+        ydiff = abs(y2 - y1)
 
+        # make sure the car stays in lane every iteration
+        LaneCheck()
+        
+        
+        # check the orientation 
+        if (x2 < x1):   # want to go left...
+            
+            # check orientation 
+            if (direction[0] == 1): # facing up -- turn left first 
+                PivotLeft()
+                car.forward(power)
+                time.sleep(xdiff/2) # new grid
+            
+            elif (direction[1] == 1): # facing down -- turn right first 
+                PivotRight()
+                car.forward(power)
+                time.sleep(xdiff/2)
+            
+            elif (direction[2] == 1): # facing left -- go forward 
+                car.forward(power)
+                time.sleep(xdiff/2)
+                
+            else:   # facing right, error 
+                print("None")
+                
+            # update new orientation 
+            direction[0] = 0
+            direction[1] = 0
+            direction[2] = 1
+            direction[3] = 0
+                
+            
+        elif (x2 > x1): # want to go right....
+            # check orientation 
+            if (direction[0] == 1): # facing up -- turn right first 
+                PivotRight()
+                car.forward(power)
+                time.sleep(xdiff/2)
+            
+            elif (direction[1] == 1): # facing down -- turn left first 
+                PivotLeft()
+                car.forward(power)
+                time.sleep(xdiff/2)
+            
+            elif (direction[2] == 1): # facing left -- error
+                print("None")
+                
+            else:   # facing right, go forward 
+                car.forward(power)
+                time.sleep(xdiff/2)
+                
+            # update new orientation 
+            direction[0] = 0
+            direction[1] = 0
+            direction[2] = 0
+            direction[3] = 1
+        
+        else:   # when x2 == x1, go either up or down... 
+            if (y2 > y1):   # want to go up...
+                # check orientation 
+                if (direction[0] == 1): # facing up -- go forward
+                    car.forward(power)
+                    time.sleep(ydiff/2)
+                
+                elif (direction[1] == 1): # facing down -- error
+                    print("None")
+                
+                elif (direction[2] == 1): # facing left -- turn right
+                    PivotRight()
+                    car.forward(power)
+                    time.sleep(ydiff/2)
+                    
+                else:               # facing right -- turn left 
+                    PivotLeft()
+                    car.forward(power)
+                    time.sleep(ydiff/2)
+                    
+                # update new orientation 
+                direction[0] = 1
+                direction[1] = 0
+                direction[2] = 0
+                direction[3] = 0
+                
+                
+            elif (y2 < y1): # want to go down...
+                # check orientation 
+                if (direction[0] == 1): # facing up -- error
+                    print("None")
+                
+                elif (direction[1] == 1): # facing down -- go forward
+                    car.forward(power)
+                    time.sleep(ydiff/2)
+                
+                elif (direction[2] == 1): # facing left -- turn left
+                    PivotLeft()
+                    car.forward(power)
+                    time.sleep(ydiff/2)
+                    
+                else:               # facing right -- turn right 
+                    PivotRight()
+                    car.forward(power)
+                    time.sleep(ydiff/2)
+                    
+                # update new orientation 
+                direction[0] = 0
+                direction[1] = 1
+                direction[2] = 0
+                direction[3] = 0
+            
+            
+            else:   
+                print("Done")
+        
+        i += 1
+        j += 1
+   
+   
+    # End of Mobilize function    
+    return
+   
 
 PivotLeft()
