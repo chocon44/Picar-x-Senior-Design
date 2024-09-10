@@ -1,7 +1,8 @@
 # This file is created to test inputing different power level to each motor
 # Last updated: 9/10
 
-from picarx import Picarx
+
+from LaneCheck import LaneCheck
 from robot_hat import Motors
 import time
 
@@ -45,14 +46,7 @@ def PivotRight():
     time.sleep(1.6)
     motors.stop()
 
-def LaneCheck():
-    
-    print("Lane check")
-    car = Picarx()
-    
-    # read data from grayscale
-    gm_val_list = car.get_grayscale_data()
-    return gm_val_list
+
 
 PivotLeft()
 list = LaneCheck()
