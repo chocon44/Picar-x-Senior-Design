@@ -70,6 +70,314 @@ def CalculateError(current, goal):
     error = round(math.sqrt(x),2)   # round error to 2 digits after decimal
     return (error)
 
+# This function returns a list of coordinates the car needs to travel to get
+# to the input goal location
+def GetPath(current, goal):
+    
+    # this stores the coordinates of path, in order
+    global path
+    
+    xc = current[0]
+    yc = current[1]
+    xGoal = goal[0]
+    yGoal = goal[1]
+    
+    # flags for directions
+    down = 0    # y - 2
+    up = 0      # y + 2
+    left = 0    # x - 2
+    right = 0   # x + 2
+    
+    # empty lists to store respective direction's next coordinate 
+    choiceDown = []
+    choiceUp = [] 
+    choiceLeft = [] 
+    choiceRight = [] 
+    
+    # initialize error values
+    errorDown = 100
+    errorUp = 100
+    errorRight = 100
+    errorLeft = 100
+    
+    # error list, values stored in order (up, down, left, right)
+    errorList = []
+
+    # Noting orientation of the car
+    left_ylist = [8,4,0]
+    right_ylist = [6,2]
+    up_xlist = [2,6]
+    down_xlist = [0,4,8]
+    
+    if xc in up_xlist:
+        up = 1
+    elif xc in down_xlist:
+        down = 1
+    if yc in left_ylist:
+        left = 1
+    elif yc in right_ylist:
+        right = 1
+    
+    # Possible moves are down and right
+    if (down == 1) and (right == 1):
+        while (down == 1):
+            # Cannot go further down is y == 0
+            if (yc == 0):
+                break
+            # if current y is not 0 
+            else:
+                xD = xc 
+                yD = yc-2
+            
+            # Append new coordinate to corresponding list 
+            choiceDown.append(xD)
+            choiceDown.append(yD)
+            
+            # Calculate error of this coordinate 
+            errorDown = CalculateError(choiceDown, goal)
+            
+            # Lower down flag 
+            down = 0
+            
+        while (right == 1):
+            # Cannot go further right if x == 8
+            if (xc == 8):
+                break
+            # if the current x is not 8
+            else:
+                yR = yc
+                xR = xc+2
+            
+            # Append new coordinate to the list 
+            choiceRight.append(xR)
+            choiceRight.append(yR)
+            
+            # Calculate error of this coordinate 
+            errorRight = CalculateError(choiceRight, goal)
+            right = 0
+            
+        # Compare the 2 error values and choose the smaller one 
+        
+        # if errorDown is smaller, append the corresponding coordinate into path
+        if (errorDown < errorRight):
+            path.append(choiceDown)
+            
+            if(errorDown == 0):
+                print("Down")
+                return
+            else:
+                print("Down")
+                
+        elif (errorDown > errorRight):
+            path.append(choiceRight)
+            # check if the newly added coordinate is the goal
+            if (errorRight == 0):
+                print("Right")
+                return
+            else:
+                print("Right")
+            
+        else:
+            path.append(choiceDown)
+            print("else, down")
+    
+    elif (up == 1) and (left == 1):
+        while (up == 1):
+            # Cannot go further up if y == 8
+            if (yc == 8):
+                break   # get out of this while loop, nothing to change
+            # Can go up further if y is not 3
+            else:
+                yU = yc+ 2
+                xU = xc 
+            # append new coordinate to the corresponding list
+            choiceUp.append(xU)
+            choiceUp.append(yU)
+            
+            # Calculate error of this coordinate 
+            errorUp = CalculateError(choiceUp, goal)
+            up = 0  # lower flag
+            
+        while (left == 1):
+            # cannot go further left if x == 0
+            if (xc == 0):
+                break
+            # can go further left if x is not 0
+            else:
+                xL = xc-2
+                yL = yc 
+            
+            # append new coordinate to the corresponding list
+            choiceLeft.append(xL)
+            choiceLeft.append(yL)
+            
+            # Calculate error of this coordinate 
+            errorLeft = CalculateError(choiceLeft, goal)
+            left = 0
+            
+        # Compare the 2 error values and choose the one with the smaller error
+    
+        # if errorUp is smaller, append the corresponding coordinate into path
+        if (errorUp < errorLeft):
+            path.append(choiceUp)
+            if (errorUp == 0):
+                print("up")
+                return
+            else:
+                print("up")
+        elif (errorUp > errorLeft):
+            path.append(choiceLeft)
+            if (errorLeft == 0):
+                print("left")
+                return
+            else:
+                print("left")
+        else:   # if 2 errors are equal
+            path.append(choiceUp)
+            print("else, up")
+    
+    
+    elif (down == 1) and (left == 1):
+        while (down == 1):
+            # cannot go further down if y == 0
+            if (yc == 0):
+                break
+            else:
+                yD = yc-2
+                xD = xc
+            
+            # append new coordinate to the corresponding list
+            choiceDown.append(xD)
+            choiceDown.append(yD)
+            
+            # Calculate error of this coordinate 
+            errorDown = CalculateError(choiceDown, goal)
+            down = 0
+        
+        while (left == 1):
+            # cannot go further left if x == 0
+            if (xc == 0):
+                break
+            else:
+                xL = xc- 2
+                yL = yc
+            
+            # append new coordinate to the corresponding list
+            choiceLeft.append(xL)
+            choiceLeft.append(yL)
+            
+            # Calculate error of this coordinate 
+            errorLeft = CalculateError(choiceLeft, goal)
+            left = 0
+            
+        # Compare the 2 error values and choose the one with the smaller error
+    
+        # if errorDown is smaller, append the corresponding coordinate into path
+        if (errorDown < errorLeft):
+            path.append(choiceDown)
+            if (errorDown == 0):
+                print("down")
+                return 
+            else:
+                print("down")
+                
+        elif (errorDown > errorLeft):
+            path.append(choiceLeft)
+            if (errorLeft == 0):
+                print("left")
+                return
+            else:
+                print("left")
+                
+        else:   # if 2 errors are equal
+            path.append(choiceDown)
+    
+    
+    
+    else: # (up == 1) and (right == 1):
+        while (up == 1):
+            # Cannot go further up if y == 8
+            if (yc == 8):
+                break   # get out of this while loop, nothing to change
+            # Can go up further if y is not 3
+            else:
+                yU = yc+2
+                xU = xc
+            
+            # append new coordinate to the corresponding list
+            choiceUp.append(xU)
+            choiceUp.append(yU)
+            
+            # Calculate error of this coordinate 
+            errorUp = CalculateError(choiceUp, goal)
+            up = 0  # lower flag
+        
+        while (right == 1):
+            # cannot go further right if x == 8
+            if (xc == 8):
+                break
+            # can go further right if x is not 3
+            else:
+                xR = xc+2
+                yR = yc
+            
+            # append new coordinate to the corresponding list
+            choiceRight.append(xR)
+            choiceRight.append(yR)
+            
+            # Calculate error of this coordinate 
+            errorRight = CalculateError(choiceRight, goal)
+            # lower flag 
+            right = 0
+        
+        # Compare the 2 error values and choose the one with the smaller error
+    
+        # if errorUp is smaller, append the corresponding coordinate into path
+        if (errorUp < errorRight):
+            path.append(choiceUp)
+            if (errorUp == 0):
+                print("up")
+                return 
+            else:
+                print("up")
+        elif (errorUp > errorRight):
+            path.append(choiceRight)
+            if (errorRight == 0):
+                print("right")
+                return 
+            else:
+                print("right")
+        else:   # if 2 errors are equal
+            path.append(choiceUp)
+            print("else, up")
+        
+        # By this point, the list path is completed
+        
+    return 
+
+def LaneCheck():    # this function checks for black line
+   
+    print("Lane check")
+    
+    # read data from grayscale
+    gm_val_list = car.get_grayscale_data()
+        
+    # re-orient the car based on grayscale reading 
+    
+    if (gm_val_list[0] < 200):    # the black line is on the left of the car, move right 
+        car.forward(0)  # stop the car
+        car.set_dir_servo_angle(20) # rotate servo angle to the right
+        car.forward(power) # go forward for 1 sec
+        time.sleep(0.5)   # CHANGED FROM 0.5
+        reset_turn_servo()  # reset turning angle back to 0
+        
+    elif (gm_val_list[2] < 200):    # the black line is on the right of the car, move left 
+        car.forward(0)  # stop the car 
+        car.set_dir_servo_angle(-20)    # turn servo to left turn 
+        car.forward(power)  
+        time.sleep(0.5) # pause for half a second then reset servo angle to go straight
+        reset_turn_servo()
+
 
 
 PivotLeft()
