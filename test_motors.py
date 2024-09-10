@@ -588,7 +588,4 @@ def main():
     Mobilize(dummyStart)
     car.forward(0)
 
-
-
-car = Picarx()
 main()
