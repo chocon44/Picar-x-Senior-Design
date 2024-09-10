@@ -55,3 +55,4 @@ def LaneCheck():
     return gm_val_list
 
 PivotLeft()
+list = LaneCheck()
