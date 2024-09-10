@@ -9,8 +9,8 @@
 # NOTES: New grid implemented -added pivot turn instead of arc turn
 #-----------------
 
+from test_motors import PivotLeft, PivotRight
 from picarx import Picarx
-from robot_hat import Motors
 import math
 import time
 
@@ -53,44 +53,6 @@ def stop_car_temp():
 
 def stop_car():
     car.forward(0)
-
-# # create motors obj from class Motors
-# motors = Motors() 
-# # identify each motor
-# LEFT = 1
-# RIGHT = 2
-
-# Have the cars pivot turn instead of arc turn
-def PivotRight():
-    # create motors obj from class Motors
-    motors = Motors() 
-    # identify each motor
-    LEFT = 1
-    RIGHT = 2
-    # global motors
-    # global LEFT
-    # global RIGHT
-    
-    motors[LEFT].speed(-70)
-    motors[RIGHT].speed(-70)
-    time.sleep(1.6)    # for 90 degrees, may change with time
-    motors.stop()
-    
-def PivotLeft():
-    # create motors obj from class Motors
-    motors = Motors() 
-    # identify each motor
-    LEFT = 1
-    RIGHT = 2
-    # global motors
-    # global LEFT
-    # global RIGHT
-   
-    motors[LEFT].speed(70)
-    motors[RIGHT].speed(70)
-    time.sleep(1.6)
-    motors.stop()
-
 
 # Turn right and left functions tilt the front wheels to 
 # respective direction, go forward then reset the 
