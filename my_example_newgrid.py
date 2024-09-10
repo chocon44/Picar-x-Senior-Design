@@ -1,7 +1,7 @@
 #-----------------
 # CODE FROM MY-EXAMPLE
 #
-# LAST UPDATED: 9/10/24 
+# LAST UPDATED: 9/10/24
 #
 # FOR PICARX
 # DESCRIPTION: PATH SEARCHING TESTING 
@@ -18,7 +18,6 @@ import time
 path = []
 power = 30
 turningTime = 0.7     # for 90 degrees
-
 
 # This function returns the target destination 
 # Returns a list of x,y
@@ -55,17 +54,22 @@ def stop_car_temp():
 def stop_car():
     car.forward(0)
 
-# create motors obj from class Motors
-motors = Motors() 
-# identify each motor
-LEFT = 1
-RIGHT = 2
+# # create motors obj from class Motors
+# motors = Motors() 
+# # identify each motor
+# LEFT = 1
+# RIGHT = 2
 
 # Have the cars pivot turn instead of arc turn
 def PivotRight():
-    global motors
-    global LEFT
-    global RIGHT
+    # create motors obj from class Motors
+    motors = Motors() 
+    # identify each motor
+    LEFT = 1
+    RIGHT = 2
+    # global motors
+    # global LEFT
+    # global RIGHT
     stop_car_temp()
     motors[LEFT].speed(-70)
     motors[RIGHT].speed(-70)
@@ -73,9 +77,14 @@ def PivotRight():
     motors.stop()
     
 def PivotLeft():
-    global motors
-    global LEFT
-    global RIGHT
+    # create motors obj from class Motors
+    motors = Motors() 
+    # identify each motor
+    LEFT = 1
+    RIGHT = 2
+    # global motors
+    # global LEFT
+    # global RIGHT
     stop_car_temp()
     motors[LEFT].speed(70)
     motors[RIGHT].speed(70)
@@ -420,7 +429,7 @@ def LaneCheck():    # this function checks for black line
         car.set_dir_servo_angle(-20)    # turn servo to left turn 
         car.forward(power)  
         time.sleep(0.5) # pause for half a second then reset servo angle to go straight
-        reset_turn_servo()
+         reset_turn_servo()
 
             
 
@@ -643,4 +652,4 @@ try:
     main()
 
 finally:
-    stop_car()
+    car.forward(0)
