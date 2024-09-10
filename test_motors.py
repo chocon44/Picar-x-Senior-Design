@@ -6,6 +6,10 @@ from robot_hat import Motors
 import time
 import math
 
+path = []
+power = 30
+turningTime = 0.7     # for 90 degrees
+
 motors = Motors()  # create motors object from class Motors
 
 # identify each motor
@@ -42,5 +46,30 @@ def PivotRight():
     motors[RIGHT].speed(-70)
     time.sleep(1.6)
     motors.stop()
+
+# This function returns the target destination 
+# Returns a list of x,y
+def get_final_coord():  
+    endx = int(input("Enter destination x coordinate: "))
+    endy = int(input("Enter destination y coordinate: "))
+    end = [endx,endy]
+    return end
+    
+# This function returns the starting position 
+# Returns a list of x,y
+def get_initial_coord():
+    startx = int(input("Enter starting x coordinate: "))
+    starty = int(input("Enter starting y coordinate: "))
+    start = [startx,starty]
+    return start
+
+# This function returns error value in respect with the goal coordinate
+def CalculateError(current, goal):
+    # error is calculated using distance formula
+    x = ((goal[0] - current[0])**2)+((goal[1] - current[1])**2)
+    error = round(math.sqrt(x),2)   # round error to 2 digits after decimal
+    return (error)
+
+
 
 PivotLeft()
