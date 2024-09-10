@@ -2,7 +2,7 @@ from picarx import Picarx
 import math
 import time
 
-def LaneCheck():    # this function checks for black line
+def LaneChecking():    # this function checks for black line
    
     print("Lane check")
     car = Picarx()
