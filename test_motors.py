@@ -49,5 +49,5 @@ def PivotRight():
 
 
 PivotLeft()
-list = LaneCheck()
+list = LaneChecking()
 print(list[0])
