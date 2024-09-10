@@ -70,7 +70,7 @@ def PivotRight():
     # global motors
     # global LEFT
     # global RIGHT
-    stop_car_temp()
+    
     motors[LEFT].speed(-70)
     motors[RIGHT].speed(-70)
     time.sleep(1.6)    # for 90 degrees, may change with time
@@ -85,7 +85,7 @@ def PivotLeft():
     # global motors
     # global LEFT
     # global RIGHT
-    stop_car_temp()
+   
     motors[LEFT].speed(70)
     motors[RIGHT].speed(70)
     time.sleep(1.6)
