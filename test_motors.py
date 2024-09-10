@@ -1,6 +1,7 @@
 # This file is created to test inputing different power level to each motor
 # Last updated: 9/10
 
+from picarx import Picarx
 from robot_hat import Motors
 import time
 
@@ -44,3 +45,5 @@ def PivotRight():
     time.sleep(1.6)
     motors.stop()
 
+car = Picarx()
+PivotLeft()
