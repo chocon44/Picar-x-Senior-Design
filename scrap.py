@@ -16,5 +16,5 @@ def Forward():
     motors[RIGHT].speed(70)
 
 Forward()
-time.sleep(1)
+time.sleep(1.25)
 motors.stop()
