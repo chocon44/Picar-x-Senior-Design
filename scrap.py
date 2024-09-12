@@ -48,7 +48,7 @@ def ObstacleCheck():
     dangerDistance = 10    # distance between 20 and 40 is dangerous
     while True:
         # read ultrasonic sensor distance and round it 
-        distance = round(car.ultrasonic.read(),2)    
+        distance = car.ultrasonic.read()
         print("Distance to obstacle = ", distance)
 
         if (distance >= safeDistance):
