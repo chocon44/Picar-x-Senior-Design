@@ -41,6 +41,21 @@ def LaneCheck():
         return 0
 
 
+def ObstacleCheck():
+    global power
+    reset_turn_servo()
+    safeDistance = 40    # distance higher than 40 is safe
+    dangerDistance = 10    # distance between 20 and 40 is dangerous
+    while True:
+        # read ultrasonic sensor distance and round it 
+        distance = round(car.ultrasonic.read(),2)    
+        print("Distance to obstacle = ", distance)
+
+        if (distance >= safeDistance):
+            return 0
+        elif (distance <= dangerDistance):
+            return 1
+
 def slow_turn_right():
     global power 
     global rightTurnPower
@@ -66,7 +81,7 @@ def slow_turn_right():
     
         
     
-
+# Experimenting this right now... sep 12
 def slow_turn_left():
     global power 
     global leftTurnPower
@@ -80,10 +95,11 @@ def slow_turn_left():
     while (totalTime != 0):
         car.forward(leftTurnPower)
         time.sleep(0.1)
-        if (LaneCheck() == 0):
+        if (ObstacleCheck() == 0):
             totalTime -=0.1
         else:
             totalTime == 0
+            car.forward(0)
             break
     reset_turn_servo()
     car.forward(0)
