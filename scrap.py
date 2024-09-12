@@ -51,7 +51,7 @@ def ObstacleCheck():
         distance = car.ultrasonic.read()
         print("Distance to obstacle = ", distance)
 
-        if (distance >= safeDistance) or (distance > dangerDistance):
+        if (distance > dangerDistance):
             return 0
         elif (distance <= dangerDistance):
             return 1
