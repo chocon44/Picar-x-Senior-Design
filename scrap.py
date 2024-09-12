@@ -53,8 +53,10 @@ def ObstacleCheck():
 
     if (distance > dangerDistance):
         return 0
-    elif (distance <= dangerDistance):
+    elif (distance <= dangerDistance) and (distance > 0):
         return 1
+    else:
+        return 0
 
 def slow_turn_right():
     global power 
