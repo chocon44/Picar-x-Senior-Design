@@ -66,7 +66,7 @@ def Obstacle_Testing():
     global power
     reset_turn_servo()
     safeDistance = 40    # distance higher than 40 is safe
-    dangerDistance = 20    # distance between 20 and 40 is dangerous
+    dangerDistance = 10    # distance between 20 and 40 is dangerous
     while True:
         # read ultrasonic sensor distance and round it 
         distance = round(car.ultrasonic.read(),2)    
