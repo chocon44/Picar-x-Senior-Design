@@ -82,7 +82,7 @@ def Obstacle_Testing():
 
 def Ultrasonic_Testing():
     #distance = round(car.ultrasonic.read(),2)  
-    distane = car.ultrasonic.read()
+    distance = car.ultrasonic.read()
     print(distance)
     
 
