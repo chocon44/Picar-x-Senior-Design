@@ -101,6 +101,13 @@ def slow_turn_left():
         LaneCheck()
         totalTime -= 0.1
 
-car = Picarx()
-slow_turn_left()
-car.forward(0)
+
+def main():
+   slow_turn_left()
+
+try:
+    car = Picarx()
+    main()
+
+finally:
+    car.forward(0)
