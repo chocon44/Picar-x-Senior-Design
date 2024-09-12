@@ -1,69 +1,30 @@
 #-----------------
 # CODE FROM MY-EXAMPLE
 #
-# LAST UPDATED: 9/10/24 1:44
+# LAST UPDATED: 9/10/24
 #
 # FOR PICARX
 # DESCRIPTION: PATH SEARCHING TESTING 
 # 
-# NOTES: using motors to avoid car = Picarx(), this library contests with robot_hat -- LaneCheck
+# NOTES: robot_hat and picarx libraries contest each other
 #-----------------
 
-from robot_hat import Motors
 from picarx import Picarx
+#from robot_hat import Motors
 import math
 import time
 
+# ------ GLOBAL VARIABLES -------
 
 path = []
-power = 30
-turningTime = 0.7     # for 90 degrees
+power = 30      # standard power for car going straight 
+rightTurnPower = 10
+rightTurnTime = 0.7
+leftTurmPower = 10
+leftTurnTime = 0.7
 
 
-
-# mobility functions (motors-based)
-
-motors = Motors()  # create motors object from class Motors
-
-# identify each motor
-LEFT = 1  
-RIGHT = 2
-
-
-def Forward():
-    global motors
-    global LEFT
-    global RIGHT
-    motors[LEFT].speed(-50)
-    motors[RIGHT].speed(70)
-
-def Reverse():
-    global motors
-    global LEFT
-    global RIGHT
-    motors[LEFT].speed(50)
-    motors[RIGHT].speed(-50)
-
-def PivotLeft():
-    global motors
-    global LEFT
-    global RIGHT
-    motors[LEFT].speed(70)
-    motors[RIGHT].speed(70)
-    time.sleep(1.8)     # turn 90 degrees
-    motors.stop()
-
-def PivotRight():
-    global motors
-    global LEFT
-    global RIGHT
-    motors[LEFT].speed(-70)
-    motors[RIGHT].speed(-70)
-    time.sleep(1.8)
-    motors.stop()
-
-def Stop():
-    motors.stop()
+# ------ INPUT FUNCTIONS -------
 
 # This function returns the target destination 
 # Returns a list of x,y
@@ -81,6 +42,130 @@ def get_initial_coord():
     starty = int(input("Enter starting y coordinate: "))
     start = [startx,starty]
     return start
+    
+    
+
+# ------ MOBILITY FUNCTIONS -------
+
+
+# This function resets the turning servo of the car back to 0
+# Front wheels to be heading forward
+def reset_turn_servo():
+    global power
+    time.sleep(0.2)
+    car.forward(0)  # stop the car
+    car.set_dir_servo_angle(0)  # reset servo angle to 0
+    time.sleep(0.2)
+
+# This function stops the car temporarily - 1 sec
+def stop_car_temp():
+    car.forward(0)
+    time.sleep(1)
+
+# This function stops the car for good
+def stop_car():
+    car.forward(0)
+
+# # create motors obj from class Motors
+# motors = Motors() 
+# # identify each motor
+# LEFT = 1
+# RIGHT = 2
+
+# # Have the cars pivot turn instead of arc turn
+# def PivotRight():
+    # global motors
+    # global LEFT
+    # global RIGHT
+    # stop_car_temp()
+    # motors[LEFT].speed(-70)
+    # motors[RIGHT].speed(-70)
+    # time.sleep(1.6)    # for 90 degrees, may change with time
+    # motors.stop()
+    
+# def PivotLeft():
+    # global motors
+    # global LEFT
+    # global RIGHT
+    # stop_car_temp()
+    # motors[LEFT].speed(70)
+    # motors[RIGHT].speed(70)
+    # time.sleep(1.6)
+    # motors.stop()
+
+
+# Turn right and left functions tilt the front wheels to 
+# respective direction, go forward then reset the 
+# front wheels back to its original position (heading forward)
+def turn_right():
+    global power
+    car.forward(0)  # stop the car
+    car.set_dir_servo_angle(30) # rotate servo angle to the right
+    LaneCheck()
+    car.forward(10) # go forward 
+    time.sleep(0.7)   # CHANGED FROM 0.5
+    reset_turn_servo()  # reset turning angle back to 0
+
+# This function slowly turns the car to the right, first tilt the servo, then slowly going forward
+# for 0.1 sec at a time, checking obstacle every 0.1 sec -- can replace ObstacleCheck() with LaneCheck()
+def slow_turn_right():
+    global power 
+    global rightTurnPower
+    global rightTurnTime
+    
+    totalTime = rightTurnTime
+    car.forward(0)  # stop the car 
+    car.set_dir_servo_angle(30) # rotate servo angle to the right 
+      
+    # as long as there is no obstacle in the front, continue turning until totalTime is reached
+    while (ObstacleCheck() == 0):   
+        car.forward(rightTurnPower)
+        time.sleep(0.1)
+        totalTime -= 0.1
+        if (totalTime == 0):
+            break       # finish loop when total rightTurnTime has been reached
+    # if obstacle is detected...
+    else:
+        reset_turn_servo() 
+        car.forward(power)
+        time.sleep(0.5)
+        car.forward(0)
+
+def slow_turn_left():
+    global power 
+    global leftTurnPower
+    global leftTurnTime
+    
+    totalTime = turnLeftTime
+    car.forward(0)
+    car.set_dir_servo_angle(-30)    # turn servo to left turn  
+    
+    # as long as there is no obstacle in the front, continue turning until totalTime is reached
+    while (ObstacleCheck() == 0):   
+        car.forward(leftTurnPower)
+        time.sleep(0.1)
+        totalTime -= 0.1
+        if (totalTime == 0):
+            break       # finish loop when total leftTurnTime has been reached
+    # if obstacle is detected...
+    else:
+        reset_turn_servo() 
+        car.forward(power)
+        time.sleep(0.5)
+        car.forward(0)
+
+        
+def turn_left():
+    global power
+    car.forward(0)  # stop the car 
+    car.set_dir_servo_angle(-70)    # turn servo to left turn 
+    LaneCheck()
+    car.forward(50)  
+    time.sleep(0.7) # pause for half a second then reset servo angle to go straight
+    reset_turn_servo()
+
+
+# ------ CALCULATING FUNCTIONS -------
 
 
 # This function returns error value in respect with the goal coordinate
@@ -89,8 +174,6 @@ def CalculateError(current, goal):
     x = ((goal[0] - current[0])**2)+((goal[1] - current[1])**2)
     error = round(math.sqrt(x),2)   # round error to 2 digits after decimal
     return (error)
-
-
 
 
 # This function returns a list of coordinates the car needs to travel to get
@@ -377,32 +460,42 @@ def GetPath(current, goal):
         # By this point, the list path is completed
         
     return 
-            
-#def LaneCheck():    # this function checks for black line
+
+
+# ------ SENSOR FUNCTIONS -------
+
+# This function checks for black line - using grayscale module
+def LaneCheck():   
    
-    #print("Lane check")
-    
+    print("Lane check")
     
     # read data from grayscale
-    #gm_val_list = car.get_grayscale_data()
+    gm_val_list = car.get_grayscale_data()
         
     # re-orient the car based on grayscale reading 
     
-    #if (gm_val_list[0] < 200):    # the black line is on the left of the car, move right 
-        #car.forward(0)  # stop the car
-        #car.set_dir_servo_angle(20) # rotate servo angle to the right
-        #car.forward(power) # go forward for 1 sec
-        #time.sleep(0.5)   # CHANGED FROM 0.5
-        #reset_turn_servo()  # reset turning angle back to 0
+    if (gm_val_list[0] < 200):    # the black line is on the left of the car, move right 
+        car.forward(0)  # stop the car
+        car.set_dir_servo_angle(20) # rotate servo angle to the right
+        car.forward(power) # go forward for 1 sec
+        time.sleep(0.5)   # CHANGED FROM 0.5
+        reset_turn_servo()  # reset turning angle back to 0
         
-    #elif (gm_val_list[2] < 200):    # the black line is on the right of the car, move left 
-        #car.forward(0)  # stop the car 
-        #car.set_dir_servo_angle(-20)    # turn servo to left turn 
-        #car.forward(power)  
-        #time.sleep(0.5) # pause for half a second then reset servo angle to go straight
-        #reset_turn_servo()
+    elif (gm_val_list[2] < 200):    # the black line is on the right of the car, move left 
+        car.forward(0)  # stop the car 
+        car.set_dir_servo_angle(-20)    # turn servo to left turn 
+        car.forward(power)  
+        time.sleep(0.5) # pause for half a second then reset servo angle to go straight
+        reset_turn_servo()
+
+
+# This function checks for obstacle in front of car using ultrasonic sensor            
+#def ObstacleCheck():
+
+
 
             
+# ------ CAR-MOVING FUNCTION -------           
 
 # This function drives the car through all coordinates in path
 def Mobilize(dummyStart):
@@ -453,7 +546,7 @@ def Mobilize(dummyStart):
         ydiff = abs(y2 - y1)
 
         # make sure the car stays in lane every iteration
-        #LaneCheck()
+        LaneCheck()
         
         
         # check the orientation 
@@ -462,16 +555,16 @@ def Mobilize(dummyStart):
             # check orientation 
             if (direction[0] == 1): # facing up -- turn left first 
                 PivotLeft()
-                Forward()
+                car.forward(power)
                 time.sleep(xdiff/2) # new grid
             
             elif (direction[1] == 1): # facing down -- turn right first 
                 PivotRight()
-                Forward()
+                car.forward(power)
                 time.sleep(xdiff/2)
             
             elif (direction[2] == 1): # facing left -- go forward 
-                Forward()
+                car.forward(power)
                 time.sleep(xdiff/2)
                 
             else:   # facing right, error 
@@ -488,19 +581,19 @@ def Mobilize(dummyStart):
             # check orientation 
             if (direction[0] == 1): # facing up -- turn right first 
                 PivotRight()
-                Forward()
+                car.forward(power)
                 time.sleep(xdiff/2)
             
             elif (direction[1] == 1): # facing down -- turn left first 
                 PivotLeft()
-                Forward()
+                car.forward(power)
                 time.sleep(xdiff/2)
             
             elif (direction[2] == 1): # facing left -- error
                 print("None")
                 
             else:   # facing right, go forward 
-                Forward()
+                car.forward(power)
                 time.sleep(xdiff/2)
                 
             # update new orientation 
@@ -513,7 +606,7 @@ def Mobilize(dummyStart):
             if (y2 > y1):   # want to go up...
                 # check orientation 
                 if (direction[0] == 1): # facing up -- go forward
-                    Forward()
+                    car.forward(power)
                     time.sleep(ydiff/2)
                 
                 elif (direction[1] == 1): # facing down -- error
@@ -521,12 +614,12 @@ def Mobilize(dummyStart):
                 
                 elif (direction[2] == 1): # facing left -- turn right
                     PivotRight()
-                    Forward()
+                    car.forward(power)
                     time.sleep(ydiff/2)
                     
                 else:               # facing right -- turn left 
                     PivotLeft()
-                    Forward()
+                    car.forward(power)
                     time.sleep(ydiff/2)
                     
                 # update new orientation 
@@ -542,17 +635,17 @@ def Mobilize(dummyStart):
                     print("None")
                 
                 elif (direction[1] == 1): # facing down -- go forward
-                    Forward()
+                    car.forward(power)
                     time.sleep(ydiff/2)
                 
                 elif (direction[2] == 1): # facing left -- turn left
                     PivotLeft()
-                    Forward()
+                    car.forward(power)
                     time.sleep(ydiff/2)
                     
                 else:               # facing right -- turn right 
                     PivotRight()
-                    Forward()
+                    car.forward(power)
                     time.sleep(ydiff/2)
                     
                 # update new orientation 
@@ -572,7 +665,9 @@ def Mobilize(dummyStart):
     # End of Mobilize function    
     return
    
-   
+
+
+# ------ MAIN -------
 
 def main():
 
@@ -613,14 +708,14 @@ def main():
     # After knowing where to go, mobilize through all the coordinates in path
     
     Mobilize(dummyStart)
-    Stop()
+    car.forward(0)
     
 
 
 
 try:
-    #car = Picarx()
+    car = Picarx()
     main()
 
 finally:
-    Stop()
+    car.forward(0)
