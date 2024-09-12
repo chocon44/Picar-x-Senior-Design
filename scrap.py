@@ -74,7 +74,7 @@ def slow_turn_left():
     
     totalTime = leftTurnTime
     car.forward(0)  # stop the car 
-    car.set_dir_servo_angle(30) # rotate servo angle to the right 
+    car.set_dir_servo_angle(-30) # rotate servo angle to the right 
       
     # # as long as there is no obstacle in the front, continue turning until totalTime is reached
     while (LaneCheck() == 0):   
