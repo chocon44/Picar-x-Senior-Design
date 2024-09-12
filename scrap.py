@@ -9,9 +9,9 @@ import time
 
 path = []
 power = 30      # standard power for car going straight 
-rightTurnPower = 10
+rightTurnPower = 5
 rightTurnTime = 0.7
-leftTurnPower = 10
+leftTurnPower = 5
 leftTurnTime = 0.7
 
 
@@ -74,21 +74,32 @@ def slow_turn_left():
     
     totalTime = leftTurnTime
     car.forward(0)  # stop the car 
-    car.set_dir_servo_angle(-30) # rotate servo angle to the right 
+    car.set_dir_servo_angle(-30) # rotate servo angle to the left 
       
     # # as long as there is no obstacle in the front, continue turning until totalTime is reached
-    while (LaneCheck() == 0):   
-         car.forward(leftTurnPower)
-         time.sleep(0.1)
-         totalTime -= 0.1
-         if (totalTime == 0):
-             break       # finish loop when total rightTurnTime has been reached
+    while (totalTime != 0):
+        car.forward(leftTurnPower)
+        time.sleep(0.1)
+        if (LaneCheck() == 0):
+            totalTime -=0.1
+        else:
+            totalTime == 0
+            break
+    reset_turn_servo()
+    car.forward(0)
+
+    #while (LaneCheck() == 0):   
+         #car.forward(leftTurnPower)
+         #time.sleep(0.1)
+         #totalTime -= 0.1
+         #if (totalTime == 0):
+             #break       # finish loop when total rightTurnTime has been reached
     # # if lane is detected...
-    else:
-        reset_turn_servo() 
-        car.forward(power)
-        time.sleep(0.5)
-        car.forward(0)
+    #else:
+        #reset_turn_servo() 
+        #car.forward(leftTurnPower)
+        #time.sleep(0.5)
+        #car.forward(0)
 
 def main():
     slow_turn_left()
