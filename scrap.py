@@ -11,8 +11,9 @@ path = []
 power = 30      # standard power for car going straight 
 rightTurnPower = 10
 rightTurnTime = 0.7
-leftTurmPower = 10
+leftTurnPower = 10
 leftTurnTime = 0.7
+
 
 def LaneCheck():   
    
@@ -77,7 +78,7 @@ def slow_turn_left():
     global leftTurnPower
     global leftTurnTime
     
-    totalTime = turnLeftTime
+    totalTime = leftTurnTime
     car.forward(0)
     car.set_dir_servo_angle(-30)    # turn servo to left turn  
     
@@ -101,57 +102,9 @@ def slow_turn_left():
         LaneCheck()
         totalTime -= 0.1
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-motors = Motors() 
-# identify each motor
-LEFT = 1
-RIGHT = 2
-
-def Forward():
-    global motors
-    global LEFT
-    global RIGHT
-    motors[LEFT].speed(-50)
-    motors[RIGHT].speed(70)
-
-def PivotRight():
-    global motors
-    global LEFT
-    global RIGHT
-    motors[LEFT].speed(-60)
-    motors[RIGHT].speed(-70)
-    time.sleep(2.2)    # for 90 degrees, may change with time
-    motors.stop()
-
-def PivotLeft():
-    global motors
-    global LEFT
-    global RIGHT
-    motors[LEFT].speed(70)
-    motors[RIGHT].speed(70)
-    time.sleep(2)
-    motors.stop()
-
-Forward()
-time.sleep(1.25*2.5)
-motors.stop()
-PivotRight()
-motors.stop()
-=======
-car = Picarx()
-slow_turn_left()
-car.forward(0)
->>>>>>> 9be038493edd21a26401f870cf2416b44f12d89c
-=======
-
 def main():
-   slow_turn_left()
-
-try:
-    car = Picarx()
-    main()
-
-finally:
+    slow_turn_left()
     car.forward(0)
->>>>>>> 78ebe281c32c90049e3e356f7fb22366175074db
+
+car = Picarx()
+main()
