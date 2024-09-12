@@ -15,6 +15,16 @@ leftTurnPower = 10
 leftTurnTime = 0.7
 
 
+# This function resets the turning servo of the car back to 0
+# Front wheels to be heading forward
+def reset_turn_servo():
+    global power
+    time.sleep(0.2)
+    car.forward(0)  # stop the car
+    car.set_dir_servo_angle(0)  # reset servo angle to 0
+    time.sleep(0.2)
+
+
 def LaneCheck():   
    
     print("Lane check")
