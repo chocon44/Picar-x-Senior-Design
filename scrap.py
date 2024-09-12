@@ -33,14 +33,20 @@ def LaneCheck():
     gm_val_list = car.get_grayscale_data()
         
     #xxo, xoo
-    if (gm_val_list[0] < 300) or (gm_val_list[2] < 300):    # the black line is on the left of the car, move right 
+    if (gm_val_list[0] < 300):    # the black line is on the left of the car, move right 
         # stop turning    
+        print("Sensor [0] detected")
+        reset_turn_servo()
+        return 1
+    elif (gm_val_list[2] < 300): 
+        # stop turning    
+        print("Sensor [2] detected")
         reset_turn_servo()
         return 1
     else:
         return 0
 
-
+# not a good option for lane-keeping, ultrasonic sensor does not detect objects in slanted direction
 def ObstacleCheck():
     global power
     reset_turn_servo()
