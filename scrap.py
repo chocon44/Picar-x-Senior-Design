@@ -102,6 +102,7 @@ def slow_turn_left():
         totalTime -= 0.1
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 motors = Motors() 
 # identify each motor
 LEFT = 1
@@ -142,3 +143,15 @@ car = Picarx()
 slow_turn_left()
 car.forward(0)
 >>>>>>> 9be038493edd21a26401f870cf2416b44f12d89c
+=======
+
+def main():
+   slow_turn_left()
+
+try:
+    car = Picarx()
+    main()
+
+finally:
+    car.forward(0)
+>>>>>>> 78ebe281c32c90049e3e356f7fb22366175074db
