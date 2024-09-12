@@ -33,7 +33,7 @@ def LaneCheck():
     gm_val_list = car.get_grayscale_data()
         
     #xxo, xoo
-    if (gm_val_list[0] < 300) or (gm_val_list[2] < 200):    # the black line is on the left of the car, move right 
+    if (gm_val_list[0] < 300) or (gm_val_list[2] < 300):    # the black line is on the left of the car, move right 
         # stop turning    
         reset_turn_servo()
         return 1
@@ -97,7 +97,7 @@ def slow_turn_left():
     while (totalTime != 0):
         car.forward(leftTurnPower)
         time.sleep(0.1)
-        if (ObstacleCheck() == 0):
+        if (LaneCheck() == 0):
             totalTime -=0.1
         else:
             totalTime == 0
@@ -106,18 +106,6 @@ def slow_turn_left():
     reset_turn_servo()
     car.forward(0)
 
-    #while (LaneCheck() == 0):   
-         #car.forward(leftTurnPower)
-         #time.sleep(0.1)
-         #totalTime -= 0.1
-         #if (totalTime == 0):
-             #break       # finish loop when total rightTurnTime has been reached
-    # # if lane is detected...
-    #else:
-        #reset_turn_servo() 
-        #car.forward(leftTurnPower)
-        #time.sleep(0.5)
-        #car.forward(0)
 
 def main():
     slow_turn_left()
