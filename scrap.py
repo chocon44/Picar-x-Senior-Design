@@ -61,13 +61,15 @@ def slow_turn_left():
     while (totalTime != 0):
         car.forward(leftTurnPower)
         time.sleep(0.1)
+        totalTime -= 0.1
         if (LaneCheck() == 4):    # no lane detected
-            totalTime -=0.1
+            car.forward(leftTurnPower)
         elif (LaneCheck() == 0):    # sensor 0 detected line - go left 
-            car.forward(leftTurnPower)
+            print()
         elif (LaneCheck() == 2):    # sensor 2 detected line - go right
-            car.set_dir_servo_angle(30)
-            car.forward(leftTurnPower)
+            print()
+            #car.set_dir_servo_angle(30)
+            #car.forward(leftTurnPower)
         else:
             totalTime == 0
             car.forward(0)
