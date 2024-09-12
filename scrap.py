@@ -46,15 +46,15 @@ def ObstacleCheck():
     reset_turn_servo()
     safeDistance = 40    # distance higher than 40 is safe
     dangerDistance = 3    # distance between 20 and 40 is dangerous
-    while True:
-        # read ultrasonic sensor distance and round it 
-        distance = car.ultrasonic.read()
-        print("Distance to obstacle = ", distance)
+    #while True:
+    # read ultrasonic sensor distance and round it 
+    distance = car.ultrasonic.read()
+    print("Distance to obstacle = ", distance)
 
-        if (distance > dangerDistance):
-            return 0
-        elif (distance <= dangerDistance):
-            return 1
+    if (distance > dangerDistance):
+        return 0
+    elif (distance <= dangerDistance):
+        return 1
 
 def slow_turn_right():
     global power 
