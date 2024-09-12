@@ -1,5 +1,5 @@
 # Note: 1.25 sec for 1 grid
-# Last updated 9/10
+# Last updated 9/12
 
 from picarx import Picarx
 #from robot_hat import Motors
