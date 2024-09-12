@@ -111,6 +111,7 @@ def slow_turn_left():
         time.sleep(0.1)
         LaneCheck()
         totalTime -= 0.1
+    car.forward(0)
 
 def main():
     slow_turn_left()
