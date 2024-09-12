@@ -79,6 +79,12 @@ def Obstacle_Testing():
         else:
             car.forward(0)
 
+
+def Ultrasonic_Testing():
+    distance = round(car.ultrasonic.read(),2)  
+    print(distance)
+    
+
 def Grayscale_Testing():
     global power
     reset_turn_servo()
@@ -93,7 +99,7 @@ def Grayscale_Testing():
 
 
 def main():
-    Grayscale_Testing()
+    Ultrasonic_Testing()
     
     
     
