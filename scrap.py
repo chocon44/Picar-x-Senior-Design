@@ -35,60 +35,18 @@ def LaneCheck():
     #xxo, xoo
     if (gm_val_list[0] < 300):    # the black line is on the left of the car, move right 
         # stop turning    
-        print("Sensor [0] detected")
+        print("Sensor [0] detected - line on the right")
         reset_turn_servo()
-        return 1
+        return 0
     elif (gm_val_list[2] < 300): 
         # stop turning    
-        print("Sensor [2] detected")
+        print("Sensor [2] detected - line on the left")
         reset_turn_servo()
-        return 1
+        return 2
     else:
-        return 0
+        return 4
 
-# not a good option for lane-keeping, ultrasonic sensor does not detect objects in slanted direction
-def ObstacleCheck():
-    global power
-    reset_turn_servo()
-    safeDistance = 40    # distance higher than 40 is safe
-    dangerDistance = 3    # distance between 20 and 40 is dangerous
-    #while True:
-    # read ultrasonic sensor distance and round it 
-    distance = car.ultrasonic.read()
-    print("Distance to obstacle = ", distance)
 
-    if (distance > dangerDistance):
-        return 0
-    elif (distance <= dangerDistance) and (distance > 0):
-        return 1
-    else:
-        return 0
-
-def slow_turn_right():
-    global power 
-    global rightTurnPower
-    global rightTurnTime
-    
-    totalTime = rightTurnTime
-    car.forward(0)  # stop the car 
-    car.set_dir_servo_angle(30) # rotate servo angle to the right 
-      
-    # # as long as there is no obstacle in the front, continue turning until totalTime is reached
-    while (LaneCheck() == 0):   
-         car.forward(rightTurnPower)
-         time.sleep(0.1)
-         totalTime -= 0.1
-         if (totalTime == 0):
-             break       # finish loop when total rightTurnTime has been reached
-    # # if lane is detected...
-    else:
-        reset_turn_servo() 
-        car.forward(power)
-        time.sleep(0.5)
-        car.forward(0)
-    
-        
-    
 # Experimenting this right now... sep 12
 def slow_turn_left():
     global power 
@@ -103,8 +61,13 @@ def slow_turn_left():
     while (totalTime != 0):
         car.forward(leftTurnPower)
         time.sleep(0.1)
-        if (LaneCheck() == 0):
+        if (LaneCheck() == 4):    # no lane detected
             totalTime -=0.1
+        elif (LaneCheck() == 0):    # sensor 0 detected line - go left 
+            car.forward(leftTurnPower)
+        elif (LaneCheck() == 2):    # sensor 2 detected line - go right
+            car.set_dir_servo_angle(30)
+            car.forward(leftTurnPower)
         else:
             totalTime == 0
             car.forward(0)
