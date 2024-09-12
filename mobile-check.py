@@ -82,8 +82,9 @@ def Obstacle_Testing():
 
 def Ultrasonic_Testing():
     #distance = round(car.ultrasonic.read(),2)  
-    distance = car.ultrasonic.read()
-    print(distance)
+    while True:
+        distance = car.ultrasonic.read()
+        print(distance)
     
 
 def Grayscale_Testing():
