@@ -14,7 +14,7 @@ rightTurnTime = 0.7
 rightTurnAngle = 50
 
 leftTurnPower = 30
-leftTurnTime = 0.7
+leftTurnTime = 1
 leftTurnAngle = -90
 
 
@@ -48,6 +48,15 @@ def LaneCheck():
         return 2
     else:
         return 4
+
+
+def reset_turn_servo():
+    global power
+    time.sleep(0.2)
+    car.forward(0)  # stop the car
+    car.set_dir_servo_angle(0)  # reset servo angle to 0
+    time.sleep(0.2)
+
 
 
 # Experimenting this right now... sep 12
@@ -88,16 +97,11 @@ def turn_left():
     car.forward(0)  # stop the car 
     car.set_dir_servo_angle(leftTurnAngle) # rotate servo angle to the left 
     car.forward(leftTurnPower)
-    time.sleep(10)
+    time.sleep(leftTurnTime)
     reset_turn_servo
 
 
-def reset_turn_servo():
-    global power
-    time.sleep(0.2)
-    car.forward(0)  # stop the car
-    car.set_dir_servo_angle(0)  # reset servo angle to 0
-    time.sleep(0.2)
+
 
 def main():
     turn_left()
