@@ -13,9 +13,9 @@ rightTurnPower = 5
 rightTurnTime = 0.7
 rightTurnAngle = 50
 
-leftTurnPower = 30
+leftTurnPower = 50
 leftTurnTime = 1.5
-leftTurnAngle = -90
+leftTurnAngle = -120
 
 
 # This function resets the turning servo of the car back to 0
