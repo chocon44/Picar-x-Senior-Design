@@ -113,7 +113,9 @@ def turn_right():
 
 def main():
     turn_left()
-   
+    car.forward(0)
+    time.sleep(2)
+    turn_right()
     car.forward(0)
     
 
