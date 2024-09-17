@@ -14,7 +14,7 @@ rightTurnTime = 0.7
 rightTurnAngle = 90
 
 leftTurnPower = 50
-leftTurnTime = 1.5
+leftTurnTime = 1.2
 leftTurnAngle = -120
 
 
@@ -115,9 +115,10 @@ def main():
     reset_turn_servo()
 
     turn_left()
-
-    reset_turn_servo()
+    
     car.forward(0)
+    reset_turn_servo()
+    
     time.sleep(2)
 
     turn_right()
