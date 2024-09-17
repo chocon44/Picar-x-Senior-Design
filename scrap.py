@@ -55,7 +55,7 @@ def reset_turn_servo():
     time.sleep(0.2)
     car.forward(0)  # stop the car
     car.set_dir_servo_angle(0)  # reset servo angle to 0
-    time.sleep(0.2)
+    time.sleep(1)
 
 
 
@@ -98,7 +98,7 @@ def turn_left():
     car.set_dir_servo_angle(leftTurnAngle) # rotate servo angle to the left 
     car.forward(leftTurnPower)
     time.sleep(leftTurnTime)
-    reset_turn_servo
+    reset_turn_servo()
 
 def turn_right():
     global rightTurnTime
@@ -108,15 +108,19 @@ def turn_right():
     car.set_dir_servo_angle(rightTurnAngle) # rotate servo angle to the right 
     car.forward(rightTurnPower)
     time.sleep(rightTurnTime)
-    reset_turn_servo
+    reset_turn_servo()
 
 
 def main():
     turn_left()
+
+    reset_turn_servo()
     car.forward(0)
     time.sleep(2)
+
     turn_right()
     car.forward(0)
+    reset_turn_servo()
     
 
 car = Picarx()
