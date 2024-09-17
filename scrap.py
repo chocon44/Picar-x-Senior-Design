@@ -112,6 +112,8 @@ def turn_right():
 
 
 def main():
+    reset_turn_servo()
+
     turn_left()
 
     reset_turn_servo()
