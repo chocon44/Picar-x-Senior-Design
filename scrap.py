@@ -10,7 +10,7 @@ import time
 path = []
 power = 30      # standard power for car going straight 
 rightTurnPower = 50
-rightTurnTime = 1
+rightTurnTime = 0.85
 rightTurnAngle = 90
 
 leftTurnPower = 50
