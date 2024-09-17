@@ -1,5 +1,5 @@
 # Note: 1.25 sec for 1 grid
-# Last updated 9/12
+# Last updated 9/17
 
 from picarx import Picarx
 #from robot_hat import Motors
@@ -11,8 +11,11 @@ path = []
 power = 30      # standard power for car going straight 
 rightTurnPower = 5
 rightTurnTime = 0.7
+rightTurnAngle = 50
+
 leftTurnPower = 5
 leftTurnTime = 0.7
+leftTurnAngle = -70
 
 
 # This function resets the turning servo of the car back to 0
@@ -78,8 +81,17 @@ def slow_turn_left():
     car.forward(0)
 
 
+def turn_left():
+    global leftTurnTime
+    global leftTurnPower
+    
+    car.forward(0)  # stop the car 
+    car.set_dir_servo_angle(-70) # rotate servo angle to the left 
+    car.forward(30)
+    time.sleep(leftTurnTime)
+
 def main():
-    slow_turn_left()
+    turn_left()
     car.forward(0)
 
 car = Picarx()
