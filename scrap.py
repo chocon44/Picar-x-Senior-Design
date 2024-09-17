@@ -13,7 +13,7 @@ rightTurnPower = 5
 rightTurnTime = 0.7
 rightTurnAngle = 50
 
-leftTurnPower = 5
+leftTurnPower = 30
 leftTurnTime = 0.7
 leftTurnAngle = -90
 
