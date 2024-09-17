@@ -87,12 +87,12 @@ def turn_left():
     
     car.forward(0)  # stop the car 
     car.set_dir_servo_angle(-70) # rotate servo angle to the left 
-    car.forward(30)
-    time.sleep(leftTurnTime)
+    car.forward(leftTurnPower)
+    time.sleep(10)
 
 def main():
     turn_left()
-    car.set_dir_servo_angle(-70)
+    car.set_dir_servo_angle(0)  # reset turning servo
     car.forward(0)
     
 
