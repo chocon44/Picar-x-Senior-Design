@@ -15,7 +15,7 @@ rightTurnAngle = 50
 
 leftTurnPower = 5
 leftTurnTime = 0.7
-leftTurnAngle = -70
+leftTurnAngle = -90
 
 
 # This function resets the turning servo of the car back to 0
@@ -89,6 +89,8 @@ def turn_left():
     car.set_dir_servo_angle(-70) # rotate servo angle to the left 
     car.forward(leftTurnPower)
     time.sleep(10)
+    car.forward(0)
+    car.set_dir_servo_angle(0)
 
 def main():
     turn_left()
