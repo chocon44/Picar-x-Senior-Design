@@ -92,7 +92,9 @@ def turn_left():
 
 def main():
     turn_left()
+    car.set_dir_servo_angle(-70)
     car.forward(0)
+    
 
 car = Picarx()
 main()
