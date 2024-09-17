@@ -14,7 +14,7 @@ rightTurnTime = 0.85
 rightTurnAngle = 90
 
 leftTurnPower = 50
-leftTurnTime = 1.2
+leftTurnTime = 1
 leftTurnAngle = -120
 
 
