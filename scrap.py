@@ -9,9 +9,9 @@ import time
 
 path = []
 power = 30      # standard power for car going straight 
-rightTurnPower = 5
+rightTurnPower = 50
 rightTurnTime = 0.7
-rightTurnAngle = 50
+rightTurnAngle = 90
 
 leftTurnPower = 50
 leftTurnTime = 1.5
@@ -100,12 +100,20 @@ def turn_left():
     time.sleep(leftTurnTime)
     reset_turn_servo
 
+def turn_right():
+    global rightTurnTime
+    global rightTurnPower
 
+    car.forward(0)  # stop the car 
+    car.set_dir_servo_angle(rightTurnAngle) # rotate servo angle to the right 
+    car.forward(rightTurnPower)
+    time.sleep(rightTurnTime)
+    reset_turn_servo
 
 
 def main():
     turn_left()
-    car.set_dir_servo_angle(0)  # reset turning servo
+   
     car.forward(0)
     
 
