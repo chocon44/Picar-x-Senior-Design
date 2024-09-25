@@ -7,7 +7,7 @@ def main():
     car = Picarx()
     #car.forward(30)
     #time.sleep(1)
-    car.pivotRight(70)
+    car.right(30)
     time.sleep(1)
     car.stop()
 
