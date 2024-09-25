@@ -8,7 +8,7 @@ def main():
     #car.forward(30)
     #time.sleep(1)
     car.right(30)
-    time.sleep(1)
+    time.sleep(2)
     car.stop()
 
 
