@@ -12,7 +12,7 @@ def main():
     car.stop()
     time.sleep(1)
     car.right(30)
-    time.sleep(2)
+    time.sleep(1.8)
     car.stop()
 
 main()
