@@ -11,5 +11,5 @@ def main():
     #time.sleep(1)
     car.stop()
 
-car = Picarx()
+
 main()
