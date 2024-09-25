@@ -1,6 +1,6 @@
 
 from pi_folder import Picarx
-=======
+
 
 import math
 
