@@ -6,9 +6,10 @@ import time
 
 def test_ultra():
     car = Picarx()
-    car.set_cam_ultra_angle(90)
-    time.sleep(1)
-    car.set_cam_ultra_angle(-90)
+    car.set_cam_pan_angle(x_angle)
+    #car.set_cam_ultra_angle(90)
+    #time.sleep(1)
+    #car.set_cam_ultra_angle(-90)
 
 def main():
     car = Picarx()
