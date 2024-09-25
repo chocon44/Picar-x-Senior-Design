@@ -1,3 +1,6 @@
+# THIS ROOT FILE HAS BEEN MODIFIED ON 9/24/24
+# THE ACTUAL ROOT FILE IS LOCATED IN PICAR-X/PICARX/PICARX.PY
+
 from robot_hat import Pin, ADC, PWM, Servo, fileDB
 from robot_hat import Grayscale_Module, Ultrasonic, utils, Motors
 import time
