@@ -1,3 +1,6 @@
+# LAST UPDATED 9/26 
+# FILE LOCATED IN /PICAR-X/PICARX
+
 from robot_hat import Pin, ADC, PWM, Servo, fileDB
 from robot_hat import Grayscale_Module, Ultrasonic, utils
 import time
@@ -162,7 +165,7 @@ class Picarx(object):
         self.config_flie.set("picarx_cam_pan_servo", "%s"%value)
         self.cam_pan.angle(value)
         
-     def cam_ultra_servo_calibrate(self, value):                # ADDED ULTRA
+    def cam_ultra_servo_calibrate(self, value):                # ADDED ULTRA
         self.cam_ultra_cali_val = value
         self.config_flie.set("picarx_cam_ultra_servo", "%s"%value)
         self.cam_ultra.angle(value)
