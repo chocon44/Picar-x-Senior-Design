@@ -39,6 +39,8 @@ cd picar-x/picarx/
 
 ------- PATH TO WORKSPACE -------------
 cd Picar-x-Senior-Design
+cd ~/Picar-x-Senior-Design
+
 
 
 ----- AFTER MODIFYING PICARX.PY -----
