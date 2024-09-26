@@ -7,6 +7,12 @@ from picarx import Picarx
 import math
 import time
 
+from pydoc import text
+
+import threading
+import readchar
+import os
+
 
 car = Picarx()
 
@@ -30,22 +36,21 @@ def ultra():    # passed
         time.sleep(0.5)
         angle += 10
 
+flag_color = True
 def camera():
-    Vilib.camera_start()
-    Vilib.display()
-    Vilib.color_detect("red")
-    if Vilib.detect_obj_parameter['color_n']!=0:
-        coordinate_x = Vilib.detect_obj_parameter['color_x']
-        coordinate_y = Vilib.detect_obj_parameter['color_y']
+    global flag_color
+    
+    Vilib.camera_start(vflip=False,hflip=False)
+    Vilib.display(local=True,web=True)
+    print(manual)
 
-        # change the pan-tilt angle for track the object
-        x_angle +=(coordinate_x*10/640)-5
-        x_angle = clamp_number(x_angle,-35,35)
-        car.set_cam_pan_angle(x_angle)
-
-        y_angle -=(coordinate_y*10/480)-5
-        y_angle = clamp_number(y_angle,-35,35)
-        car.set_cam_tilt_angle(y_angle)
+    if flag_color is True:
+        if Vilib.detect_obj_parameter['color_n'] == 0:
+            print('Color Detect: None')
+        else:
+            color_coodinate = (Vilib.detect_obj_parameter['color_x'],Vilib.detect_obj_parameter['color_y'])
+            color_size = (Vilib.detect_obj_parameter['color_w'],Vilib.detect_obj_parameter['color_h'])
+            print("[Color Detect] ","Coordinate:",color_coodinate,"Size",color_size)
 
 
 def main():
