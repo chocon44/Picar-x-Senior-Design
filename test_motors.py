@@ -18,7 +18,6 @@ def test_motors():
     car.stop()
 
 def main():
-    car = Picarx()
     
     test_motors()
    
