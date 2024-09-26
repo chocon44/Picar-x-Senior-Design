@@ -54,8 +54,7 @@ class Picarx(object):
         self.cam_pan = Servo(servo_pins[0])
         self.cam_tilt = Servo(servo_pins[1])   
         self.dir_servo_pin = Servo(servo_pins[2])
-        #### SET UP PIN FOR ULTRASONIC SERVO HERE ####
-        self.ultra_servo = Servo(servo_pins[3])
+       
 
         # get calibration values
         self.dir_cali_val = float(self.config_flie.get("picarx_dir_servo", default_value=0))
