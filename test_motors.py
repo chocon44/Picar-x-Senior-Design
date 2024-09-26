@@ -11,18 +11,22 @@ def test_ultra():
     #time.sleep(1)
     #car.set_cam_ultra_angle(-90)
 
+def test_motors():
+    car = Picarx()
+    
+    car.left(30)
+    time.sleep(2)
+    car.stop()
+    time.sleep(1)
+    car.right(30)
+    time.sleep(1.8)
+    car.stop()
+
 def main():
     car = Picarx()
     
-    #car.left(30)
-    #time.sleep(2)
-    #car.stop()
-    #time.sleep(1)
-    #car.right(30)
-    #time.sleep(1.8)
-    #car.stop()
-
-    test_ultra()
+    test_motors()
+    #test_ultra()
 
 main()
 car = Picarx()
