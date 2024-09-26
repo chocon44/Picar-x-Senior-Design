@@ -1,0 +1,102 @@
+-- Raspberry pi 3
+current OS image Legacy 32-bit
+hostname: raspberrypi (raspberrypi.local)
+username: picar
+password: 1234
+wifi
+ssid: picarx
+password:12341234
+
+-- Raspberry pi 4
+current OS image Legacy 32-bit
+hostname: raspberrypi4 (raspberrypi4.local)
+username: picar4
+password: 1234
+wifi
+	SSID: TP-Link_7813
+	PIN: 57631301
+
+--- Video from previous group
+https://www.youtube.com/watch?v=E5JR1wnvWe8
+
+
+
+ping -4 raspberrypi.local 
+ping -4 raspberrypi4.local 
+
+ssh picar@raspberrypi.local 
+ssh picar4@raspberrypi4.local 
+
+---- GITHUB CREDEENTIALS ---------
+PiplupMantis
+9/24 token: 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
+
+
+
+-------- PATH TO PICARX.PY ROOT FILE ---------
+
+cd picar-x/picarx/
+
+------- PATH TO WORKSPACE -------------
+cd Picar-x-Senior-Design
+
+
+----- AFTER MODIFYING PICARX.PY -----
+cd ~/picar-x
+sudo python3 setup.py install
+
+
+
+------------ TO MAKE IT RUN ON COMMAND LINE ----------------
+
+ssh picar4@raspberrypi4.local sudo python3 ~/Picar-x-Senior-Design/test_motors.py
+
+
+
+Password: 1234 
+cd 
+cd ~/picar-x/example/ 
+
+    Navigate to the repository directory: cd repository 
+
+    Pull the Latest Changes (Optional but Recommended): Before making new changes, it's a good practice to pull the latest changes from the remote repository to ensure your local repository is up to date: 
+
+
+
+- Navigate to cd Picar-x-Senior-Design
+
+    git pull origin main 
+
+    Nano file_name.py or .txt 
+
+    git add file_name.py 
+
+    git add .  (before commit)
+
+    git commit -m "Your commit message" (before push)
+
+    git push origin main (replace main with the appropriate branch name if it's different.) 
+
+
+- to run code: python3 name.py
+
+** To use when pull command fails     
+find .git/objects/ -type f -empty -delete
+git fetch -p
+git fsck --full
+
+
+https://docs.sunfounder.com/projects/picar-x/en/stable/about_robot_hat.html
+
+
+--- COPY FILE  FROM PICARX DIRECTORY TO WORKING DIRECTORY ----
+cp picar-x/picarx/picarx.py picar_stuff/SeniorDesign/.
+
+
+
+
+GRID INFORMATION: 
+block square size: 8x8
+white road width: 18 in
+
+Brian L. Mark <bmark@gmu.edu>; Michael Schroeder <mschro2@gmu.edu>; Ngoc T Le <nle34@gmu.edu>; Huy Dang <hdang24@gmu.edu>; Quynh Ngoc Vo <qvo22@gmu.edu>;Tolga Soyata <tsoyata@gmu.edu>; Cameron Nowzari <cnowzari@gmu.edu>
