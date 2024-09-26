@@ -4,12 +4,7 @@ from picarx import Picarx
 import math
 import time
 
-def test_ultra():
-    car = Picarx()
-    #car.set_cam_pan_angle(x_angle)
-    #car.set_cam_ultra_angle(90)
-    #time.sleep(1)
-    #car.set_cam_ultra_angle(-90)
+
 
 def test_motors():
     car = Picarx()
@@ -26,7 +21,7 @@ def main():
     car = Picarx()
     
     test_motors()
-    #test_ultra()
+   
 
 main()
 car = Picarx()
