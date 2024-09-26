@@ -1,6 +1,3 @@
-# COPY OF MASTER FILE
-# 9/26 RIGHT AND LEFT PIVOT FUNCTIONS ADDED
-
 from robot_hat import Pin, ADC, PWM, Servo, fileDB
 from robot_hat import Grayscale_Module, Ultrasonic, utils
 import time
@@ -23,6 +20,8 @@ class Picarx(object):
     DIR_MAX = 30
     CAM_PAN_MIN = -90
     CAM_PAN_MAX = 90
+    CAM_ULTRA_MIN = -90     # ADDED ULTRA
+    CAM_ULTRA_MAX = 90      # ADDED ULTRA
     CAM_TILT_MIN = -35
     CAM_TILT_MAX = 65
 
@@ -36,7 +35,7 @@ class Picarx(object):
     # ultrasonic_pins: trig, echo3
     # config: path of config file
     def __init__(self, 
-                servo_pins:list=['P0', 'P1', 'P2'], 
+                servo_pins:list=['P0', 'P1', 'P2', 'P3'], 
                 motor_pins:list=['D4', 'D5', 'P12', 'P13'],
                 grayscale_pins:list=['A0', 'A1', 'A2'],
                 ultrasonic_pins:list=['D2','D3'],
@@ -54,16 +53,18 @@ class Picarx(object):
         self.cam_pan = Servo(servo_pins[0])
         self.cam_tilt = Servo(servo_pins[1])   
         self.dir_servo_pin = Servo(servo_pins[2])
-       
+        self.cam_ultra = Servo(servo_pins[3])    #### SET UP PIN FOR ULTRASONIC SERVO HERE ####
 
         # get calibration values
         self.dir_cali_val = float(self.config_flie.get("picarx_dir_servo", default_value=0))
         self.cam_pan_cali_val = float(self.config_flie.get("picarx_cam_pan_servo", default_value=0))
+        self.cam_ultra_cali_val = float(self.config_flie.get("picarx_cam_pan_servo", default_value=0))      # ADDED ULTRA
         self.cam_tilt_cali_val = float(self.config_flie.get("picarx_cam_tilt_servo", default_value=0))
         # set servos to init angle
         self.dir_servo_pin.angle(self.dir_cali_val)
         self.cam_pan.angle(self.cam_pan_cali_val)
-        self.cam_tilt.angle(self.cam_tilt_cali_val)
+        self.cam_ultra.angle(self.cam_ultra_cali_val)    # ADDED ULTRA
+        self.cam_tilt.angle(self.cam_tilt_cali_val) 
 
         # --------- motors init ---------
         self.left_rear_dir_pin = Pin(motor_pins[0])
@@ -160,6 +161,11 @@ class Picarx(object):
         self.cam_pan_cali_val = value
         self.config_flie.set("picarx_cam_pan_servo", "%s"%value)
         self.cam_pan.angle(value)
+        
+     def cam_ultra_servo_calibrate(self, value):                # ADDED ULTRA
+        self.cam_ultra_cali_val = value
+        self.config_flie.set("picarx_cam_ultra_servo", "%s"%value)
+        self.cam_ultra.angle(value)
 
     def cam_tilt_servo_calibrate(self, value):
         self.cam_tilt_cali_val = value
@@ -169,6 +175,10 @@ class Picarx(object):
     def set_cam_pan_angle(self, value):
         value = constrain(value, self.CAM_PAN_MIN, self.CAM_PAN_MAX)
         self.cam_pan.angle(-1*(value + -1*self.cam_pan_cali_val))
+        
+    def set_cam_ultra_angle(self, value):                       # ADDED ULTRA
+        value = constrain(value, self.CAM_ULTRA_MIN, self.CAM_ULTRA_MAX)
+        self.cam_ultra.angle(-1*(value + -1*self.cam_ultra_cali_val))
 
     def set_cam_tilt_angle(self,value):
         value = constrain(value, self.CAM_TILT_MIN, self.CAM_TILT_MAX)
