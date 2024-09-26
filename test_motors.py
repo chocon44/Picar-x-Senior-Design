@@ -19,6 +19,7 @@ def test_motors():
 
 def ultra():
     car = Picarx()
+    time.sleep(3)
     angle = -90
     while (angle <= 90):
         car.set_cam_ultra_angle(angle)
