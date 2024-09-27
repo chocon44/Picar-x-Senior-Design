@@ -33,8 +33,12 @@ def ultra():    # passed
     angle = -90
     while (angle <= 90):
         car.set_cam_ultra_angle(angle)
-        time.sleep(0.5)
+        #time.sleep(0.5)
         angle += 10
+    time.sleep(1)
+    while(angle >= -90):
+        car.set_cam_ultra_angle(angle)
+        angle -=10
 
 flag_color = True
 def camera():
@@ -56,8 +60,8 @@ def camera():
 def main():
     car = Picarx()
     #test_motors() 
-    #ultra() 
-    camera()
+    ultra() 
+    #camera()
 
 main()
 
