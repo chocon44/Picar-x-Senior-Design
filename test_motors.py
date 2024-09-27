@@ -40,21 +40,7 @@ def ultra():    # passed
         car.set_cam_ultra_angle(angle)
         angle -=10
 
-flag_color = True
-def camera():
-    global flag_color
-    
-    Vilib.camera_start(vflip=False,hflip=False)
-    Vilib.display(local=True,web=True)
-    print(manual)
 
-    if flag_color is True:
-        if Vilib.detect_obj_parameter['color_n'] == 0:
-            print('Color Detect: None')
-        else:
-            color_coodinate = (Vilib.detect_obj_parameter['color_x'],Vilib.detect_obj_parameter['color_y'])
-            color_size = (Vilib.detect_obj_parameter['color_w'],Vilib.detect_obj_parameter['color_h'])
-            print("[Color Detect] ","Coordinate:",color_coodinate,"Size",color_size)
 
 
 def main():
