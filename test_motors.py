@@ -8,7 +8,7 @@ import math
 import time
 
 
-car = Picarx()
+
 
 def test_motors():  # passed
     car = Picarx()
@@ -44,5 +44,5 @@ def main():
     #camera()
 
 main()
-
+car = Picarx()
 car.stop()
