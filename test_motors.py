@@ -25,16 +25,7 @@ def ultra():    # passed
     car = Picarx()
     time.sleep(3)
     angle = -90
-    car.set_cam_pan_angle(angle)
     
-    #while (angle <= 90):
-    #    car.set_cam_ultra_angle(angle)
-    #    time.sleep(0.5)
-    #    angle += 10
-    #time.sleep(1)
-    #while(angle >= -90):
-    #    car.set_cam_ultra_angle(angle)
-    #    angle -=10
 
 
 
