@@ -2,16 +2,10 @@
 # ANGLES DEPEND ON TIME.SLEEP()
 # ADDED ULTRA SERVO SUCCESSFULLY
 
-from vilib import Vilib
+
 from picarx import Picarx
 import math
 import time
-
-from pydoc import text
-
-import threading
-import readchar
-import os
 
 
 car = Picarx()
