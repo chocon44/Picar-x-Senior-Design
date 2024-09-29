@@ -112,6 +112,15 @@ def visualize_path_text(grid_size: int, path: List[Tuple[int, int]]) -> str:
     grid[path[-1][0]][path[-1][1]] = 'E'  # End
     return '\n'.join(''.join(row) for row in grid)
 
+power = 50
+
+def Mobilize(starting, ending, path_list):
+    global power 
+
+    # Check original orientation
+    
+
+
 def main():
     grid_size = 20
     grid = np.zeros((grid_size, grid_size))  # Create an empty grid
@@ -119,8 +128,13 @@ def main():
     start = np.array([9, 19])  # Starting position
     end = np.array([4, 19])  # Ending position
     
-    path = astar(start, end, grid)
+    path = astar(start, end, grid)      # shortest path list here
     
+    Mobilize(start,end,path)  # mobilize the car to destination
+
+
+    # Printing path and grid
+
     if path:
         print("Shortest path found:")
         for x, y in path:
@@ -130,6 +144,8 @@ def main():
         print(visualize_path_text(grid_size, path))
     else:
         print("No path found.")
+
+    
 
 if __name__ == "__main__":
     main()
