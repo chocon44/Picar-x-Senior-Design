@@ -219,8 +219,11 @@ def Mobilize(starting, ending, path_list):
         down = 0
         left = 0
         right = 1
+<<<<<<< HEAD
+   
+=======
 
-    # testing printing
+=======
     x1 = path[i][0][0]
     x2 = path[j][0][0]
     y1 = path[i][1][1]
@@ -231,6 +234,7 @@ def Mobilize(starting, ending, path_list):
     print("x2: ", x2)
     print("y2: ", y2)
 
+>>>>>>> 122beed472843ae06d97ffaeeb833f01f3fc1d05
     #-----  Moving the car -------# READ FROM DATABASE
     
     
