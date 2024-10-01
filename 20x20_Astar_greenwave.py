@@ -171,7 +171,7 @@ def Mobilize(starting, ending, path_list):
     while (i+1 < len(path_list)):
         path[dummy].append(path_list[i])
         path[dummy].append(path_list[i+1])
-        i+=1
+        i+=2
         dummy+=1
 
     # store initial coordinates 
@@ -221,7 +221,7 @@ def Mobilize(starting, ending, path_list):
         right = 1
 
    #######################################3
-    for i in path:
+    for i in path_list:
         print(i)
 
 
