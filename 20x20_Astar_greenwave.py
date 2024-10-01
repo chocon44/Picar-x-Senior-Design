@@ -234,10 +234,10 @@ def Mobilize(starting, ending, path_list):
     j = i+1
     while j < len(path):
         
-        startX = path_list[i][0]
-        startY = path_list[i][1]
-        endX = path[j][0]
-        endY = path[j][1]
+        startX = int(path_list[i][0])
+        startY = int(path_list[i][1])
+        endX = int(path[j][0])
+        endY = int(path[j][1])
         
         xdiff = abs(endX-startX)
         ydiff = abs(endY - startY)
