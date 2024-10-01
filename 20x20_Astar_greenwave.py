@@ -346,10 +346,10 @@ def main():
     #------ Sending to firebase ---------#
     
     data = {
-    "Starting x coordinate": start[0],
-    "Starting y coordinate": start[1],
-    "Ending x coordinate": end[0],
-    "Ending y coordinate" : end[1]}
+    "Starting x coordinate": 9,
+    "Starting y coordinate": 19,
+    "Ending x coordinate": 4,
+    "Ending y coordinate" : 19}
     
     database.child("Picarx4").child("Coordinates").set(data)
     database.child("Picarx4").child("Push data").push(data)
