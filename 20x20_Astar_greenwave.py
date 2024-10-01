@@ -220,7 +220,7 @@ def Mobilize(starting, ending, path_list):
         left = 0
         right = 1
     # testing printing
-    print("x1: ",path[0][0])
+    print("x1: ",path[0][0][0])
     
     #-----  Moving the car -------# READ FROM DATABASE
     
