@@ -356,7 +356,7 @@ def main():
     
     time.sleep(3)
     
-    #Mobilize(start,end,path)    # drive the car to destination
+    Mobilize(start,end,path)    # drive the car to destination
 
 
 
