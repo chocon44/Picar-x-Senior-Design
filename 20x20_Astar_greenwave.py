@@ -234,15 +234,15 @@ def Mobilize(starting, ending, path_list):
     j = i+1
     while j < len(path):
         
-        startX = int(path_list[i][0])
-        startY = int(path_list[i][1])
-        endX = int(path[j][0])
-        endY = int(path[j][1])
+        startX = path_list[i][0]
+        startY = path_list[i][1]
+        endX = path[j][0]
+        endY = path[j][1]
         
         xdiff = abs(endX-startX)
         ydiff = abs(endY - startY)
 
-        if (endX < startX):     # want to go left ...
+        if (int(endX) < int(startX)):    n # want to go left ...
         
             # checking orientation 
             if (up == 1):       # facing up, turn left then go forward 
