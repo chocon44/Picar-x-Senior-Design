@@ -221,8 +221,8 @@ def Mobilize(starting, ending, path_list):
         right = 1
 
    #######################################3
-    for i in path_list:
-        print(i)
+    print("First coordinate: ",path_list[0])
+    print("First x: ", path_list[0][0])
 
 
     #-----  Moving the car -------# READ FROM DATABASE
