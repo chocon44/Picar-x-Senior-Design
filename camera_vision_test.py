@@ -1,3 +1,5 @@
+# This test is successful
+
 from picarx import Picarx
 from time import sleep
 from vilib import Vilib
@@ -9,7 +11,7 @@ def clamp_number(num,a,b):
 
 def main():
     Vilib.camera_start()
-    Vilib.display()      # display camera feed, try turning this off 
+    Vilib.display()      # display camera feed, can turn display off 
     Vilib.color_detect("red")
     speed = 50
     dir_angle=0
