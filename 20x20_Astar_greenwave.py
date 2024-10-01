@@ -163,7 +163,8 @@ def Mobilize(starting, ending, path_list):
     
     start = []
     # new 2d list to store all coordinates
-    path = [[] for i in range(len(path_list)-1)]
+    size = int(len(path_list)/2)
+    path = [[] for i in range(size)]
     # copy all nodes in path_list to path as sub lists 
     i = 0
     dummy = 0
