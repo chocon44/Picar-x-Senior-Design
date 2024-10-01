@@ -343,7 +343,7 @@ def main():
 
     # Test printing
     for coor in path:
-        print coor
+        print (coor)
         
     
     #------ Sending to firebase ---------#
