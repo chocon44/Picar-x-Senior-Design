@@ -5,7 +5,7 @@ from vilib import Vilib
 px = Picarx()
 
 def clamp_number(num,a,b):
-return max(min(num, max(a, b)), min(a, b))
+    return max(min(num, max(a, b)), min(a, b))
 
 def main():
     Vilib.camera_start()
@@ -16,18 +16,24 @@ def main():
     x_angle =0
     y_angle =0
     while True:
-        if Vilib.detect_obj_parameter['color_n']!=0:
+        if Vilib.detect_obj_parameter['color_n']!=0:        # if red is detected
             coordinate_x = Vilib.detect_obj_parameter['color_x']
             coordinate_y = Vilib.detect_obj_parameter['color_y']
-
+            # stop the car 
+            px.stop()
+        else:
+            # go forward 
+            px.forward(30)
+            
+            
             # change the pan-tilt angle for track the object
-            x_angle +=(coordinate_x*10/640)-5
-            x_angle = clamp_number(x_angle,-35,35)
-            px.set_cam_pan_angle(x_angle)
+            # x_angle +=(coordinate_x*10/640)-5
+            # x_angle = clamp_number(x_angle,-35,35)
+            # px.set_cam_pan_angle(x_angle)
 
-            y_angle -=(coordinate_y*10/480)-5
-            y_angle = clamp_number(y_angle,-35,35)
-            px.set_cam_tilt_angle(y_angle)
+            # y_angle -=(coordinate_y*10/480)-5
+            # y_angle = clamp_number(y_angle,-35,35)
+            # px.set_cam_tilt_angle(y_angle)
 
             # move
             # The movement direction will change slower than the pan/tilt direction
@@ -40,17 +46,19 @@ def main():
             #px.forward(speed)
             #sleep(0.05)
 
-        else :
+        #else :
             #px.forward(0)
             #sleep(0.05)
-            print("No red detected")
-
+            #print("No red detected")
+            
 
 if __name__ == "__main__":
     try:
-    main()
+        main()
 
     finally:
+        px.set_cam_pan_angle(0)
+        px.set_cam_tilt_angle(0)
         px.stop()
         print("stop and exit")
         sleep(0.1)
