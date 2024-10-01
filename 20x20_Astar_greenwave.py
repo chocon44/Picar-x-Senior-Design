@@ -187,22 +187,22 @@ def Mobilize(starting, ending, path_list):
 
     # Check orientation of the car originally 
    
-    if (starting in down_list):
+    if (starting in down_list).any():
         up = 0
         down = 1
         left = 0
         right = 0
-    elif (starting in up_list):
+    elif (starting in up_list).any():
         up = 1
         down = 0
         left = 0
         right = 0
-    elif (starting in left_list):
+    elif (starting in left_list).any():
         up = 0
         down = 0
         left = 1
         right = 0
-    elif (starting in right_list):
+    elif (starting in right_list).any():
         up = 0
         down = 0
         left = 0
