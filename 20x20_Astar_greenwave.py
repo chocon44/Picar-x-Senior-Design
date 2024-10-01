@@ -162,14 +162,30 @@ def Mobilize(starting, ending, path_list):
     global power 
     
     start = []
+    # new 2d list to store all coordinates
+    path = [[] for i in range(len(path_list)-1)]
+    # copy all nodes in path_list to path as sub lists 
+    i = 0
+    dummy = 0
+    while (i+1 < len(path_list)):
+        path[dummy].append(path_list[i])
+        path[dummy].append(path_list[i+1])
+        i+=2
+        dummy+=1
 
     # read initial coordinates 
-    startX = starting[0]
-    startY = starting[1] 
-    start.append(starting[0]) 
-    start.append(starting[1])
-    endX = ending[0] 
-    endY = ending[1] 
+    start = [] 
+    start.append(path[0])
+    startX = path[0]
+    startY = path[1]
+    start.append(path[1])
+
+    end = []
+    end.append(path[-1])
+    endX = path[-1]
+    endY = path[-2]
+    end.append(path[-2])
+
     
     xdiff = abs(endX - startX)
     ydiff = abs(endY - startY)
@@ -217,7 +233,7 @@ def Mobilize(starting, ending, path_list):
     
     i = 0
     j = i+1
-    while j < len(path_list):
+    while j < len(path):
         
         if (endX < startX):     # want to go left ...
         
