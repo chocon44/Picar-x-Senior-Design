@@ -268,7 +268,7 @@ def Mobilize(starting, ending, path_list):
             left = 1
             right = 0
         
-        elif (endX > startX):   # want to go right ...
+        elif (endX > startX).all():   # want to go right ...
             # checking orientation 
             if (up == 1):       # facing up, turn right then go forward 
                 car.right(turnPower)
@@ -295,7 +295,7 @@ def Mobilize(starting, ending, path_list):
         
         else:       # when endX = startX, go either up or down .... 
         
-            if (endY > startY):     # want to go up...
+            if (endY > startY).all():     # want to go up...
                 # check orientation 
                 if (up == 1):   # just go forward 
                     car.forward(power)
@@ -315,7 +315,7 @@ def Mobilize(starting, ending, path_list):
                 left = 0
                 right = 0
             
-            elif (endY < startY):   # want to go down...
+            elif (endY < startY).all():   # want to go down...
                 # check orientation 
                 if (up == 1):   # facing up, print error 
                     print("Error: Facing up going down")
