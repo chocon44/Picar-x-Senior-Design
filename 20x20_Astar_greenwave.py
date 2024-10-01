@@ -222,9 +222,11 @@ def Mobilize(starting, ending, path_list):
 
    #######################################3
     print("First coordinate: ",path_list[0])
-    print("First x: ", path_list[0][0])
-
-
+    print("x1: ", path_list[0][0])
+    print("y1: ",path_list[0][1])
+    print("x1: ", path_list[-1][0])
+    print("y1: ", path_list[-1][1])
+    
     #-----  Moving the car -------# READ FROM DATABASE
     
     
@@ -232,7 +234,7 @@ def Mobilize(starting, ending, path_list):
     j = i+1
     while j < len(path):
         
-        #x1 = path[i][0][0]
+        x1 = path_list
         #x2 = path[j][0][0]
         #y1 = path[i][1][1]
         #y2 = path[j][1][1]
