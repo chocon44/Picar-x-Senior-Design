@@ -340,7 +340,10 @@ def main():
         print(visualize_path_text(grid_size, path))
     else:
         print("No path found.")
-        
+
+    # Test printing
+    for coor in path:
+        print coor
         
     
     #------ Sending to firebase ---------#
