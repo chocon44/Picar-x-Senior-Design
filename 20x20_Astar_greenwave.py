@@ -229,10 +229,10 @@ def Mobilize(starting, ending, path_list):
     j = i+1
     while j < len(path):
         
-        x1 = path[i][0]
-        x2 = path[j][0]
-        y1 = path[i][1]
-        y2 = path[j][1]
+        x1 = int(path[i][0])
+        x2 = int(path[j][0])
+        y1 = int(path[i][1])
+        y2 = int(path[j][1])
         
         xdiff = abs(x2-x1)
         ydiff = abs(y2 - y1)
