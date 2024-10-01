@@ -174,22 +174,15 @@ def Mobilize(starting, ending, path_list):
         i+=2
         dummy+=1
 
-    # read initial coordinates 
+    # store initial coordinates 
     start = [] 
-    start.append(path[0])
-    startX = path[0][0]
-    startY = path[0][1]
-    start.append(path[1])
-
+    start.append(path[0][0])
+    start.append(path[0][1])
+    # store ending coordinates
     end = []
-    end.append(path[-1])
-    endX = path[-1][0]
-    endY = path[-1][1]
-    end.append(path[-2])
+    end.append(path[-1][0])
+    end.append(path[-1][1])
 
-    
-    xdiff = abs(endX - startX)
-    ydiff = abs(endY - startY)
     
     
     # list of coordinates that have named original orientation 
@@ -211,17 +204,17 @@ def Mobilize(starting, ending, path_list):
         down = 1
         left = 0
         right = 0
-    elif (starting in up_list):
+    elif (start in up_list):
         up = 1
         down = 0
         left = 0
         right = 0
-    elif (starting in left_list):
+    elif (start in left_list):
         up = 0
         down = 0
         left = 1
         right = 0
-    elif (starting in right_list):
+    elif (start in right_list):
         up = 0
         down = 0
         left = 0
@@ -235,6 +228,14 @@ def Mobilize(starting, ending, path_list):
     i = 0
     j = i+1
     while j < len(path):
+        
+        x1 = path[i][0]
+        x2 = path[j][0]
+        y1 = path[i][1]
+        y2 = path[j][1]
+        
+        xdiff = abs(x2 - x1)
+        ydiff = abs(y2 - y1)
         
         if (endX < startX):     # want to go left ...
         
