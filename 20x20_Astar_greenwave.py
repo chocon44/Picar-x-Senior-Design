@@ -234,9 +234,9 @@ def Mobilize(starting, ending, path_list):
         y1 = path[i][1]
         y2 = path[j][1]
         
-        xdiff = abs(x2 - x1)
+        xdiff = abs(x2-x1)
         ydiff = abs(y2 - y1)
-        
+
         if (endX < startX):     # want to go left ...
         
             # checking orientation 
