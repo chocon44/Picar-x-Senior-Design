@@ -159,6 +159,10 @@ def Mobilize(starting, ending, path_list):
     global turnPower
     global power 
     
+    # testing printing starting
+    for i in starting:
+        print(i)
+
     # read initial coordinates 
     startX = starting[0]
     startY = starting[1] 
@@ -183,7 +187,6 @@ def Mobilize(starting, ending, path_list):
 
     # Check orientation of the car originally 
    
-
     if (starting in down_list):
         up = 0
         down = 1
@@ -213,8 +216,6 @@ def Mobilize(starting, ending, path_list):
     i = 0
     j = i+1
     while j < len(path_list):
-        
-        
         
         if (endX < startX):     # want to go left ...
         
@@ -344,9 +345,6 @@ def main():
     else:
         print("No path found.")
 
-    # Test printing
-    for coor in path:
-        print (coor)
         
     
     #------ Sending to firebase ---------#
