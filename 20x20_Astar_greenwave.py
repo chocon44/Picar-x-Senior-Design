@@ -242,7 +242,7 @@ def Mobilize(starting, ending, path_list):
         xdiff = abs(endX-startX)
         ydiff = abs(endY - startY)
 
-        if (int(endX) < int(startX)):     # want to go left ...
+        if (endX < startX).all():     # want to go left ...
         
             # checking orientation 
             if (up == 1):       # facing up, turn left then go forward 
