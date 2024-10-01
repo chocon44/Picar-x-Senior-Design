@@ -10,6 +10,12 @@
     # - Can only start at the following coordinates: 
     #    (0,9), (0,19), (4,0), (14,0), (19,4), (19,9),(19,14),(19,19), (0,19),(4,19),(9,19),(14,19), (19,19)
 # Moving in X and Y directions using xdiff and ydiff
+
+#Notes: 1. Connection with firebase, retrieve and send data to firebase 
+    #    2. Where to place redlight and obstacle sensing function -- may have to split mobilize function
+    #    3. Stabilize picamera with screws 
+    #    4. Mount ultrasonic sensor onto servo
+
 # Last updated: 9/30
 
 
@@ -19,6 +25,7 @@ import time
 import numpy as np
 import heapq
 from typing import List, Tuple
+from vilib import Vilib
 import pyrebase
 
 
@@ -150,6 +157,49 @@ def visualize_path_text(grid_size: int, path: List[Tuple[int, int]]) -> str:
     return '\n'.join(''.join(row) for row in grid)
 
 
+# 2D list storing intersection coordinates
+intersections = [[4,4],[4,9],[4,14],[4,19],
+                [9,4],[9,9],[9,14],[9,19], 
+                [14,4],[14,9],[14,14],[14,19],
+                [19,4],[19,9],[19,14],[19,19] ]
+approaching_intersection = [[3,4],[3,9],[3,14],[3,19],
+                        [8,4],[8,9],[8,14],[8,19], 
+                        [13,4],[13,9],[13,14],[13,19],
+                        [18,4],[18,9],[18,14],[18,19] ]
+
+# This function stops the car immediately when red is detected, 
+# will return 1 if red is detected, will return 0 if clear
+def Check_Redlight():
+    Vilib.camera_start()
+    Vilib.display()             # display camera feed, can turn display off when on router
+    Vilib.color_detect("red")
+    while True:
+        if Vilib.detect_obj_parameter['color_n']!=0:        # if red is detected
+            coordinate_x = Vilib.detect_obj_parameter['color_x']
+            coordinate_y = Vilib.detect_obj_parameter['color_y']
+            # stop the car immediately
+            px.stop()
+            redlight=1
+        else:
+            redlight = 0
+    return redlight 
+
+
+# 180-degree sweep to scan for obstacle before turning and approaching intersections
+def ultra():
+    car.set_cam_ultra_angle(0)
+    time.sleep(3)
+    angle = -90
+    while (angle <= 90):
+        car.set_cam_ultra_angle(angle)
+        time.sleep(0.2)
+        angle += 10
+    while (angle >= -90):
+        car.set_cam_ultra_angle(angle)
+        time.sleep(0.2)
+        angle -= 10
+    car.set_cam_ultra_angle(0)
+
 # This function checks the car's orientation and move the car 
 def Mobilize(starting, ending, path_list):
     # This function drives the Picarx
@@ -211,19 +261,28 @@ def Mobilize(starting, ending, path_list):
     j = i+1
     while j < len(path_list):
         if (endX < startX):     # want to go left ...
-        
+            # scan for obstacle and traffic light
             # checking orientation 
             if (up == 1):       # facing up, turn left then go forward 
+                # sweep 180 degrees to check for obstacle before turning
                 car.left(turnPower)
                 time.sleep(leftTurnTime)
+
+                # check light continuously before moving forward
                 car.forward(power)
                 time.sleep(xdiff)
+
             elif (down == 1):   # facing down, turn right then go forward
+                # sweep 180 degrees to check for obstacle before turning
                 car.right(power)
                 time.sleep(rightTurnTime)
+
+                # check light continuously before moving forward
                 car.forward(power)
                 time.sleep(xdiff)
+
             elif (left == 1):   # go forward only
+                # check light continuously before moving forward
                 car.forward(power)
                 time.sleep(xdiff)
             else:               # facing right, error
@@ -311,13 +370,6 @@ def Mobilize(starting, ending, path_list):
         return      # end of Mobilize function 
         
 
-# this function returns a value for color of traffic light detected
-def Camera_Vision():
-    
-    
-    
-    
-    return light 
 
 def main():
     grid_size = 20
