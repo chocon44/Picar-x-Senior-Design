@@ -210,6 +210,9 @@ def Mobilize(starting, ending, path_list):
     i = 0
     j = i+1
     while j < len(path_list):
+        
+        
+        
         if (endX < startX):     # want to go left ...
         
             # checking orientation 
@@ -312,12 +315,12 @@ def Mobilize(starting, ending, path_list):
         
 
 # this function returns a value for color of traffic light detected
-def Camera_Vision():
+# def Camera_Vision():
     
     
     
     
-    return light 
+    # return light 
 
 def main():
     grid_size = 20
@@ -328,8 +331,6 @@ def main():
     
     path = astar(start, end, grid)
     
-    Mobilize(start,end,path)    # drive the car to destination
-    
     if path:
         print("Shortest path found:")
         for x, y in path:
@@ -339,10 +340,27 @@ def main():
         print(visualize_path_text(grid_size, path))
     else:
         print("No path found.")
+        
+        
+    
+    #------ Sending to firebase ---------#
+    
+    data = {
+    "Starting x coordinate": start[0],
+    "Starting y coordinate": start[1],
+    "Ending x coordinate": end[0],
+    "Ending y coordinate" : end[1]}
+    
+    database.child("Picarx4").child("Coordinates").set(data)
+    database.child("Picarx4").child("Push data").push(data)
+    
+    time.sleep(3)
+    
+    #Mobilize(start,end,path)    # drive the car to destination
 
 
 
-car = Picarx()
+
 if __name__ == "__main__":
     main()
     car.stop()
