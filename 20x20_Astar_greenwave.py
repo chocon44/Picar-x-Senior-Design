@@ -176,14 +176,14 @@ def Mobilize(starting, ending, path_list):
     # read initial coordinates 
     start = [] 
     start.append(path[0])
-    startX = path[0]
-    startY = path[1]
+    startX = path[0][0]
+    startY = path[0][1]
     start.append(path[1])
 
     end = []
     end.append(path[-1])
-    endX = path[-1]
-    endY = path[-2]
+    endX = path[-1][0]
+    endY = path[-1][1]
     end.append(path[-2])
 
     
