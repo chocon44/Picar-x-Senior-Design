@@ -166,6 +166,8 @@ def Mobilize(starting, ending, path_list):
     # read initial coordinates 
     startX = starting[0]
     startY = starting[1] 
+    start[0] = starting[0]
+    start[1] = starting[1] 
     endX = ending[0] 
     endY = ending[1] 
     
@@ -187,22 +189,22 @@ def Mobilize(starting, ending, path_list):
 
     # Check orientation of the car originally 
    
-    if (starting in down_list).any():
+    if (start in down_list):
         up = 0
         down = 1
         left = 0
         right = 0
-    elif (starting in up_list).any():
+    elif (starting in up_list):
         up = 1
         down = 0
         left = 0
         right = 0
-    elif (starting in left_list).any():
+    elif (starting in left_list):
         up = 0
         down = 0
         left = 1
         right = 0
-    elif (starting in right_list).any():
+    elif (starting in right_list):
         up = 0
         down = 0
         left = 0
