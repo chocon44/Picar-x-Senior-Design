@@ -159,15 +159,13 @@ def Mobilize(starting, ending, path_list):
     global turnPower
     global power 
     
-    # testing printing starting
-    for i in starting:
-        print(i)
+    start = []
 
     # read initial coordinates 
     startX = starting[0]
     startY = starting[1] 
-    start[0] = starting[0]
-    start[1] = starting[1] 
+    start.append(starting[0]) 
+    start.append(starting[1])
     endX = ending[0] 
     endY = ending[1] 
     
