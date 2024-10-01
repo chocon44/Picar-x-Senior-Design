@@ -39,12 +39,14 @@ config = {
 firebase = pyrebase.initialize_app(config)
 database = firebase.database()
 
-#------------------------------#
 
+
+
+#-------- Initialization -----------#
 
 car = Picarx()
-leftTurnTime = 1    # time to pivot turn the car left
-rightTurnTime = 1   # time to pivot turn the car right
+leftTurnTime = 1    # time to pivot turn the car left 90 degrees
+rightTurnTime = 1.5   # time to pivot turn the car right 90 degrees
 turnPower = 50  # power to pivot turn 
 power = 50      # power to go forward
 t = 1           # time for car going forward, 1 block distance
