@@ -239,8 +239,8 @@ def Mobilize(starting, ending, path_list):
         endX = path[j][0]
         endY = path[j][1]
         
-        xdiff = abs(endX-startX)
-        ydiff = abs(endY - startY)
+        xdiff = int(abs(endX-startX))
+        ydiff = int(abs(endY - startY))
 
         if (endX < startX).all():     # want to go left ...
         
