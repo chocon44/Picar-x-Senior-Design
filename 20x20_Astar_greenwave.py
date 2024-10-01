@@ -221,10 +221,10 @@ def Mobilize(starting, ending, path_list):
         right = 1
 
    #######################################3
-    x1 = path[i][0][0]
-    x2 = path[j][0][0]
-    y1 = path[i][1][1]
-    y2 = path[j][1][1]
+    x1 = path[i][0]
+    x2 = path[j][0]
+    y1 = path[i][1]
+    y2 = path[j][1]
 
     print("x1: ",x1)
     print("y1: ",y1)
