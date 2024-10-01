@@ -9,13 +9,45 @@
     # - toward greater row value (arrow right): row = 4,14
     # - Can only start at the following coordinates: 
     #    (0,9), (0,19), (4,0), (14,0), (19,4), (19,9),(19,14),(19,19), (0,19),(4,19),(9,19),(14,19), (19,19)
+# Moving in X and Y directions using xdiff and ydiff
+# Last updated: 9/30
 
 
-
-
+from picarx import Picarx 
+import math 
+import time
 import numpy as np
 import heapq
 from typing import List, Tuple
+import pyrebase
+
+
+
+#-------- Firebase -----------#
+
+config = {
+    'apiKey': "AIzaSyBL9UezOELm7LsBLvfZdlJDkhCTZQAKlx4",
+      'authDomain': "jetbot-ece-493.firebaseapp.com",
+      'projectId': "jetbot-ece-493",
+      'storageBucket': "jetbot-ece-493.appspot.com",
+      'messagingSenderId': "906874678062",
+      'appId': "1:906874678062:web:6c50c28e26fbb59c0ca8bf",
+      'databaseURL': "https://jetbot-ece-493-default-rtdb.firebaseio.com/"
+    }
+
+# Initialize Firebase
+firebase = pyrebase.initialize_app(config)
+database = firebase.database()
+
+#------------------------------#
+
+
+car = Picarx()
+leftTurnTime = 1    # time to pivot turn the car left
+rightTurnTime = 1   # time to pivot turn the car right
+turnPower = 50  # power to pivot turn 
+power = 50      # power to go forward
+t = 1           # time for car going forward, 1 block distance
 
 class Node:
     def __init__(self, position: Tuple[int, int], g: int = 0, h: int = 0, parent: 'Node' = None):
@@ -61,6 +93,7 @@ def get_neighbors(position: np.ndarray, grid: np.ndarray) -> List[np.ndarray]:
     
     return valid_neighbors
 
+# This function appends the next found node to path
 def reconstruct_path(node: Node) -> List[Tuple[int, int]]:
     # Reconstruct the path from end to start
     path = []
@@ -70,6 +103,8 @@ def reconstruct_path(node: Node) -> List[Tuple[int, int]]:
         current = current.parent
     return path[::-1]  # Reverse to get path from start to end
 
+
+# This function returns the shortest path from start to end point
 def astar(start: np.ndarray, end: np.ndarray, grid: np.ndarray) -> List[Tuple[int, int]]:
     start_node = Node(tuple(start), h=heuristic(start, end))
     open_list = [start_node]  # Priority queue of nodes to be evaluated
@@ -103,6 +138,8 @@ def astar(start: np.ndarray, end: np.ndarray, grid: np.ndarray) -> List[Tuple[in
 
     return []  # No path found
 
+
+# This function shows representation path on grid 
 def visualize_path_text(grid_size: int, path: List[Tuple[int, int]]) -> str:
     # Create a text-based visualization of the path
     grid = [['.'] * grid_size for _ in range(grid_size)]
@@ -112,14 +149,175 @@ def visualize_path_text(grid_size: int, path: List[Tuple[int, int]]) -> str:
     grid[path[-1][0]][path[-1][1]] = 'E'  # End
     return '\n'.join(''.join(row) for row in grid)
 
-power = 50
 
+# This function checks the car's orientation and move the car 
 def Mobilize(starting, ending, path_list):
+    # This function drives the Picarx
+    global leftTurnTime
+    global rightTurnTime
+    global t
+    global turnPower
     global power 
-
-    # Check original orientation
     
+    # read initial coordinates 
+    startX = starting[0]
+    startY = starting[1] 
+    endX = ending[0] 
+    endY = ending[1] 
+    
+    xdiff = abs(endX - startX)
+    ydiff = abs(endY - startY)
+    
+    
+    # list of coordinates that have named original orientation 
+    down_list = [[0,9], [0,19], [4,19], [9,19], [14,19]]
+    up_list = [[19,4], [19,14]]
+    left_list = [[19,19], [19,9]] 
+    right_list = [[4,0], [14,0]]
+    
+    # flags to indicate orientation 
+    up = 0
+    down = 0
+    left = 0
+    right = 0
+    # Check orientation of the car originally 
+    i = 0
+    for i in path_list:
+        if (path_list[i] in down_list):
+            up = 0
+            down = 1
+            left = 0
+            right = 0
+        elif (path_list[i] in up_list):
+            up = 1
+            down = 0
+            left = 0
+            right = 0
+        elif (path_list[i] in left_list):
+            up = 0
+            down = 0
+            left = 1
+            right = 0
+        elif (path_list[i] in right_list):
+            up = 0
+            down = 0
+            left = 0
+            right = 1
+    
+    #-----  Moving the car -------# READ FROM DATABASE
+    
+    
+    i = 0
+    j = i+1
+    while j < len(path_list):
+        if (endX < startX):     # want to go left ...
+        
+            # checking orientation 
+            if (up == 1):       # facing up, turn left then go forward 
+                car.left(turnPower)
+                time.sleep(leftTurnTime)
+                car.forward(power)
+                time.sleep(xdiff)
+            elif (down == 1):   # facing down, turn right then go forward
+                car.right(power)
+                time.sleep(rightTurnTime)
+                car.forward(power)
+                time.sleep(xdiff)
+            elif (left == 1):   # go forward only
+                car.forward(power)
+                time.sleep(xdiff)
+            else:               # facing right, error
+                print("Error: Facing right going left")
+                car.stop()
+            
+            # update new orientation to left 
+            up = 0
+            down = 0
+            left = 1
+            right = 0
+        
+        elif (endX > startX):   # want to go right ...
+            # checking orientation 
+            if (up == 1):       # facing up, turn right then go forward 
+                car.right(turnPower)
+                time.sleep(rightTurnTime)
+                car.forward(power)
+                time.sleep(xdiff)
+            elif (down == 1):   # facing down, turn left then go forward
+                car.left(power)
+                time.sleep(leftTurnTime)
+                car.forward(power)
+                time.sleep(xdiff)
+            elif (right == 1):   # go forward only
+                car.forward(power)
+                time.sleep(xdiff)
+            else:# left          # facing right, error
+                print("Error: Facing left going right")
+                car.stop()
+            
+            # update new orientation to left 
+            up = 0
+            down = 0
+            left = 1
+            right = 0
+        
+        else:       # when endX = startX, go either up or down .... 
+        
+            if (endY > startY):     # want to go up...
+                # check orientation 
+                if (up == 1):   # just go forward 
+                    car.forward(power)
+                    time.sleep(ydiff)
+                elif (down == 1):   # error 
+                    print("Error: Facing down going up")
+                elif (left == 1):   # facing left, turn right first 
+                    car.right(power)
+                    time.sleep(rightTurnTime)
+                else:   # facing right, turn left first 
+                    car.left(power)
+                    time.sleep(leftTurnTime)
+                    
+                # update new orientation to up 
+                up = 1
+                down = 0
+                left = 0
+                right = 0
+            
+            elif (endY < startY):   # want to go down...
+                # check orientation 
+                if (up == 1):   # facing up, print error 
+                    print("Error: Facing up going down")
+                
+                elif (down == 1):   # go forward 
+                    car.forward(power)
+                    time.sleep(ydiff)
+                    
+                elif (left == 1):   # turn left first 
+                    car.left(power)
+                    time.sleep(leftTurnTime)
+                    car.forward(power)
+                    time.sleep(ydiff)
+                    
+                else:           # turn right first 
+                    car.right(power)
+                    time.sleep(rightTurnTime)
+                    car.forward(power)
+                    time.sleep(ydiff)
+            
+            else:
+                print("Done")
+        i +=1
+        j +=1
+        return      # end of Mobilize function 
+        
 
+# this function returns a value for color of traffic light detected
+def Camera_Vision():
+    
+    
+    
+    
+    return light 
 
 def main():
     grid_size = 20
@@ -128,13 +326,10 @@ def main():
     start = np.array([9, 19])  # Starting position
     end = np.array([4, 19])  # Ending position
     
-    path = astar(start, end, grid)      # shortest path list here
+    path = astar(start, end, grid)
     
-    Mobilize(start,end,path)  # mobilize the car to destination
-
-
-    # Printing path and grid
-
+    Mobilize(start,end,path)    # drive the car to destination
+    
     if path:
         print("Shortest path found:")
         for x, y in path:
@@ -145,7 +340,9 @@ def main():
     else:
         print("No path found.")
 
-    
 
+
+car = Picarx()
 if __name__ == "__main__":
     main()
+    car.stop()
