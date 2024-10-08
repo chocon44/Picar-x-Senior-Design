@@ -393,14 +393,14 @@ def Mobilize(starting, ending, path_list):
     
     
 def GetInitials():      # just added 
-    x1 = input("Enter starting x value")
-    y1 = input("Enter starting y value")
+    x1 = input("Enter starting x value: ")
+    y1 = input("Enter starting y value: ")
     return([x1,y1])
 
 def GetEnding():
-    x2 = input("Enter ending x value")
-    y2 = input("Enter ending y value")
-    return([x1,y1])
+    x2 = input("Enter ending x value: ")
+    y2 = input("Enter ending y value: ")
+    return([x2,y2])
 
 def main():
     grid_size = 20
