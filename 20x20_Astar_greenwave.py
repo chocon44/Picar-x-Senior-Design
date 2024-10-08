@@ -69,6 +69,8 @@ class Node:
         return self.f < other.f
 
 def heuristic(a: np.ndarray, b: np.ndarray) -> float:
+    a = a.astype(float)
+    b = b.astype(float)
     # Calculate Manhattan distance between two points
     return np.abs(a[0] - b[0]) + np.abs(a[1] - b[1])
 
@@ -113,6 +115,9 @@ def reconstruct_path(node: Node) -> List[Tuple[int, int]]:
 
 # This function returns the shortest path from start to end point
 def astar(start: np.ndarray, end: np.ndarray, grid: np.ndarray) -> List[Tuple[int, int]]:
+    start = start.astype(int)
+    end = end.astype(int)
+    
     start_node = Node(tuple(start), h=heuristic(start, end))
     open_list = [start_node]  # Priority queue of nodes to be evaluated
     closed_set = set()  # Set of nodes already evaluated
@@ -186,27 +191,20 @@ def Mobilize(starting, ending, path_list):
     global power 
     global intersections 
     
-    start = []
-    # new 2d list to store all coordinates
-    size = int(len(path_list)/2)
-    path = [[] for i in range(size)]
-    # copy all nodes in path_list to path as sub lists 
-    i = 0
-    dummy = 0
-    while (i+1 < len(path_list)):
-        path[dummy].append(path_list[i])
-        path[dummy].append(path_list[i+1])
-        i+=2
-        dummy+=1
-
+     # new 2d list to store all coordinates
+    path = []
+    for coord in path_list:
+        # Convert tuple coordinates to list of integers
+        path.append([int(coord[0]), int(coord[1])])
+    
+    if not path:
+        print("Empty path provided")
+        return
+        
     # store initial coordinates 
-    start = [] 
-    start.append(path[0][0])
-    start.append(path[0][1])
+    start = path[0]
     # store ending coordinates
-    end = []
-    end.append(path[-1][0])
-    end.append(path[-1][1])
+    end = path[-1]
     
     
     # list of coordinates that have named original orientation 
@@ -260,8 +258,8 @@ def Mobilize(starting, ending, path_list):
     while j < len(path):
     
         # this is the current location of the car 
-        startX = path_list[i][0]
-        startY = path_list[i][1]
+        startX = int(path_list[i][0])
+        startY = int(path_list[i][1])
         
         #--------- Pushing current location to firebase ----------------#
         data = {"Current position" : [startX,startY]}
@@ -272,8 +270,8 @@ def Mobilize(starting, ending, path_list):
         endY = path[j][1]
         nextPos = [endX, endY]
         
-        xdiff = int(abs(endX-startX))
-        ydiff = int(abs(endY - startY))
+        xdiff = abs(endX-startX)
+        ydiff = abs(endY - startY)
         
         #----------- Traffic signal check ----------------#
         if (nextPos in intersections):  # if car is approaching intersection 
@@ -288,7 +286,7 @@ def Mobilize(starting, ending, path_list):
         
         
 
-        if (endX < startX).all():     # want to go left ...
+        if (endX < startX):     # want to go left ...
         
             # checking orientation 
             if (up == 1):       # facing up, turn left then go forward 
@@ -314,7 +312,7 @@ def Mobilize(starting, ending, path_list):
             left = 1
             right = 0
         
-        elif (endX > startX).all():   # want to go right ...
+        elif (endX > startX):   # want to go right ...
             # checking orientation 
             if (up == 1):       # facing up, turn right then go forward 
                 car.right(turnPower)
@@ -341,7 +339,7 @@ def Mobilize(starting, ending, path_list):
         
         else:       # when endX = startX, go either up or down .... 
         
-            if (endY > startY).all():     # want to go up...
+            if (endY > startY):     # want to go up...
                 # check orientation 
                 if (up == 1):   # just go forward 
                     car.forward(power)
@@ -361,7 +359,7 @@ def Mobilize(starting, ending, path_list):
                 left = 0
                 right = 0
             
-            elif (endY < startY).all():   # want to go down...
+            elif (endY < startY):   # want to go down...
                 # check orientation 
                 if (up == 1):   # facing up, print error 
                     print("Error: Facing up going down")
