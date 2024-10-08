@@ -9,8 +9,12 @@
     # - toward greater row value (arrow right): row = 4,14
     # - Can only start at the following coordinates: 
     #    (0,9), (0,19), (4,0), (14,0), (19,4), (19,9),(19,14),(19,19), (0,19),(4,19),(9,19),(14,19), (19,19)
+    # - Intersections at 
+    #    [[4,4],[4,9],[4,14],[4,19],[9,4],[9,9],[9,14],[9,19],
+    #     [14,4],[14,9],[14,14],[14,19],[19,4],[19,9],[19,14],[19,19]]
+    
 # Moving in X and Y directions using xdiff and ydiff
-# Last updated: 9/30
+# Last updated: 10/08
 
 
 from picarx import Picarx 
@@ -20,6 +24,7 @@ import numpy as np
 import heapq
 from typing import List, Tuple
 import pyrebase
+from vilib import Vilib
 
 
 
@@ -41,12 +46,12 @@ database = firebase.database()
 
 
 
+#------------- Initialize -----------------#
 
-#-------- Initialization -----------#
 
 car = Picarx()
-leftTurnTime = 1    # time to pivot turn the car left 90 degrees
-rightTurnTime = 1.5   # time to pivot turn the car right 90 degrees
+leftTurnTime = 1    # time to pivot turn the car left
+rightTurnTime = 1.5   # time to pivot turn the car right
 turnPower = 50  # power to pivot turn 
 power = 50      # power to go forward
 t = 1           # time for car going forward, 1 block distance
@@ -152,6 +157,25 @@ def visualize_path_text(grid_size: int, path: List[Tuple[int, int]]) -> str:
     return '\n'.join(''.join(row) for row in grid)
 
 
+
+# this function returns 1 if red light is detected, 0 if green light detected 
+def RedLight():
+    Vilib.camera_start()
+    #Vilib.display()        # turn display on when needed
+    Vilib.color_detect("red")
+    
+    if Vilib.detect_obj_parameter['color_n']!=0:    # if red is detected
+        car.stop()      # stop the car immediately 
+        return 1
+    else:   # if red is not detected -- green or yellow
+        return 0 
+    
+
+        
+# 2D list contains coordinates of intersections where there are traffic signals       
+intersections =[[4,4],[4,9],[4,14],[4,19],[9,4],[9,9],[9,14],[9,19],
+         [14,4],[14,9],[14,14],[14,19],[19,4],[19,9],[19,14],[19,19]]
+
 # This function checks the car's orientation and move the car 
 def Mobilize(starting, ending, path_list):
     # This function drives the Picarx
@@ -160,6 +184,7 @@ def Mobilize(starting, ending, path_list):
     global t
     global turnPower
     global power 
+    global intersections 
     
     start = []
     # new 2d list to store all coordinates
@@ -182,7 +207,6 @@ def Mobilize(starting, ending, path_list):
     end = []
     end.append(path[-1][0])
     end.append(path[-1][1])
-
     
     
     # list of coordinates that have named original orientation 
@@ -196,9 +220,8 @@ def Mobilize(starting, ending, path_list):
     down = 0
     left = 0
     right = 0
-
+    
     # Check orientation of the car originally 
-   
     if (start in down_list):
         up = 0
         down = 1
@@ -219,28 +242,51 @@ def Mobilize(starting, ending, path_list):
         down = 0
         left = 0
         right = 1
-
-   #######################################3
+    
+    #### TEST PRINTING
     print("First coordinate: ",path_list[0])
     print("x1: ", path_list[0][0])
     print("y1: ",path_list[0][1])
     print("x2: ", path_list[-1][0])
     print("y2: ", path_list[-1][1])
-
-    #-----  Moving the car -------# READ FROM DATABASE
+    
+    
+    
+    #-----  Moving the car from here to end of function -------# READ FROM DATABASE
     
     
     i = 0
     j = i+1
     while j < len(path):
-        
+    
+        # this is the current location of the car 
         startX = path_list[i][0]
         startY = path_list[i][1]
+        
+        #--------- Pushing current location to firebase ----------------#
+        data = {"Current position" : [startX,startY]}
+        database.child("Picarx4").child("Current location: ").push(data)
+        
+        # This represent the next coordinate the car is traveling to
         endX = path[j][0]
         endY = path[j][1]
+        nextPos = [endX, endY]
         
         xdiff = int(abs(endX-startX))
         ydiff = int(abs(endY - startY))
+        
+        #----------- Traffic signal check ----------------#
+        if (nextPos in intersections):  # if car is approaching intersection 
+            if (RedLight() == 0):   # if no red light is detected... continue on 
+                break;
+            else:          #  Red light is detected, continue this loop until light is green
+                while (RedLight() != 0):
+                    car.stop()
+                    time.sleep(1)
+            
+       #----------- Check for obstacle in front of the car ----------- #
+        
+        
 
         if (endX < startX).all():     # want to go left ...
         
@@ -342,21 +388,29 @@ def Mobilize(starting, ending, path_list):
         j +=1
         return      # end of Mobilize function 
         
+    
+        
+    
+    
+def GetInitials():      # just added 
+    x1 = input("Enter starting x value")
+    y1 = input("Enter starting y value")
+    return([x1,y1])
 
-# this function returns a value for color of traffic light detected
-# def Camera_Vision():
-    
-    
-    
-    
-    # return light 
+def GetEnding():
+    x2 = input("Enter ending x value")
+    y2 = input("Enter ending y value")
+    return([x1,y1])
 
 def main():
     grid_size = 20
     grid = np.zeros((grid_size, grid_size))  # Create an empty grid
     
-    start = np.array([9, 19])  # Starting position
-    end = np.array([4, 19])  # Ending position
+    start = np.array(GetInitials())  
+    end = np.array(GetEnding())  
+    
+    # start = np.array([9, 19])  # Starting position
+    # end = np.array([4, 19])  # Ending position
     
     path = astar(start, end, grid)
     
@@ -369,21 +423,22 @@ def main():
         print(visualize_path_text(grid_size, path))
     else:
         print("No path found.")
-
+        
         
     
-    #------ Sending to firebase ---------#
+    #------ Pushing to firebase ---------#
     
     data = {
-    "Starting x coordinate": 9,
-    "Starting y coordinate": 19,
-    "Ending x coordinate": 4,
-    "Ending y coordinate" : 19}
+    "Starting x coordinate": start[0],      # syntax error here due to coordinates
+    "Starting y coordinate": start[1],
+    "Ending x coordinate": end[0],
+    "Ending y coordinate" : end[1]}
     
-    database.child("Picarx4").child("Coordinates").set(data)
-    database.child("Picarx4").child("Push data").push(data)
+    #database.child("Picarx4").child("Coordinates").set(data)
+    database.child("Picarx4").child("Coordinates").push(data)   # Try this instead of set 
     
-    #time.sleep(3)
+    
+    time.sleep(3)
     
     Mobilize(start,end,path)    # drive the car to destination
 
