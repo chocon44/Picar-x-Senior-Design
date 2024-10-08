@@ -438,7 +438,7 @@ def main():
     database.child("Picarx4").child("Coordinates").push(data)   # Try this instead of set 
     
     
-    time.sleep(3)
+    #time.sleep(3)    # try turning this on and off to see the difference
     
     Mobilize(start,end,path)    # drive the car to destination
 
