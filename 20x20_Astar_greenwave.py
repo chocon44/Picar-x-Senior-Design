@@ -261,19 +261,27 @@ def Mobilize(starting, ending, path_list):
         startX = int(path_list[i][0])
         startY = int(path_list[i][1])
         
-        #--------- Pushing current location to firebase ----------------#
-        data = {"Current position" : [startX,startY]}
-        database.child("Picarx4").child("Current location: ").push(data)
+        
         
         # This represent the next coordinate the car is traveling to
-        endX = path[j][0]
-        endY = path[j][1]
+        endX = int(path[j][0])
+        endY = int(path[j][1])
         nextPos = [endX, endY]
+        
+        
+        #--------- Pushing current location to firebase ----------------#
+        
+        data = {"Current x" : startX,
+                "Current y" : startY}
+        database.child("Picarx4").child("Current location: ").set(data)
+        
         
         xdiff = abs(endX-startX)
         ydiff = abs(endY - startY)
         
+        
         #----------- Traffic signal check ----------------#
+        
         if (nextPos in intersections):  # if car is approaching intersection 
             if (RedLight() == 0):   # if no red light is detected... continue on 
                 break;
@@ -281,6 +289,8 @@ def Mobilize(starting, ending, path_list):
                 while (RedLight() != 0):
                     car.stop()
                     time.sleep(1)
+            
+            
             
        #----------- Check for obstacle in front of the car ----------- #
         
@@ -432,8 +442,8 @@ def main():
     "Ending x coordinate": end[0],
     "Ending y coordinate" : end[1]}
     
-    #database.child("Picarx4").child("Coordinates").set(data)
-    database.child("Picarx4").child("Coordinates").push(data)   # Try this instead of set 
+    database.child("Picarx4").child("Coordinates").set(data)
+    #database.child("Picarx4").child("Coordinates").push(data)   # Try this instead of set 
     
     
     #time.sleep(3)    # try turning this on and off to see the difference
