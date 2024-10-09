@@ -207,11 +207,15 @@ def Mobilize(starting, ending, path_list):
     end = path[-1]
     
     
-    # list of coordinates that have named original orientation 
+    
+    #------- list of coordinates that have named original orientation ------# 
+    
     down_list = [[0,9], [0,19], [4,19], [9,19], [14,19]]
     up_list = [[19,4], [19,14]]
     left_list = [[19,19], [19,9]] 
     right_list = [[4,0], [14,0]]
+    
+    
     
     # flags to indicate orientation 
     up = 0
@@ -225,28 +229,26 @@ def Mobilize(starting, ending, path_list):
         down = 1
         left = 0
         right = 0
+        print("Car is facing down")
     elif (start in up_list):
         up = 1
         down = 0
         left = 0
         right = 0
+        print("Car is facing up")
     elif (start in left_list):
         up = 0
         down = 0
         left = 1
         right = 0
+        print("Car is facing left")
     elif (start in right_list):
         up = 0
         down = 0
         left = 0
         right = 1
+        print("Car is facing right")
     
-    #### TEST PRINTING
-    print("First coordinate: ",path_list[0])
-    print("x1: ", path_list[0][0])
-    print("y1: ",path_list[0][1])
-    print("x2: ", path_list[-1][0])
-    print("y2: ", path_list[-1][1])
     
     
     
@@ -284,9 +286,11 @@ def Mobilize(starting, ending, path_list):
         
         if (nextPos in intersections):  # if car is approaching intersection 
             if (RedLight() == 0):   # if no red light is detected... continue on 
+                print("No red light detected")
                 break;
             else:          #  Red light is detected, continue this loop until light is green
                 while (RedLight() != 0):
+                    print("Stop at red light")
                     car.stop()
                     time.sleep(1)
             
@@ -297,19 +301,34 @@ def Mobilize(starting, ending, path_list):
         
 
         if (endX < startX):     # want to go left ...
-        
+            print("Going left...")
+            time.sleep(1)
             # checking orientation 
             if (up == 1):       # facing up, turn left then go forward 
+                print("- Pivot left")
+                time.sleep(1)
                 car.left(turnPower)
                 time.sleep(leftTurnTime)
+                
+                print("- Go forward")
+                time.sleep(1)
                 car.forward(power)
                 time.sleep(xdiff)
+                
             elif (down == 1):   # facing down, turn right then go forward
+                print("- Pivot right")
+                time.sleep(1)
                 car.right(power)
                 time.sleep(rightTurnTime)
+                
+                print("- Go forward")
+                time.sleep(1)
                 car.forward(power)
                 time.sleep(xdiff)
+                
             elif (left == 1):   # go forward only
+                print("- Go forward")
+                time.sleep(1)
                 car.forward(power)
                 time.sleep(xdiff)
             else:               # facing right, error
@@ -317,24 +336,42 @@ def Mobilize(starting, ending, path_list):
                 car.stop()
             
             # update new orientation to left 
+            print("Car is facing left")
             up = 0
             down = 0
             left = 1
             right = 0
         
         elif (endX > startX):   # want to go right ...
+            print("Going right...")
+            time.sleep(1)
+            
             # checking orientation 
             if (up == 1):       # facing up, turn right then go forward 
+                print("- Pivot right")
+                time.sleep(1)
                 car.right(turnPower)
                 time.sleep(rightTurnTime)
+                
+                print("- Go forward")
+                time.sleep(1)
                 car.forward(power)
                 time.sleep(xdiff)
+                
             elif (down == 1):   # facing down, turn left then go forward
+                print("- Pivot left")
+                time.sleep(1)
                 car.left(power)
                 time.sleep(leftTurnTime)
+                
+                print("- Go forward")
+                time.sleep(1)
                 car.forward(power)
                 time.sleep(xdiff)
+                
             elif (right == 1):   # go forward only
+                print("- Go forward")
+                time.sleep(1)
                 car.forward(power)
                 time.sleep(xdiff)
             else:# left          # facing right, error
@@ -350,43 +387,71 @@ def Mobilize(starting, ending, path_list):
         else:       # when endX = startX, go either up or down .... 
         
             if (endY > startY):     # want to go up...
+                print("Going up...")
+                time.sleep(1)
+                
                 # check orientation 
                 if (up == 1):   # just go forward 
+                    print("- Go forward")
+                    time.sleep(1)
                     car.forward(power)
                     time.sleep(ydiff)
+                    
                 elif (down == 1):   # error 
                     print("Error: Facing down going up")
+                    
                 elif (left == 1):   # facing left, turn right first 
+                    print("- Pivot left")
+                    time.sleep(1)
                     car.right(power)
                     time.sleep(rightTurnTime)
+                    
                 else:   # facing right, turn left first 
+                    print("- Pivot right")
+                    time.sleep(1)
                     car.left(power)
                     time.sleep(leftTurnTime)
                     
                 # update new orientation to up 
+                print("Car facing up")
                 up = 1
                 down = 0
                 left = 0
                 right = 0
             
             elif (endY < startY):   # want to go down...
+                print("Going down...")
+                time.sleep(1)
+                
                 # check orientation 
                 if (up == 1):   # facing up, print error 
                     print("Error: Facing up going down")
                 
                 elif (down == 1):   # go forward 
+                    print("- Go forward")
+                    time.sleep(1)
                     car.forward(power)
                     time.sleep(ydiff)
                     
                 elif (left == 1):   # turn left first 
+                    print("- Pivot left")
+                    time.sleep(1)
                     car.left(power)
                     time.sleep(leftTurnTime)
+                    
+                    print("- Go forward")
+                    time.sleep(1)
                     car.forward(power)
                     time.sleep(ydiff)
                     
                 else:           # turn right first 
+                    print("- Pivot right")
+                    time.sleep(1)
                     car.right(power)
                     time.sleep(rightTurnTime)
+                    
+                    print("- Go forward")
+                    time.sleep(1)
                     car.forward(power)
                     time.sleep(ydiff)
             
