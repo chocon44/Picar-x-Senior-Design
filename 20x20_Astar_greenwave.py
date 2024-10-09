@@ -317,13 +317,12 @@ def Mobilize(starting, ending, path_list):
                 car.forward(power)
                 time.sleep(xdiff)
                 
-                move_with_updates([startX, startY], [endX, endY], xdiff)
+                #move_with_updates([startX, startY], [endX, endY], xdiff)
                 
             elif (down == 1):   # error
                 print("Error: facing down going up")
                 car.stop()
                 
-                move_with_updates([startX, startY], [endX, endY], xdiff)
                 
             elif (left == 1):   # 
                 print("- Pivot right")
@@ -335,8 +334,6 @@ def Mobilize(starting, ending, path_list):
                 car.forward(power)
                 time.sleep(xdiff)
                 
-                move_with_updates([startX, startY], [endX, endY], xdiff)
-                
             else:               # 
                 print("- Pivot left")
                 time.left(turnPower)
@@ -346,10 +343,9 @@ def Mobilize(starting, ending, path_list):
                 car.forward(power)
                 time.sleep(xdiff)
                 
-                move_with_updates([startX, startY], [endX, endY], xdiff)
             
             # update new orientation to left 
-            print("Car is facing left")
+            print("Car is facing up")
             down = left = right= 0
             up = 1
         
@@ -364,7 +360,7 @@ def Mobilize(starting, ending, path_list):
                 print("Error: Facing up going down")
                 car.stop()
                 
-                move_with_updates([startX, startY], [endX, endY], xdiff)
+                
                 
             elif (down == 1):   #
                 
@@ -372,8 +368,6 @@ def Mobilize(starting, ending, path_list):
                 time.sleep(1)
                 car.forward(power)
                 time.sleep(xdiff)
-                
-                move_with_updates([startX, startY], [endX, endY], xdiff)
                 
             elif (right == 1):   # go down then forward 
                 print("- Pivot right")
@@ -384,7 +378,7 @@ def Mobilize(starting, ending, path_list):
                 car.forward(power)
                 time.sleep(xdiff)
                 
-                move_with_updates([startX, startY], [endX, endY], xdiff)
+                
                 
             else:# left          # 
                 print("- Pivot left")
@@ -396,6 +390,7 @@ def Mobilize(starting, ending, path_list):
                 time.sleep(xdiff)
             
             # update new orientation to left 
+            print("Car facing down")
             up = left = right= 0
             down = 1
             
@@ -415,7 +410,7 @@ def Mobilize(starting, ending, path_list):
                     time.sleep(1)
                     car.forward(power)
                     time.sleep(ydiff)
-                    move_with_updates([startX, startY], [endX, endY], ydiff)
+                    
                     
                 elif (down == 1):   # turn left first
                     print("- Pivot left")
@@ -426,7 +421,7 @@ def Mobilize(starting, ending, path_list):
                     time.sleep(1)
                     car.forward(power)
                     time.sleep(ydiff)
-                    move_with_updates([startX, startY], [endX, endY], ydiff)
+                    
                     
                 elif (left == 1):   # facing left, turn right first 
                     print("Error: left going right")
@@ -437,10 +432,10 @@ def Mobilize(starting, ending, path_list):
                     time.sleep(1)
                     car.forward(power)
                     time.sleep(ydiff)
-                    move_with_updates([startX, startY], [endX, endY], ydiff)
+                    
                 
                 # update new orientation to up 
-                print("Car facing up")
+                print("Car facing right")
                 right = 1
                 down = left= up = 0
             
@@ -460,7 +455,7 @@ def Mobilize(starting, ending, path_list):
                     time.sleep(1)
                     car.forward(power)
                     time.sleep(ydiff)
-                    move_with_updates([startX, startY], [endX, endY], ydiff)
+                   
                 
                 elif (down == 1):   # turn right first then forward
                     print("- Pivot RIGHT")
@@ -472,18 +467,23 @@ def Mobilize(starting, ending, path_list):
                     time.sleep(1)
                     car.forward(power)
                     time.sleep(ydiff)
-                    move_with_updates([startX, startY], [endX, endY], ydiff)
+                    
                     
                 elif (left == 1):   # forward only
                     print("- Go forward")
                     time.sleep(1)
                     car.forward(power)
                     time.sleep(ydiff)
-                    move_with_updates([startX, startY], [endX, endY], ydiff)
+                   
                     
                 else:           # error
                     print("Error: facing right going left")
                     car.stop()
+                
+                # update new orientation to up 
+                print("Car facing left")
+                left = 1
+                down = right= up = 0
             
             else:
                 print("Done")
