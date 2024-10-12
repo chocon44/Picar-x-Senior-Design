@@ -14,7 +14,7 @@
     #     [14,4],[14,9],[14,14],[14,19],[19,4],[19,9],[19,14],[19,19]]
     
 # Moving in X and Y directions using xdiff and ydiff
-# Last updated: 10/08
+# Last updated: 10/12
 
 
 from picarx import Picarx 
@@ -240,6 +240,19 @@ def Mobilize(starting, ending, path_list):
             time.sleep(movement_time / steps)
     
     
+   
+    def update_location(currentx, currenty):
+        
+        
+        data = {
+        "Current x coordinate" : currentx,
+        "Current y coordinate" : currenty}
+        database.child("Picarx4").child("Current location").set(data)
+        time.sleep(1)
+    
+    
+    
+    
     #------- list of coordinates that have named original orientation ------# 
     
     down_list = [[0,9], [0,19], [4,19], [9,19], [14,19]]
@@ -253,10 +266,18 @@ def Mobilize(starting, ending, path_list):
     up = down = left = right = 0
     
     # Set initial orientation
-    if start in down_list: down = 1
-    elif start in up_list: up = 1
-    elif start in left_list: left = 1
-    elif start in right_list: right = 1
+    if start in down_list: 
+        down = 1
+        print("Original orientation: down")
+    elif start in up_list: 
+        up = 1
+        print("Original orientation: up")
+    elif start in left_list: 
+        left = 1
+        print("Original orientation: left")
+    elif start in right_list: 
+        right = 1
+        print("Original orientation: right")
     
     
     
@@ -277,12 +298,11 @@ def Mobilize(starting, ending, path_list):
         endY = int(path[i+1][1])
         nextPos = [endX, endY]
         
-        # Test printing
-        print("endX = ", endX)
-        print("startX = ", startX)
         
-        xdiff = abs(endX - startX)
-        ydiff = abs(endY - startY)
+        xdiff = abs(endX - startX)      # difference between current and the next x value
+        ydiff = abs(endY - startY)      # difference between current and the next y value
+        
+        
         
         #----------- Traffic signal check ----------------#
         
@@ -305,7 +325,7 @@ def Mobilize(starting, ending, path_list):
         
         #----------- Movement logic ----------- #
         
-# FIXED 10/8
+
         if (endX < startX):     # want to go up ...
             print("Going up...")
             time.sleep(1)
@@ -316,8 +336,6 @@ def Mobilize(starting, ending, path_list):
                 time.sleep(1)
                 car.forward(power)
                 time.sleep(xdiff)
-                
-                #move_with_updates([startX, startY], [endX, endY], xdiff)
                 
             elif (down == 1):   # error
                 print("Error: facing down going up")
@@ -342,7 +360,11 @@ def Mobilize(starting, ending, path_list):
                 time.sleep(1)
                 car.forward(power)
                 time.sleep(xdiff)
-                
+            
+            newx = int(path_list[j][0])
+            newy = int(path_list[j][1])
+            update_location(newx,newy)
+            time.sleep(1)
             
             # update new orientation to left 
             print("Car is facing up")
@@ -389,12 +411,17 @@ def Mobilize(starting, ending, path_list):
                 car.forward(power)
                 time.sleep(xdiff)
             
+            newx = int(path_list[j][0])
+            newy = int(path_list[j][1])
+            update_location(newx,newy)
+            time.sleep(1)
+            
             # update new orientation to left 
             print("Car facing down")
             up = left = right= 0
             down = 1
             
-###### FIXED 10/8
+
         else:       # when endX = startX, go either left or right .... 
         
             if (endY > startY):     # want to go right...
@@ -433,13 +460,17 @@ def Mobilize(starting, ending, path_list):
                     car.forward(power)
                     time.sleep(ydiff)
                     
+                newx = int(path_list[j][0])
+                newy = int(path_list[j][1])
+                update_location(newx,newy)
+                time.sleep(1)
                 
                 # update new orientation to up 
                 print("Car facing right")
                 right = 1
                 down = left= up = 0
             
-###### FIXED 10/8
+
             elif (endY < startY):   # want to go left...
                 print("Going left...")
                 time.sleep(1)
@@ -480,6 +511,12 @@ def Mobilize(starting, ending, path_list):
                     print("Error: facing right going left")
                     car.stop()
                 
+                
+                newx = int(path_list[j][0])
+                newy = int(path_list[j][1])
+                update_location(newx,newy)
+                time.sleep(1)
+                
                 # update new orientation to up 
                 print("Car facing left")
                 left = 1
@@ -487,6 +524,10 @@ def Mobilize(starting, ending, path_list):
             
             else:
                 print("Done")
+                
+        
+        
+                
         i +=1
         j +=1
         return      # end of Mobilize function 

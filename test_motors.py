@@ -14,7 +14,7 @@ def motors():
 
 def ultra():
     car.set_cam_ultra_angle(0)
-    time.sleep(3)
+    time.sleep(1)
     angle = -90
     while (angle <= 90):
         car.set_cam_ultra_angle(angle)
