@@ -13,7 +13,8 @@
     #    [[4,4],[4,9],[4,14],[4,19],[9,4],[9,9],[9,14],[9,19],
     #     [14,4],[14,9],[14,14],[14,19],[19,4],[19,9],[19,14],[19,19]]
     
-# Moving in X and Y directions using xdiff and ydiff
+# Use new_20x20.py to see original code
+
 # Last updated: 10/12
 
 
@@ -90,7 +91,7 @@ def get_neighbors(position: np.ndarray, grid: np.ndarray) -> List[np.ndarray]:
         
         # Check if the neighbor is within grid bounds
         if 0 <= x < grid.shape[0] and 0 <= y < grid.shape[1]:
-            # Apply the specific movement rules
+            # Apply the greenwave movement rules
             if i == 0 and position[1] in [4, 14]:  # Up
                 valid_neighbors.append(neighbor)
             elif i == 1 and position[1] in [9, 19]:  # Down
@@ -200,58 +201,11 @@ def Mobilize(starting, ending, path_list):
     if not path:
         print("Empty path provided")
         return
-        
+    
+    
+    # use path for better operation
     start = path[0]
-    end = path[-1]
-    
-    # Initialize current position tracker
-    current_x = start[0]
-    current_y = start[1]
-    
-    
-    # ---------- Function to update Firebase with current position -----------#
-    
-    def update_position(x, y):
-        data = {
-            "Current x": int(x),
-            "Current y": int(y)
-        }
-        database.child("Picarx4").child("Current location").set(data)
-        print(f"Position updated: ({x}, {y})")
-    
-    
-    #------------ Function to interpolate positions during movement -----------#
-    
-    def move_with_updates(start_pos, end_pos, movement_time):
-        steps = 10  # Number of position updates during movement
-        x_start, y_start = start_pos
-        x_end, y_end = end_pos
-        
-        for i in range(steps + 1):
-            # Calculate intermediate position
-            progress = i / steps
-            current_x = x_start + (x_end - x_start) * progress
-            current_y = y_start + (y_end - y_start) * progress
-            
-            # Update Firebase with current position
-            update_position(current_x, current_y)
-            
-            # Wait for a fraction of the movement time
-            time.sleep(movement_time / steps)
-    
-    
    
-    def update_location(currentx, currenty):
-        
-        
-        data = {
-        "Current x coordinate" : currentx,
-        "Current y coordinate" : currenty}
-        database.child("Picarx4").child("Current location").set(data)
-        time.sleep(1)
-    
-    
-    
     
     #------- list of coordinates that have named original orientation ------# 
     
@@ -284,240 +238,72 @@ def Mobilize(starting, ending, path_list):
     
     #-----  Moving the car from here to end of function -------# READ FROM DATABASE
     
-    
+    # Iterate through the list 
     i = 0
-    j = i+1
-    while j < len(path):
-    
-    
-        # this is the current location of the car 
-        startX = path[i][0]
-        startY = path[i][1]
+    for (i+1) in range(len(path)):
+        j = i+1
+        thisrow = path[i][0]
+        thiscol = path[i][1]
+        nextrow = path[j][0]
+        nextcol = path[j][1]
         
-        # This represent the next coordinate the car is traveling to
-        nextX = path[j][0]
-        nextY = path[j][1]
-        nextPos = [nextX, nextY]
+        #rowdiff = abs(nextrow - thisrow)
+        #coldiff = abs(nextcol - thiscol)
         
-        
-        xdiff = abs(nextX - startX)      # difference between current and the next x value
-        ydiff = abs(nextY - startY)      # difference between current and the next y value
-        
-        
-        
-        #----------- Traffic signal check ----------------#
-        
-        # if (nextPos in intersections):  # if car is approaching intersection 
-            # if (RedLight() == 0):   # if no red light is detected... continue on 
-                # print("No red light detected")
-                # break;
-            # else:          #  Red light is detected, continue this loop until light is green
-                # while (RedLight() != 0):
-                    # print("Stop at red light")
-                    # car.stop()
-                    # time.sleep(1)
-            
-            
-            
-       #----------- Check for obstacle in front of the car ----------- #
-        
-        
-        
-        
-        #----------- Movement logic ----------- #
-        
-
-        if (nextX < startX):     # want to go up ...
-            print("Going up...")
-            time.sleep(1)
-            # checking orientation 
-            if (up == 1):       # go forward 
-                
-                print("- Go forward")
-                time.sleep(1)
-                car.forward(power)
-                time.sleep(xdiff)
-                
-            elif (down == 1):   # error
-                print("Error: facing down going up")
-                car.stop()
-                
-                
-            elif (left == 1):   # 
-                print("- Pivot right")
-                time.right(turnPower)
-                time.sleep(rightTurnTime)
-                
-                print("- Go forward")
-                time.sleep(1)
-                car.forward(power)
-                time.sleep(xdiff)
-                
-            else:               # 
-                print("- Pivot left")
-                time.left(turnPower)
-                time.sleep(leftTurnTime)
-                print("- Go forward")
-                time.sleep(1)
-                car.forward(power)
-                time.sleep(xdiff)
-            
-
-            
-            # update new orientation to left 
-            print("Car is facing up")
-            down = left = right= 0
-            up = 1
-        
-        
-        
-        elif (nextX > startX):   # want to go down ...
-            print("Going down...")
-            time.sleep(1)
-            
-            # checking orientation 
-            if (up == 1):     
-                print("Error: Facing up going down")
-                car.stop()
-                
-                
-                
-            elif (down == 1):   #
-                
-                print("- Go forward")
-                time.sleep(1)
-                car.forward(power)
-                time.sleep(xdiff)
-                
-            elif (right == 1):   # go down then forward 
-                print("- Pivot right")
-                time.right(turnPower)
-                time.sleep(rightTurnTime)
-                print("- Go forward")
-                time.sleep(1)
-                car.forward(power)
-                time.sleep(xdiff)
-                
-                
-                
-            else:# left          # 
-                print("- Pivot left")
-                time.left(turnPower)
-                time.sleep(leftTurnTime)
-                print("- Go forward")
-                time.sleep(1)
-                car.forward(power)
-                time.sleep(xdiff)
-            
-           
-            
-            # update new orientation to left 
-            print("Car facing down")
-            up = left = right= 0
-            down = 1
-            
-
-        else:       # when nextX = startX, go either left or right .... 
-        
-            if (nextY > startY):     # want to go right...
-                print("Going right...")
-                time.sleep(1)
-                
-                # check orientation 
-                if (up == 1):   # turn right first
+        if (thisrow = nextrow):   # on the same row, different col
+            if (thiscol < nextcol):     # -- going right
+                print("Going right")
+                # See car's orientation
+                if ( up == 1):
                     print("- Pivot right")
                     time.right(turnPower)
                     time.sleep(rightTurnTime)
                     print("- Go forward")
-                    time.sleep(1)
                     car.forward(power)
-                    time.sleep(ydiff)
+                    time.sleep(1)
+                    update_location(thisrow,thiscol+1)  # +1 to col
                     
-                    
-                elif (down == 1):   # turn left first
+                elif (down == 1):
                     print("- Pivot left")
-                    time.sleep(1)
-                    car.right(power)
-                    time.sleep(rightTurnTime)
+                    time.right(turnPower)
+                    time.sleep(leftTurnTime)
                     print("- Go forward")
-                    time.sleep(1)
                     car.forward(power)
-                    time.sleep(ydiff)
+                    time.sleep(1)
+                    update_location(thisrow,thiscol+1)  # +1 to col
                     
-                    
-                elif (left == 1):   # facing left, turn right first 
+                elif (left == 1):
                     print("Error: left going right")
-                    car.stop()
-                    
-                else:   # facing right, forward only
-                    print("- Go forward")
-                    time.sleep(1)
-                    car.forward(power)
-                    time.sleep(ydiff)
-                    
-               
+                elif(right == 1):
                 
-                # update new orientation to up 
-                print("Car facing right")
-                right = 1
-                down = left= up = 0
-            
-
-            elif (nextY < startY):   # want to go left...
-                print("Going left...")
-                time.sleep(1)
                 
-                # check orientation 
-                if (up == 1):   # turn left fist then forward
+                
+                
+            else:   # this col > next col -- going left
+                print("Going left")
+                
+                if ( up == 1):
                     print("- Pivot left")
-                    time.sleep(1)
-                    car.left(power)
+                    time.right(turnPower)
                     time.sleep(leftTurnTime)
                     
                     print("- Go forward")
-                    time.sleep(1)
                     car.forward(power)
-                    time.sleep(ydiff)
-                   
-                
-                elif (down == 1):   # turn right first then forward
-                    print("- Pivot RIGHT")
                     time.sleep(1)
-                    car.right(power)
-                    time.sleep(rightTurnTime)
-                    
-                    print("- Go forward")
-                    time.sleep(1)
-                    car.forward(power)
-                    time.sleep(ydiff)
+                    update_location(thisrow,thiscol-1)
                     
                     
-                elif (left == 1):   # forward only
-                    print("- Go forward")
-                    time.sleep(1)
-                    car.forward(power)
-                    time.sleep(ydiff)
-                   
-                    
-                else:           # error
-                    print("Error: facing right going left")
-                    car.stop()
+        elif (thiscol = nextcol):   # on the same column, vertical line
+            if (thisrow < nextrow): # -- going down 
                 
-                # update new orientation to left
-                print("Car facing left")
-                left = 1
-                down = right= up = 0
-            
-            else:
-                print("Done")
+            else:       # thisrow > nextrow -- going up 
                 
+        else:   # different horizontal and vertical lines
         
-        
-        print("i = ", i)
-        print("j = ", j)
-        i +=1
-        j +=1
-        return      # end of Mobilize function 
+   
+   
+   
+   
         
     
         
