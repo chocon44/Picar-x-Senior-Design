@@ -289,32 +289,33 @@ def Mobilize(starting, ending, path_list):
     j = i+1
     while j < len(path):
     
+    
         # this is the current location of the car 
-        startX = int(path_list[i][0])
-        startY = int(path_list[i][1])
+        startX = path[i][0]
+        startY = path[i][1]
         
         # This represent the next coordinate the car is traveling to
-        endX = int(path[i+1][0])
-        endY = int(path[i+1][1])
-        nextPos = [endX, endY]
+        nextX = path[j][0]
+        nextY = path[j][1]
+        nextPos = [nextX, nextY]
         
         
-        xdiff = abs(endX - startX)      # difference between current and the next x value
-        ydiff = abs(endY - startY)      # difference between current and the next y value
+        xdiff = abs(nextX - startX)      # difference between current and the next x value
+        ydiff = abs(nextY - startY)      # difference between current and the next y value
         
         
         
         #----------- Traffic signal check ----------------#
         
-        if (nextPos in intersections):  # if car is approaching intersection 
-            if (RedLight() == 0):   # if no red light is detected... continue on 
-                print("No red light detected")
-                break;
-            else:          #  Red light is detected, continue this loop until light is green
-                while (RedLight() != 0):
-                    print("Stop at red light")
-                    car.stop()
-                    time.sleep(1)
+        # if (nextPos in intersections):  # if car is approaching intersection 
+            # if (RedLight() == 0):   # if no red light is detected... continue on 
+                # print("No red light detected")
+                # break;
+            # else:          #  Red light is detected, continue this loop until light is green
+                # while (RedLight() != 0):
+                    # print("Stop at red light")
+                    # car.stop()
+                    # time.sleep(1)
             
             
             
@@ -326,7 +327,7 @@ def Mobilize(starting, ending, path_list):
         #----------- Movement logic ----------- #
         
 
-        if (endX < startX):     # want to go up ...
+        if (nextX < startX):     # want to go up ...
             print("Going up...")
             time.sleep(1)
             # checking orientation 
@@ -370,7 +371,7 @@ def Mobilize(starting, ending, path_list):
         
         
         
-        elif (endX > startX):   # want to go down ...
+        elif (nextX > startX):   # want to go down ...
             print("Going down...")
             time.sleep(1)
             
@@ -416,9 +417,9 @@ def Mobilize(starting, ending, path_list):
             down = 1
             
 
-        else:       # when endX = startX, go either left or right .... 
+        else:       # when nextX = startX, go either left or right .... 
         
-            if (endY > startY):     # want to go right...
+            if (nextY > startY):     # want to go right...
                 print("Going right...")
                 time.sleep(1)
                 
@@ -462,7 +463,7 @@ def Mobilize(starting, ending, path_list):
                 down = left= up = 0
             
 
-            elif (endY < startY):   # want to go left...
+            elif (nextY < startY):   # want to go left...
                 print("Going left...")
                 time.sleep(1)
                 
@@ -502,10 +503,7 @@ def Mobilize(starting, ending, path_list):
                     print("Error: facing right going left")
                     car.stop()
                 
-                
-               
-                
-                # update new orientation to up 
+                # update new orientation to left
                 print("Car facing left")
                 left = 1
                 down = right= up = 0
@@ -515,7 +513,8 @@ def Mobilize(starting, ending, path_list):
                 
         
         
-                
+        print("i = ", i)
+        print("j = ", j )
         i +=1
         j +=1
         return      # end of Mobilize function 
