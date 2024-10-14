@@ -13,9 +13,10 @@
     #    [[4,4],[4,9],[4,14],[4,19],[9,4],[9,9],[9,14],[9,19],
     #     [14,4],[14,9],[14,14],[14,19],[19,4],[19,9],[19,14],[19,19]]
     
-# Use new_20x20.py to see original code
+# Movement logic completed, firebase updates current position accurately
+# Next to focus on: ultrasonic sensor, object detection or light detection
 
-# Last updated: 10/12
+# Last updated: 10/13
 
 
 from picarx import Picarx 
@@ -193,8 +194,9 @@ def Travel(thisPos,nextPos,i):
     global path
     global up, down, left, right
     
-    if (thisPos == nextPos):    # when destination is reached, stop the car, stop recursion
+    if (thisPos == nextPos) :    # when destination is reached, stop the car, stop recursion
         car.stop()
+        print("Done")
         return
     else:
         thisX = thisPos[0]
