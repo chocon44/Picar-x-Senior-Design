@@ -15,6 +15,7 @@
     
 # Movement logic completed, firebase updates current position accurately
 # Next to focus on: ultrasonic sensor, object detection or light detection
+# RedLight() function has to be combined with Travel function, or it will raise errors and image stream disrupted
 
 # Last updated: 10/13
 
@@ -168,14 +169,14 @@ def visualize_path_text(grid_size: int, path: List[Tuple[int, int]]) -> str:
 # this function returns 1 if red light is detected, 0 if green light detected 
 def RedLight():
     Vilib.camera_start()
-    #Vilib.display()        # turn display on when needed
+    Vilib.display()        # turn display on when needed
     Vilib.color_detect("red")
-    
-    if Vilib.detect_obj_parameter['color_n']!=0:    # if red is detected
-        car.stop()      # stop the car immediately 
-        return 1
-    else:   # if red is not detected -- green or yellow
-        return 0 
+    while True:
+        if Vilib.detect_obj_parameter['color_n']!=0:    # if red is detected
+            car.stop()      # stop the car immediately 
+            return 1
+        else:   # if red is not detected -- green or yellow
+            return 0 
     
 
         
@@ -359,6 +360,18 @@ def Travel(thisPos,nextPos,i):
                     left = up = right = 0
         
         
+        
+        # ------ Check for light at intersection -------- #
+        while RedLight() == 1:
+            car.stop()
+            print("Red light detected")
+            time.sleep(2)
+        else:
+            pass
+        
+        
+        
+        
         # moving on to the next 2 coordinates
         
         i+=1        # increment i
@@ -373,7 +386,7 @@ def Travel(thisPos,nextPos,i):
             car.stop()
 
 
-# This function checks the car's orientation and move the car 
+# This function checks the car's orientation and deploy the Travel function 
 def Mobilize(starting, ending, path_list):
     # This function drives the Picarx
     global leftTurnTime
@@ -428,6 +441,7 @@ def Mobilize(starting, ending, path_list):
     nxt = path[i+1]
     Travel(curr, nxt ,i)
     car.stop()
+    return
     
     
     # ------ Update current location to Firebase -------- #
