@@ -205,7 +205,6 @@ def Mobilize(starting, ending, path_list):
     
     # use path for better operation
     start = path[0]
-   
     
     #------- list of coordinates that have named original orientation ------# 
     
@@ -235,77 +234,175 @@ def Mobilize(starting, ending, path_list):
     
     
     
+    # ------ Update current location to Firebase -------- #
+    def UpdateFirebase(x,y):
+        data = {
+        "Current row": x,      
+        "Current column": y}
+        
+        database.child("Picarx4").child("Current position").set(data)
+        
+    
+    
     
     #-----  Moving the car from here to end of function -------# READ FROM DATABASE
-    
-    # Iterate through the list 
     i = 0
-    for (i+1) in range(len(path)):
-        j = i+1
-        thisrow = path[i][0]
-        thiscol = path[i][1]
-        nextrow = path[j][0]
-        nextcol = path[j][1]
-        
-        #rowdiff = abs(nextrow - thisrow)
-        #coldiff = abs(nextcol - thiscol)
-        
-        if (thisrow = nextrow):   # on the same row, different col
-            if (thiscol < nextcol):     # -- going right
-                print("Going right")
-                # See car's orientation
-                if ( up == 1):
-                    print("- Pivot right")
-                    time.right(turnPower)
-                    time.sleep(rightTurnTime)
-                    print("- Go forward")
-                    car.forward(power)
-                    time.sleep(1)
-                    update_location(thisrow,thiscol+1)  # +1 to col
-                    
-                elif (down == 1):
-                    print("- Pivot left")
-                    time.right(turnPower)
-                    time.sleep(leftTurnTime)
-                    print("- Go forward")
-                    car.forward(power)
-                    time.sleep(1)
-                    update_location(thisrow,thiscol+1)  # +1 to col
-                    
-                elif (left == 1):
-                    print("Error: left going right")
-                elif(right == 1):
+    thisPos = path[i] 
+    nextPos = path[i+1]
+    def Travel(thisPos,nextPos):
+        if (thisPos == nextPos):    # when destination is reached, stop the car
+            car.stop()
+        else:
+            thisX = thisPos[0]
+            thisY = thisPos[1]
+            nextX = nextPos[0]
+            nextY = nextPos[1]
+            
+            if (thisX == nextX):    # on the same horizontal line (row)
+                if (thisY < nextY): # go right
+                    print("Going right")
+                    if (up == 1):
+                        print("- Pivot right")
+                        car.right(turnPower)
+                        time.sleep(rightTurnTime)
+                        car.stop(0.1)
+                        print("- Go forward")
+                        car.forward(power)
+                        time.sleep(t)
+                        car.stop(0.1)
+                        UpdateFirebase(nextX,nextY) # update position to firebase
+                    elif (down == 1):
+                        print("- Pivot left")
+                        car.left(turnPower)
+                        time.sleep(leftTurnTime)
+                        car.stop(0.1)
+                        print("- Go forward")
+                        car.forward(power)
+                        time.sleep(t)
+                        car.stop(0.1)
+                        UpdateFirebase(nextX,nextY) # update position to firebase
+                    elif (left == 1):
+                        print("Error: facing left going right")
+                    elif (right == 1):
+                        print("- Go forward")
+                        car.forward(power)
+                        time.sleep(t)
+                        car.stop(0.1)
+                        UpdateFirebase(nextX,nextY) # update position to firebase
                 
                 
+                else:   # go left 
+                    print("Going left")
+                    if (up == 1):
+                        print("- Pivot left")
+                        car.left(turnPower)
+                        time.sleep(leftTurnTime)
+                        car.stop(0.1)
+                        print("- Go forward")
+                        car.forward(power)
+                        time.sleep(t)
+                        car.stop(0.1)
+                        UpdateFirebase(nextX,nextY) # update position to firebase
+                    elif (down == 1):
+                        print("- Pivot right")
+                        car.right(turnPower)
+                        time.sleep(rightTurnTime)
+                        car.stop(0.1)
+                        print("- Go forward")
+                        car.forward(power)
+                        time.sleep(t)
+                        car.stop(0.1)
+                        UpdateFirebase(nextX,nextY) # update position to firebase
+                    elif (left == 1):
+                        print("- Go forward")
+                        car.forward(power)
+                        time.sleep(t)
+                        car.stop(0.1)
+                        UpdateFirebase(nextX,nextY) # update position to firebase
+                    elif (right == 1):
+                        print("Error: facing right going left")
                 
                 
-            else:   # this col > next col -- going left
-                print("Going left")
-                
-                if ( up == 1):
-                    print("- Pivot left")
-                    time.right(turnPower)
-                    time.sleep(leftTurnTime)
-                    
-                    print("- Go forward")
-                    car.forward(power)
-                    time.sleep(1)
-                    update_location(thisrow,thiscol-1)
-                    
-                    
-        elif (thiscol = nextcol):   # on the same column, vertical line
-            if (thisrow < nextrow): # -- going down 
-                
-            else:       # thisrow > nextrow -- going up 
-                
-        else:   # different horizontal and vertical lines
-        
+            elif (thisY == nextY):  # on the same vertical line (column)
+                if (thisX < nextX): # go up
+                    print("Going up")
+                    if (up == 1):
+                        print("- Go forward")
+                        car.forward(power)
+                        time.sleep(t)
+                        car.stop(0.1)
+                        UpdateFirebase(nextX,nextY) # update position to firebase
+                    elif (down == 1):
+                        print("Error: facing down going up")
+                    elif (left == 1):
+                        print("- Pivot right")
+                        car.right(turnPower)
+                        time.sleep(rightTurnTime)
+                        car.stop(0.1)
+                        print("- Go forward")
+                        car.forward(power)
+                        time.sleep(t)
+                        car.stop(0.1)
+                        UpdateFirebase(nextX,nextY) # update position to firebase
+                    elif (right == 1):
+                        print("- Pivot left")
+                        car.left(turnPower)
+                        time.sleep(leftTurnTime)
+                        car.stop(0.1)
+                        print("- Go forward")
+                        car.forward(power)
+                        time.sleep(t)
+                        car.stop(0.1)
+                        UpdateFirebase(nextX,nextY) # update position to firebase
+                        
+                else:   # go down
+                    print("Going down")
+                    if (up == 1):
+                        print("Error: facing up going down")
+                    elif (down == 1):
+                        print("- Go forward")
+                        car.forward(power)
+                        time.sleep(t)
+                        car.stop(0.1)
+                        UpdateFirebase(nextX,nextY) # update position to firebase
+                    elif (left == 1):
+                        print("- Pivot left")
+                        car.left(turnPower)
+                        time.sleep(leftTurnTime)
+                        car.stop(0.1)
+                        print("- Go forward")
+                        car.forward(power)
+                        time.sleep(t)
+                        car.stop(0.1)
+                        UpdateFirebase(nextX,nextY) # update position to firebase
+                    elif (right == 1):
+                        print("- Pivot right")
+                        car.right(turnPower)
+                        time.sleep(rightTurnTime)
+                        car.stop(0.1)
+                        print("- Go forward")
+                        car.forward(power)
+                        time.sleep(t)
+                        car.stop(0.1)
+                        UpdateFirebase(nextX,nextY) # update position to firebase
+            
+            
+            # moving on to the next 2 coordinates
+            
+            i+=1        # increment i
+            thisPos = path[i]
+            nextPos = path[i+1]
+            Travel(thisPos,nextPos)     # recursion
    
    
    
    
         
     
+        
+        
+        
+        
         
     
     
@@ -346,7 +443,7 @@ def main():
     #------ Pushing to firebase ---------#
     
     data = {
-    "Starting x coordinate": start[0],      # syntax error here due to coordinates
+    "Starting x coordinate": start[0],      
     "Starting y coordinate": start[1],
     "Ending x coordinate": end[0],
     "Ending y coordinate" : end[1]}
