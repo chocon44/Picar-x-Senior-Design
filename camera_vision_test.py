@@ -6,8 +6,6 @@ from vilib import Vilib
 
 px = Picarx()
 
-def clamp_number(num,a,b):
-    return max(min(num, max(a, b)), min(a, b))
 
 def main():
     Vilib.camera_start()
@@ -41,5 +39,5 @@ if __name__ == "__main__":
         px.set_cam_pan_angle(0)
         px.set_cam_tilt_angle(0)
         px.stop()
-        print("stop and exit")
+        //print("stop and exit")
         sleep(0.1)
