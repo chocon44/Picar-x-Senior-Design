@@ -9,7 +9,7 @@ px = Picarx()
 def clamp_number(num,a,b):
     return max(min(num, max(a, b)), min(a, b))
 
-def redLight():
+def main():
     Vilib.camera_start()
     Vilib.display()      # display camera feed, can turn display off 
     Vilib.color_detect("red")
@@ -23,17 +23,15 @@ def redLight():
             coordinate_y = Vilib.detect_obj_parameter['color_y']
             # stop the car 
             print("Red light detected")
-            
+            car.stop()
             return 1
         else:
             # go forward 
+            car.forward(power)
             return 0
             
             
-def main():
-    while redLight() == 0:
-        px.forward(20)
-    px.stop()
+
     
 if __name__ == "__main__":
     try:
