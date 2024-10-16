@@ -19,16 +19,16 @@ def main():
     y_angle =0
     while True:
         if Vilib.detect_obj_parameter['color_n']!=0:        # if red is detected
-            coordinate_x = Vilib.detect_obj_parameter['color_x']
-            coordinate_y = Vilib.detect_obj_parameter['color_y']
+            #coordinate_x = Vilib.detect_obj_parameter['color_x']
+            #coordinate_y = Vilib.detect_obj_parameter['color_y']
             # stop the car 
             print("Red light detected")
             px.stop()
-            return 1
+            
         else:
             # go forward 
             px.forward(30)
-            return 0
+          
             
             
 
