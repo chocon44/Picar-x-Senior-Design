@@ -26,6 +26,38 @@ def ultra():
         angle -= 10
     car.set_cam_ultra_angle(0)
 
+def read_ultrasonic():
+    dist = round(car.ultrasonic.read(),2)
+    print("Distance to obstacle: ", dist)
+    if (dist >= 40):
+        return 0
+    else:
+        return 1
+
+# ultrasonic attached to pan servo
+def pan_sonic():
+    car.set_cam_pan_angle(0)
+    time.sleep(1)
+    angle = -90
+    while (angle <= 90):
+        car.set_cam_pan_angle(angle)
+        time.sleep(0.2)
+        # read ultrasonic 
+        if  (read_ultrasonic() == 1):
+            print("Obstacle detected")
+            car.stop()
+            return
+        angle += 10
+    while (angle >= -90):
+        car.set_cam_pan_angle(angle)
+        time.sleep(0.2)
+        if  (read_ultrasonic() == 1):
+            print("Obstacle detected")
+            car.stop()
+            return
+        angle -= 10
+    car.set_cam_pan_angle(0)
+
 def pan():
     car.set_cam_pan_angle(0)
     time.sleep(1)
