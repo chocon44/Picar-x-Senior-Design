@@ -10,8 +10,7 @@ px = Picarx()
 def main():
     Vilib.camera_start()
     Vilib.display()      # display camera feed, can turn display off 
-    #Vilib.color_detect("red")
-    Vilib.color_detect("yellow")
+    Vilib.color_detect("red")
     speed = 50
     dir_angle=0
     x_angle =0
@@ -21,7 +20,7 @@ def main():
             #coordinate_x = Vilib.detect_obj_parameter['color_x']
             #coordinate_y = Vilib.detect_obj_parameter['color_y']
             # stop the car 
-            print("yellow light detected")
+            print("Red light detected")
             px.stop()
             
         else:
