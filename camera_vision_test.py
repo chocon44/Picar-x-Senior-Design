@@ -27,7 +27,7 @@ def main():
             return 1
         else:
             # go forward 
-            px.forward(power)
+            px.forward(30)
             return 0
             
             
