@@ -23,11 +23,11 @@ def main():
             coordinate_y = Vilib.detect_obj_parameter['color_y']
             # stop the car 
             print("Red light detected")
-            car.stop()
+            px.stop()
             return 1
         else:
             # go forward 
-            car.forward(power)
+            px.forward(power)
             return 0
             
             
