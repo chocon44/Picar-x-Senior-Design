@@ -12,19 +12,19 @@ def motors():
     time.sleep(2)
     car.stop()
 
-def ultra():
-    car.set_cam_ultra_angle(0)
-    time.sleep(1)
-    angle = -90
-    while (angle <= 90):
-        car.set_cam_ultra_angle(angle)
-        time.sleep(0.2)
-        angle += 10
-    while (angle >= -90):
-        car.set_cam_ultra_angle(angle)
-        time.sleep(0.2)
-        angle -= 10
-    car.set_cam_ultra_angle(0)
+# def ultra():
+    # car.set_cam_ultra_angle(0)
+    # time.sleep(1)
+    # angle = -90
+    # while (angle <= 90):
+        # car.set_cam_ultra_angle(angle)
+        # time.sleep(0.2)
+        # angle += 10
+    # while (angle >= -90):
+        # car.set_cam_ultra_angle(angle)
+        # time.sleep(0.2)
+        # angle -= 10
+    # car.set_cam_ultra_angle(0)
 
 def read_ultrasonic():
     dist = round(car.ultrasonic.read(),2)
