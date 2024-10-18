@@ -83,7 +83,7 @@ def main():
     #motors()
     #ultra()
     pan_sonic()
-    test
+   
     car.stop()
 
 main()
