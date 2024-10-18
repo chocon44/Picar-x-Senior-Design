@@ -82,8 +82,8 @@ def pan():
 def main():
     #motors()
     #ultra()
-    pan_sonic()
-   
+    #pan_sonic()
+    test_ultrasonic()
     car.stop()
 
 main()
