@@ -551,7 +551,7 @@ def main():
     "Ending y coordinate" : end[1]}
     
     database.child("Picarx4").child("Coordinates").set(data)
-    
+    car.set_cam_pan_angle(0)    # reset pan servo angle
     Mobilize(start,end,path)    # drive the car to destination
     car.stop()
     car.set_cam_pan_angle(0)    # reset pan servo angle
