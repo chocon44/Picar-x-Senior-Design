@@ -17,7 +17,7 @@
 # Next to focus on: ultrasonic sensor, object detection or light detection
 # RedLight() function has to be combined with Travel function, or it will raise errors and image stream disrupted
 
-# Last updated: 10/13
+# Last updated: 10/18
 
 
 from picarx import Picarx 
@@ -169,7 +169,7 @@ def visualize_path_text(grid_size: int, path: List[Tuple[int, int]]) -> str:
 # this function returns 1 if red light is detected, 0 if green light detected 
 def RedLight():
     Vilib.camera_start()
-    Vilib.display()        # turn display on when needed
+    #Vilib.display()        # toggle display on when needed
     Vilib.color_detect("red")
     while True:
         if Vilib.detect_obj_parameter['color_n']!=0:    # if red is detected
@@ -184,9 +184,48 @@ def RedLight():
 intersections =[[4,4],[4,9],[4,14],[4,19],[9,4],[9,9],[9,14],[9,19],
          [14,4],[14,9],[14,14],[14,19],[19,4],[19,9],[19,14],[19,19]]
 
+# This function stops the car when obstacle is detected (<= 40)
+# sweep the pan servo while reading ultrasonic sensor reading 
+def ObstacleSweep():
+    car.set_cam_pan_angle(0)    # reset pan servo angle 
+    time.sleep(0.5)
+    angle = -50     # initialize to -50 deg
+    while (angle <= 50):
+        car.set_cam_pan_angle(angle)
+        time.sleep(1)
+        # read ultrasonic sensor value 
+        dist = round(car.ultrasonic.read(),2)
+        if (dist <= 40):        # if obstacle is detected closely
+            car.stop()          # stop the car 
+            print("Obstacle detected")
+            obsAngle = angle    # note the angle obstacle is detected
+            time.sleep(2)       # wait 2 seconds before checking again 
+            ObstacleSweep()     # repeat this function until the obstacle is cleared
+        else:   # when no close obstacle is detected, do nothing
+            pass
+    # do the same thing on the other side 
+    while (angle >= -50):
+        car.set_cam_pan_angle(angle)
+        time.sleep(1)
+        # read ultrasonic sensor value 
+        dist = round(car.ultrasonic.read(),2)
+        if (dist <= 40):        # if obstacle is detected closely
+            car.stop()          # stop the car 
+            print("Obstacle detected")
+            obsAngle = angle    # note the angle obstacle is detected
+            time.sleep(2)       # wait 2 seconds before checking again 
+            ObstacleSweep()     # repeat this function until the obstacle is cleared
+        else:   # when no close obstacle is detected, do nothing
+            pass
+    car.set_cam_pan_angle(0)        # reset pan servo angle at the end    
+    return
 
+        
+        
 
-    
+# This function is used to detect other cars when reaches intersection 
+#def ObstacleIntersection():
+   
     
 # flags to indicate orientation 
 up = down = left = right = 0
@@ -208,11 +247,14 @@ def Travel(thisPos,nextPos,i):
         if (thisX == nextX):    # on the same horizontal line (row)
             if (thisY < nextY): # go right
                 print("Going right")
+                
                 if (up == 1):
+                    ObstacleSweep() # check for obstacle before moving
                     print("- Pivot right")
                     car.right(turnPower)
                     time.sleep(rightTurnTime)
                     car.stop()
+                    ObstacleSweep() # check for obstacle before moving
                     print("- Go forward")
                     car.forward(power)
                     time.sleep(t)
@@ -221,10 +263,12 @@ def Travel(thisPos,nextPos,i):
                     right = 1   # update orientation
                     up = down = left = 0
                 elif (down == 1):
+                    ObstacleSweep() # check for obstacle before moving
                     print("- Pivot left")
                     car.left(turnPower)
                     time.sleep(leftTurnTime)
                     car.stop()
+                    ObstacleSweep() # check for obstacle before moving
                     print("- Go forward")
                     car.forward(power)
                     time.sleep(t)
@@ -235,6 +279,7 @@ def Travel(thisPos,nextPos,i):
                 elif (left == 1):
                     print("Error: facing left going right")
                 elif (right == 1):
+                    ObstacleSweep() # check for obstacle before moving
                     print("- Go forward")
                     car.forward(power)
                     time.sleep(t)
@@ -247,10 +292,12 @@ def Travel(thisPos,nextPos,i):
             else:   # go left 
                 print("Going left")
                 if (up == 1):
+                    ObstacleSweep() # check for obstacle before moving
                     print("- Pivot left")
                     car.left(turnPower)
                     time.sleep(leftTurnTime)
                     car.stop(0.1)
+                    ObstacleSweep() # check for obstacle before moving
                     print("- Go forward")
                     car.forward(power)
                     time.sleep(t)
@@ -259,10 +306,12 @@ def Travel(thisPos,nextPos,i):
                     left = 1   # update orientation
                     up = down = right = 0
                 elif (down == 1):
+                    ObstacleSweep() # check for obstacle before moving
                     print("- Pivot right")
                     car.right(turnPower)
                     time.sleep(rightTurnTime)
                     car.stop()
+                    ObstacleSweep() # check for obstacle before moving
                     print("- Go forward")
                     car.forward(power)
                     time.sleep(t)
@@ -271,6 +320,7 @@ def Travel(thisPos,nextPos,i):
                     left = 1   # update orientation
                     up = down = right = 0
                 elif (left == 1):
+                    ObstacleSweep() # check for obstacle before moving
                     print("- Go forward")
                     car.forward(power)
                     time.sleep(t)
@@ -286,6 +336,7 @@ def Travel(thisPos,nextPos,i):
             if (thisX > nextX): # go up
                 print("Going up")
                 if (up == 1):
+                    ObstacleSweep() # check for obstacle before moving
                     print("- Go forward")
                     car.forward(power)
                     time.sleep(t)
@@ -296,12 +347,12 @@ def Travel(thisPos,nextPos,i):
                 elif (down == 1):
                     print("Error: facing down going up")
                 elif (left == 1):
+                    ObstacleSweep() # check for obstacle before moving
                     print("- Pivot right")
                     car.right(turnPower)
                     time.sleep(rightTurnTime)
                     car.stop()
-                    up = 1   # update orientation
-                    left = down = right = 0
+                    ObstacleSweep() # check for obstacle before moving
                     print("- Go forward")
                     car.forward(power)
                     time.sleep(t)
@@ -310,10 +361,12 @@ def Travel(thisPos,nextPos,i):
                     up = 1   # update orientation
                     left = down = right = 0
                 elif (right == 1):
+                    ObstacleSweep() # check for obstacle before moving
                     print("- Pivot left")
                     car.left(turnPower)
                     time.sleep(leftTurnTime)
                     car.stop(0.1)
+                    ObstacleSweep() # check for obstacle before moving
                     print("- Go forward")
                     car.forward(power)
                     time.sleep(t)
@@ -327,6 +380,7 @@ def Travel(thisPos,nextPos,i):
                 if (up == 1):
                     print("Error: facing up going down")
                 elif (down == 1):
+                    ObstacleSweep() # check for obstacle before moving
                     print("- Go forward")
                     car.forward(power)
                     time.sleep(t)
@@ -335,10 +389,12 @@ def Travel(thisPos,nextPos,i):
                     down = 1   # update orientation
                     left = up = right = 0
                 elif (left == 1):
+                    ObstacleSweep() # check for obstacle before moving
                     print("- Pivot left")
                     car.left(turnPower)
                     time.sleep(leftTurnTime)
                     car.stop()
+                    ObstacleSweep() # check for obstacle before moving
                     print("- Go forward")
                     car.forward(power)
                     time.sleep(t)
@@ -347,10 +403,12 @@ def Travel(thisPos,nextPos,i):
                     down = 1   # update orientation
                     left = up = right = 0
                 elif (right == 1):
+                    ObstacleSweep() # check for obstacle before moving
                     print("- Pivot right")
                     car.right(turnPower)
                     time.sleep(rightTurnTime)
                     car.stop()
+                    ObstacleSweep() # check for obstacle before moving
                     print("- Go forward")
                     car.forward(power)
                     time.sleep(t)
@@ -368,9 +426,6 @@ def Travel(thisPos,nextPos,i):
             time.sleep(2)
         else:
             pass
-        
-        
-        
         
         # moving on to the next 2 coordinates
         
@@ -454,21 +509,6 @@ def UpdateFirebase(x,y):
     car.stop()
         
     
-    
-   
-   
-   
-   
-   
-        
-    
-        
-        
-        
-        
-        
-    
-    
 def GetInitials():      # just added 
     x1 = input("Enter starting x value: ")
     y1 = input("Enter starting y value: ")
@@ -501,8 +541,6 @@ def main():
     else:
         print("No path found.")
         
-        
-    
     #------ Pushing to firebase ---------#
     
     data = {
@@ -513,14 +551,8 @@ def main():
     
     database.child("Picarx4").child("Coordinates").set(data)
     
-    
-    #time.sleep(3)    # try turning this on and off to see the difference
-    
     Mobilize(start,end,path)    # drive the car to destination
     car.stop()
-
-
-
 
 if __name__ == "__main__":
     main()
