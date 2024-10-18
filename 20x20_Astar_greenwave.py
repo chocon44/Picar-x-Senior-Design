@@ -54,8 +54,8 @@ database = firebase.database()
 
 car = Picarx()
 leftTurnTime = 1.8    # time to pivot turn the car left
-rightTurnTime = 1.7   # time to pivot turn the car right
-turnPower = 30  # power to pivot turn 
+rightTurnTime = 1.8   # time to pivot turn the car right
+turnPower = 50  # power to pivot turn 
 power = 30      # power to go forward
 t = 0.3          # time for car going forward, 1 block distance
 
@@ -229,6 +229,7 @@ def ObstacleSweep():
 
 # This function is used to detect other cars when going straight
 def ObstacleAhead():
+    danger = 10
     dist = round(car.ultrasonic.read(),2)
     if (dist > 0) and (dist <= danger):      # if obstacle is detected closely
         car.stop()          # stop the car 
