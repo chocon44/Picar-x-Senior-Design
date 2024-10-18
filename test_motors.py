@@ -35,7 +35,7 @@ def read_ultrasonic():
         return 1
 
 def test_ultrasonic():
-    while true:
+    while True:
         dist = round(car.ultrasonic.read(),2)
         print("Distance to obstacle: ", dist)
     
