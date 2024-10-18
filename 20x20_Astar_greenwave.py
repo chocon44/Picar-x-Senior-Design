@@ -229,8 +229,8 @@ def ObstacleSweep():
 
 # This function is used to detect other cars when going straight
 def ObstacleAhead():
-   dist = round(car.ultrasonic.read(),2)
-   if (dist > 0) and (dist <= danger):      # if obstacle is detected closely
+    dist = round(car.ultrasonic.read(),2)
+    if (dist > 0) and (dist <= danger):      # if obstacle is detected closely
         car.stop()          # stop the car 
         print("Obstacle detected at: ", dist)
         obsAngle = angle    # note the angle obstacle is detected
