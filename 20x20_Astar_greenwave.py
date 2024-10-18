@@ -231,11 +231,11 @@ def ObstacleSweep():
 def ObstacleAhead():
    dist = round(car.ultrasonic.read(),2)
    if (dist > 0) and (dist <= danger):      # if obstacle is detected closely
-            car.stop()          # stop the car 
-            print("Obstacle detected at: ", dist)
-            obsAngle = angle    # note the angle obstacle is detected
-            time.sleep(2)       # wait 2 seconds before checking again 
-            ObstacleAhead()     # repeat this function until the obstacle is cleared
+        car.stop()          # stop the car 
+        print("Obstacle detected at: ", dist)
+        obsAngle = angle    # note the angle obstacle is detected
+        time.sleep(2)       # wait 2 seconds before checking again 
+        ObstacleAhead()     # repeat this function until the obstacle is cleared
     else:   # when no close obstacle is detected, do nothing
         return
     
