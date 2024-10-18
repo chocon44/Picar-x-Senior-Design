@@ -53,11 +53,11 @@ database = firebase.database()
 
 
 car = Picarx()
-leftTurnTime = 2    # time to pivot turn the car left
-rightTurnTime = 2   # time to pivot turn the car right
-turnPower = 50  # power to pivot turn 
-power = 50      # power to go forward
-t = 1           # time for car going forward, 1 block distance
+leftTurnTime = 1.8    # time to pivot turn the car left
+rightTurnTime = 1.7   # time to pivot turn the car right
+turnPower = 30  # power to pivot turn 
+power = 30      # power to go forward
+t = 0.3          # time for car going forward, 1 block distance
 
 class Node:
     def __init__(self, position: Tuple[int, int], g: int = 0, h: int = 0, parent: 'Node' = None):
@@ -227,9 +227,17 @@ def ObstacleSweep():
         
         
 
-# This function is used to detect other cars when reaches intersection 
-#def ObstacleIntersection():
-   
+# This function is used to detect other cars when going straight
+def ObstacleAhead():
+   dist = round(car.ultrasonic.read(),2)
+   if (dist > 0) and (dist <= danger):      # if obstacle is detected closely
+            car.stop()          # stop the car 
+            print("Obstacle detected at: ", dist)
+            obsAngle = angle    # note the angle obstacle is detected
+            time.sleep(2)       # wait 2 seconds before checking again 
+            ObstacleAhead()     # repeat this function until the obstacle is cleared
+        else:   # when no close obstacle is detected, do nothing
+            return
     
 # flags to indicate orientation 
 up = down = left = right = 0
@@ -258,7 +266,7 @@ def Travel(thisPos,nextPos,i):
                     car.right(turnPower)
                     time.sleep(rightTurnTime)
                     car.stop()
-                    ObstacleSweep() # check for obstacle before moving
+                    ObstacleAhead() # check for obstacle before going forward
                     print("- Go forward")
                     car.forward(power)
                     time.sleep(t)
@@ -272,7 +280,7 @@ def Travel(thisPos,nextPos,i):
                     car.left(turnPower)
                     time.sleep(leftTurnTime)
                     car.stop()
-                    ObstacleSweep() # check for obstacle before moving
+                    ObstacleAhead() # check for obstacle before going forward
                     print("- Go forward")
                     car.forward(power)
                     time.sleep(t)
@@ -283,7 +291,7 @@ def Travel(thisPos,nextPos,i):
                 elif (left == 1):
                     print("Error: facing left going right")
                 elif (right == 1):
-                    ObstacleSweep() # check for obstacle before moving
+                    ObstacleAhead() # check for obstacle before going forward
                     print("- Go forward")
                     car.forward(power)
                     time.sleep(t)
@@ -301,7 +309,7 @@ def Travel(thisPos,nextPos,i):
                     car.left(turnPower)
                     time.sleep(leftTurnTime)
                     car.stop(0.1)
-                    ObstacleSweep() # check for obstacle before moving
+                    ObstacleAhead() # check for obstacle before going forward
                     print("- Go forward")
                     car.forward(power)
                     time.sleep(t)
@@ -315,7 +323,7 @@ def Travel(thisPos,nextPos,i):
                     car.right(turnPower)
                     time.sleep(rightTurnTime)
                     car.stop()
-                    ObstacleSweep() # check for obstacle before moving
+                    ObstacleAhead() # check for obstacle before going forward
                     print("- Go forward")
                     car.forward(power)
                     time.sleep(t)
@@ -324,7 +332,7 @@ def Travel(thisPos,nextPos,i):
                     left = 1   # update orientation
                     up = down = right = 0
                 elif (left == 1):
-                    ObstacleSweep() # check for obstacle before moving
+                    ObstacleAhead() # check for obstacle before going forward
                     print("- Go forward")
                     car.forward(power)
                     time.sleep(t)
@@ -340,7 +348,7 @@ def Travel(thisPos,nextPos,i):
             if (thisX > nextX): # go up
                 print("Going up")
                 if (up == 1):
-                    ObstacleSweep() # check for obstacle before moving
+                    ObstacleAhead() # check for obstacle before going forward
                     print("- Go forward")
                     car.forward(power)
                     time.sleep(t)
@@ -356,7 +364,7 @@ def Travel(thisPos,nextPos,i):
                     car.right(turnPower)
                     time.sleep(rightTurnTime)
                     car.stop()
-                    ObstacleSweep() # check for obstacle before moving
+                    ObstacleAhead() # check for obstacle before going forward
                     print("- Go forward")
                     car.forward(power)
                     time.sleep(t)
@@ -370,7 +378,7 @@ def Travel(thisPos,nextPos,i):
                     car.left(turnPower)
                     time.sleep(leftTurnTime)
                     car.stop(0.1)
-                    ObstacleSweep() # check for obstacle before moving
+                    ObstacleAhead() # check for obstacle before going forward
                     print("- Go forward")
                     car.forward(power)
                     time.sleep(t)
@@ -384,7 +392,7 @@ def Travel(thisPos,nextPos,i):
                 if (up == 1):
                     print("Error: facing up going down")
                 elif (down == 1):
-                    ObstacleSweep() # check for obstacle before moving
+                    ObstacleAhead() # check for obstacle before going forward
                     print("- Go forward")
                     car.forward(power)
                     time.sleep(t)
@@ -398,7 +406,7 @@ def Travel(thisPos,nextPos,i):
                     car.left(turnPower)
                     time.sleep(leftTurnTime)
                     car.stop()
-                    ObstacleSweep() # check for obstacle before moving
+                    ObstacleAhead() # check for obstacle before going forward
                     print("- Go forward")
                     car.forward(power)
                     time.sleep(t)
@@ -412,7 +420,7 @@ def Travel(thisPos,nextPos,i):
                     car.right(turnPower)
                     time.sleep(rightTurnTime)
                     car.stop()
-                    ObstacleSweep() # check for obstacle before moving
+                    ObstacleAhead() # check for obstacle before going forward
                     print("- Go forward")
                     car.forward(power)
                     time.sleep(t)
