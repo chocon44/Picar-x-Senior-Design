@@ -34,6 +34,13 @@ def read_ultrasonic():
     else:
         return 1
 
+def test_ultrasonic():
+    while true:
+        dist = round(car.ultrasonic.read(),2)
+        print("Distance to obstacle: ", dist)
+    
+    
+
 # ultrasonic attached to pan servo
 def pan_sonic():
     car.set_cam_pan_angle(0)
@@ -75,7 +82,8 @@ def pan():
 def main():
     #motors()
     #ultra()
-    pan()
+    pan_sonic()
+    test
     car.stop()
 
 main()
