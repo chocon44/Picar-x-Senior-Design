@@ -190,12 +190,13 @@ def ObstacleSweep():
     car.set_cam_pan_angle(0)    # reset pan servo angle 
     time.sleep(0.5)
     angle = -50     # initialize to -50 deg
+    danger = 20
     while (angle <= 50):
         car.set_cam_pan_angle(angle)
         time.sleep(1)
         # read ultrasonic sensor value 
         dist = round(car.ultrasonic.read(),2)
-        if (dist <= 40):        # if obstacle is detected closely
+        if (dist <= danger):        # if obstacle is detected closely
             car.stop()          # stop the car 
             print("Obstacle detected")
             obsAngle = angle    # note the angle obstacle is detected
@@ -209,7 +210,7 @@ def ObstacleSweep():
         time.sleep(1)
         # read ultrasonic sensor value 
         dist = round(car.ultrasonic.read(),2)
-        if (dist <= 40):        # if obstacle is detected closely
+        if (dist <= danger):        # if obstacle is detected closely
             car.stop()          # stop the car 
             print("Obstacle detected")
             obsAngle = angle    # note the angle obstacle is detected
@@ -553,7 +554,9 @@ def main():
     
     Mobilize(start,end,path)    # drive the car to destination
     car.stop()
+    car.set_cam_pan_angle(0)    # reset pan servo angle
 
 if __name__ == "__main__":
     main()
-    car.stop()
+    car.stop()      # stop the car
+    car.set_cam_pan_angle(0)    # reset pan servo angle
