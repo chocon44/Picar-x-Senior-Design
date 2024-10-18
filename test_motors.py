@@ -90,4 +90,4 @@ def main():
     #car.set_cam_pan_angle(0)
 
 main()
-car.set_cam_pan_angle(0)
+
