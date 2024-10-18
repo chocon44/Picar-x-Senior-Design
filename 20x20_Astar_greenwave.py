@@ -204,6 +204,7 @@ def ObstacleSweep():
             ObstacleSweep()     # repeat this function until the obstacle is cleared
         else:   # when no close obstacle is detected, do nothing
             pass
+        angle += 10
     # do the same thing on the other side 
     while (angle >= -50):
         car.set_cam_pan_angle(angle)
@@ -218,6 +219,7 @@ def ObstacleSweep():
             ObstacleSweep()     # repeat this function until the obstacle is cleared
         else:   # when no close obstacle is detected, do nothing
             pass
+        angle -= 10
     car.set_cam_pan_angle(0)        # reset pan servo angle at the end    
     return
 
