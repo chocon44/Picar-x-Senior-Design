@@ -54,6 +54,7 @@ def pan_sonic():
             print("Obstacle detected")
             x = angle
             car.stop()
+            car.set_cam_pan_angle(x)
             return
         angle += 10
     while (angle >= -90):
@@ -63,6 +64,7 @@ def pan_sonic():
             print("Obstacle detected")
             x = angle
             car.stop()
+            car.set_cam_pan_angle(x)
             return
         angle -= 10
     car.set_cam_pan_angle(x)
