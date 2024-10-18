@@ -236,7 +236,7 @@ def ObstacleAhead():
         obsAngle = angle    # note the angle obstacle is detected
         time.sleep(2)       # wait 2 seconds before checking again 
         ObstacleAhead()     # repeat this function until the obstacle is cleared
-    else:   # when no close obstacle is detected, do nothing
+    else:   # when no close obstacle is detected
         return
     
 # flags to indicate orientation 
