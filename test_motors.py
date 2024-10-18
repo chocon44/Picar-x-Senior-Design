@@ -85,5 +85,7 @@ def main():
     #pan_sonic()
     test_ultrasonic()
     car.stop()
+    car.set_cam_pan_angle(0)
 
 main()
+car.set_cam_pan_angle(0)
