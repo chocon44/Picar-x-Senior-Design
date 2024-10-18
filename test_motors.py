@@ -45,7 +45,7 @@ def test_ultrasonic():
 def pan_sonic():
     car.set_cam_pan_angle(0)
     time.sleep(0.5)
-    angle = -90
+    angle = -50
     while (angle <= 50):
         car.set_cam_pan_angle(angle)
         time.sleep(1)
@@ -70,7 +70,7 @@ def pan_sonic():
 def pan():
     car.set_cam_pan_angle(0)
     time.sleep(1)
-    angle = -90
+    angle = -50
     while (angle <= 50):
         car.set_cam_pan_angle(angle)
         time.sleep(0.2)
