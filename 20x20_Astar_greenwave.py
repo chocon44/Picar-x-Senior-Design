@@ -53,8 +53,8 @@ database = firebase.database()
 
 
 car = Picarx()
-leftTurnTime = 1    # time to pivot turn the car left
-rightTurnTime = 1.5   # time to pivot turn the car right
+leftTurnTime = 2    # time to pivot turn the car left
+rightTurnTime = 2   # time to pivot turn the car right
 turnPower = 50  # power to pivot turn 
 power = 50      # power to go forward
 t = 1           # time for car going forward, 1 block distance
@@ -191,9 +191,10 @@ def ObstacleSweep():
     time.sleep(0.5)
     angle = -50     # initialize to -50 deg
     danger = 10
+    sweepTime = 0.2
     while (angle <= 50):
         car.set_cam_pan_angle(angle)
-        time.sleep(1)
+        time.sleep(sweepTime)
         # read ultrasonic sensor value 
         dist = round(car.ultrasonic.read(),2)
         if (dist > 0) and (dist <= danger):      # if obstacle is detected closely
@@ -208,7 +209,7 @@ def ObstacleSweep():
     # do the same thing on the other side 
     while (angle >= -50):
         car.set_cam_pan_angle(angle)
-        time.sleep(1)
+        time.sleep(sweepTime)
         # read ultrasonic sensor value 
         dist = round(car.ultrasonic.read(),2)
         if (dist > 0) and (dist <= danger):        # if obstacle is detected closely
