@@ -13,10 +13,9 @@
     #    [[4,4],[4,9],[4,14],[4,19],[9,4],[9,9],[9,14],[9,19],
     #     [14,4],[14,9],[14,14],[14,19],[19,4],[19,9],[19,14],[19,19]]
     
-# Movement logic completed, firebase updates current position accurately
-# Next to focus on: ultrasonic sensor, object detection or light detection
-# RedLight() function has to be combined with Travel function, or it will raise errors and image stream disrupted
-
+# Redlight() still raises exceptions but work
+# Obstacle check is on and working
+# Ride and turn time depends on grid size
 # Last updated: 10/18
 
 
