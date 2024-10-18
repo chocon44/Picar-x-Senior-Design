@@ -82,10 +82,9 @@ def pan():
     car.set_cam_pan_angle(0)
 
 def main():
-    #motors()
-    #ultra()
-    obstacleAngle = pan_sonic()
-    print ("Obstacle at angle: ", obstacleAngle)
+    pan()
+    #obstacleAngle = pan_sonic()
+    #print ("Obstacle at angle: ", obstacleAngle)
     #test_ultrasonic()
     car.stop()
     car.set_cam_pan_angle(0)
