@@ -196,7 +196,7 @@ def ObstacleSweep():
         time.sleep(1)
         # read ultrasonic sensor value 
         dist = round(car.ultrasonic.read(),2)
-        if (dist <= danger):        # if obstacle is detected closely
+        if (0 < dist <= danger):      # if obstacle is detected closely
             car.stop()          # stop the car 
             print("Obstacle detected at: ", dist)
             obsAngle = angle    # note the angle obstacle is detected
@@ -210,7 +210,7 @@ def ObstacleSweep():
         time.sleep(1)
         # read ultrasonic sensor value 
         dist = round(car.ultrasonic.read(),2)
-        if (dist <= danger):        # if obstacle is detected closely
+        if (0 < dist <= danger):        # if obstacle is detected closely
             car.stop()          # stop the car 
             print("Obstacle detected at: ", dist)
             obsAngle = angle    # note the angle obstacle is detected
