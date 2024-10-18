@@ -71,11 +71,11 @@ def pan():
     car.set_cam_pan_angle(0)
     time.sleep(1)
     angle = -90
-    while (angle <= 90):
+    while (angle <= 70):
         car.set_cam_pan_angle(angle)
         time.sleep(0.2)
         angle += 10
-    while (angle >= -90):
+    while (angle >= -70):
         car.set_cam_pan_angle(angle)
         time.sleep(0.2)
         angle -= 10
