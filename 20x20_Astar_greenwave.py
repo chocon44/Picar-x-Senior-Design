@@ -190,7 +190,7 @@ def ObstacleSweep():
     car.set_cam_pan_angle(0)    # reset pan servo angle 
     time.sleep(0.5)
     angle = -50     # initialize to -50 deg
-    danger = 20
+    danger = 10
     while (angle <= 50):
         car.set_cam_pan_angle(angle)
         time.sleep(1)
