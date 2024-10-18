@@ -39,7 +39,7 @@ cd picar-x/picarx/
 
 ------- PATH TO WORKSPACE -------------
 cd Picar-x-Senior-Design
-cd ~/Picar-x-Senior-Design
+cd ~/Picar-x-Senior-Design/Picar-x-Senior-Design
 
 
 
