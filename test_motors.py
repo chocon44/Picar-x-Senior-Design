@@ -44,11 +44,11 @@ def test_ultrasonic():
 # ultrasonic attached to pan servo
 def pan_sonic():
     car.set_cam_pan_angle(0)
-    time.sleep(0.5)
+    time.sleep(0.5))
     angle = -90
     while (angle <= 70):
         car.set_cam_pan_angle(angle)
-        time.sleep(0.5)
+        time.sleep(1)
         # read ultrasonic 
         if  (read_ultrasonic() == 1):
             print("Obstacle detected")
@@ -58,7 +58,7 @@ def pan_sonic():
         angle += 10
     while (angle >= -70):
         car.set_cam_pan_angle(angle)
-        time.sleep(0.2)
+        time.sleep(1)
         if  (read_ultrasonic() == 1):
             print("Obstacle detected")
             car.stop()
