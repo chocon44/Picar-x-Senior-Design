@@ -1,5 +1,3 @@
-''' Root python file located in /home/picar/picar-x '''
-
 from robot_hat import Pin, ADC, PWM, Servo, fileDB
 from robot_hat import Grayscale_Module, Ultrasonic, utils
 import time
@@ -209,13 +207,13 @@ class Picarx(object):
         else:
             self.set_motor_speed(1, speed)
             self.set_motor_speed(2, -1*speed)    
-    ''' ADDED NEW FUNCTIONS TO PIVOT TURN THE CAR'''
+    ''' ADDED NEW FUNCTIONS TO PIVOT TURN THE CAR - calibrated and tested'''
     def right(self,speed):
-        self.set_motor_speed(1,speed)
-        self.set_motor_speed(2,speed)
-    def left(self,speed):
         self.set_motor_speed(1,-1*speed)
         self.set_motor_speed(2,-1*speed)
+    def left(self,speed):
+        self.set_motor_speed(1,speed)
+        self.set_motor_speed(2,speed)
 
     def stop(self):
         '''
