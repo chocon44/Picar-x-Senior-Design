@@ -190,7 +190,8 @@ def ObstacleSweep():
     time.sleep(0.5)
     angle = -50     # initialize to -50 deg
     danger = 10
-    sweepTime = 0.2
+    sweepTime = 0.1
+    waitTime = 0.5    # time to read inputs again
     while (angle <= 50):
         car.set_cam_pan_angle(angle)
         time.sleep(sweepTime)
@@ -200,7 +201,7 @@ def ObstacleSweep():
             car.stop()          # stop the car 
             print("Obstacle detected at: ", dist)
             obsAngle = angle    # note the angle obstacle is detected
-            time.sleep(2)       # wait 2 seconds before checking again 
+            time.sleep(waitTime)       # wait 2 seconds before checking again 
             ObstacleSweep()     # repeat this function until the obstacle is cleared
         else:   # when no close obstacle is detected, do nothing
             pass
@@ -215,7 +216,7 @@ def ObstacleSweep():
             car.stop()          # stop the car 
             print("Obstacle detected at: ", dist)
             obsAngle = angle    # note the angle obstacle is detected
-            time.sleep(2)       # wait 2 seconds before checking again 
+            time.sleep(waitTime)       # wait 2 seconds before checking again 
             ObstacleSweep()     # repeat this function until the obstacle is cleared
         else:   # when no close obstacle is detected, do nothing
             pass
@@ -376,7 +377,7 @@ def Travel(thisPos,nextPos,i):
                     print("- Pivot left")
                     car.left(turnPower)
                     time.sleep(leftTurnTime)
-                    car.stop(0.1)
+                    car.stop()
                     ObstacleAhead() # check for obstacle before going forward
                     print("- Go forward")
                     car.forward(power)
