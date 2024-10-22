@@ -187,10 +187,11 @@ intersections =[[4,4],[4,9],[4,14],[4,19],[9,4],[9,9],[9,14],[9,19],
 # sweep the pan servo while reading ultrasonic sensor reading 
 def ObstacleSweep():
     car.set_cam_pan_angle(0)    # reset pan servo angle 
-    time.sleep(0.5)
+    #time.sleep(0.5)
     angle = -50     # initialize to -50 deg
     danger = 10
-    sweepTime = 0.2
+    sweepTime = 0.1  # Changed from 0.2
+    waitTime = 0.5  # time to wait until read inputs again
     while (angle <= 50):
         car.set_cam_pan_angle(angle)
         time.sleep(sweepTime)
@@ -200,7 +201,7 @@ def ObstacleSweep():
             car.stop()          # stop the car 
             print("Obstacle detected at: ", dist)
             obsAngle = angle    # note the angle obstacle is detected
-            time.sleep(2)       # wait 2 seconds before checking again 
+            time.sleep(waitTime)       # wait 2 seconds before checking again 
             ObstacleSweep()     # repeat this function until the obstacle is cleared
         else:   # when no close obstacle is detected, do nothing
             pass
@@ -215,7 +216,7 @@ def ObstacleSweep():
             car.stop()          # stop the car 
             print("Obstacle detected at: ", dist)
             obsAngle = angle    # note the angle obstacle is detected
-            time.sleep(2)       # wait 2 seconds before checking again 
+            time.sleep(waitTime)       # wait 2 seconds before checking again 
             ObstacleSweep()     # repeat this function until the obstacle is cleared
         else:   # when no close obstacle is detected, do nothing
             pass
