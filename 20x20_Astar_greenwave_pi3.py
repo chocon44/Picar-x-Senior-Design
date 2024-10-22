@@ -516,7 +516,7 @@ def UpdateFirebase(x,y):
     "Current row": x,      
     "Current column": y}
     
-    database.child("Picarx4").child("Current position").set(data)
+    database.child("Picarx3").child("Current position").set(data)
     car.stop()
         
     
@@ -560,7 +560,7 @@ def main():
     "Ending x coordinate": end[0],
     "Ending y coordinate" : end[1]}
     
-    database.child("Picarx4").child("Coordinates").set(data)
+    database.child("Picarx3").child("Coordinates").set(data)
     car.set_cam_pan_angle(0)    # reset pan servo angle
     Mobilize(start,end,path)    # drive the car to destination
     car.stop()
