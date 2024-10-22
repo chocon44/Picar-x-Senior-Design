@@ -16,7 +16,7 @@
 # Redlight() still raises exceptions but work
 # Obstacle check is on and working
 # Ride and turn time depends on grid size
-# Last updated: 10/18
+# Last updated: 10/22
 
 
 from picarx import Picarx 
