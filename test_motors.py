@@ -3,10 +3,15 @@ import math
 import time
 
 car = Picarx()
+
+
 def motors():
+    print('Pivot right')
+    time.sleep(1)
     car.right(70)
     time.sleep(2)
     car.stop()
+    print('Pivot left')
     time.sleep(1)
     car.left(70)
     time.sleep(2)
@@ -81,11 +86,16 @@ def pan():
         angle -= 10
     car.set_cam_pan_angle(0)
 
+
+
+
+
 def main():
     #pan()
     #obstacleAngle = pan_sonic()
     #print ("Obstacle at angle: ", pan_sonic())
-    test_ultrasonic()
+    #test_ultrasonic()
+    motors()
     car.stop()
     car.set_cam_pan_angle(0)
     
