@@ -12,7 +12,8 @@ def motors():
     right = 1.6
     left = 1
     t = 0
-    
+    # This method works -- can try another medthod of using rubber band
+    # If rubber band does not work then can replicate the same for left pivot turn
     while (t <= right):
         car.right(turnPower)
         time.sleep(0.2)
