@@ -56,7 +56,7 @@ leftTurnTime = 1.75   # time to pivot turn the car left
 rightTurnTime = 1.75   # time to pivot turn the car right
 turnPower = 50  # power to pivot turn 
 power = 30      # power to go forward
-t = 0.3          # time for car going forward, 1 block distance
+t = 0.2          # time for car going forward, 1 block distance
 
 class Node:
     def __init__(self, position: Tuple[int, int], g: int = 0, h: int = 0, parent: 'Node' = None):
