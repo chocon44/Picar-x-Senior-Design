@@ -8,16 +8,21 @@ car = Picarx()
 def motors():
     car.stop()
     
-    turnPower = 90
-    right = 1.5
-    left = 1.5
+    turnPower = 50
+    right = 1
+    left = 1
+    t = 0
     
-    car.right(turnPower)
-    time.sleep(right)
-    car.stop()
+    while (t <= right):
+        car.right(turnPower)
+        time.sleep(0.1)
+        car.backward(turnpower)
+        time.sleep(0.1)
+        t += 0.1
+        car.stop()
 
-    car.left(turnPower)
-    time.sleep(left)
+    #car.left(turnPower)
+    #time.sleep(left)
     car.stop()
 
 # def ultra():
