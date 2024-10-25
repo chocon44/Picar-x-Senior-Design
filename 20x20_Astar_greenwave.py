@@ -16,7 +16,7 @@
 # Redlight() still raises exceptions but work
 # Obstacle check is on and working
 # Ride and turn time depends on grid size
-# Last updated: 10/22
+# Last updated: 10/25
 
 
 from picarx import Picarx 
@@ -52,8 +52,8 @@ database = firebase.database()
 
 
 car = Picarx()
-leftTurnTime = 1.8    # time to pivot turn the car left
-rightTurnTime = 1.8   # time to pivot turn the car right
+leftTurnTime = 1.6    # time to pivot turn the car left
+rightTurnTime = 1.6   # time to pivot turn the car right
 turnPower = 50  # power to pivot turn 
 power = 30      # power to go forward
 t = 0.3          # time for car going forward, 1 block distance
