@@ -9,7 +9,7 @@ def motors():
     car.stop()
     
     turnPower = 50
-    right = 1
+    right = 1.4
     left = 1
     t = 0
     
