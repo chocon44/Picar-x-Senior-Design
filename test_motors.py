@@ -12,13 +12,16 @@ def motors():
 
     print('Pivot right')
     time.sleep(1)
+
     car.right(turnPower)
     time.sleep(right)
     car.stop()
+
     print('Pivot left')
     time.sleep(1)
-    car.left(left)
-    time.sleep(2)
+    
+    car.left(turnPower)
+    time.sleep(left)
     car.stop()
 
 # def ultra():
