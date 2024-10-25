@@ -8,9 +8,9 @@ car = Picarx()
 def motors():
     car.stop()
     
-    turnPower = 80
-    right = 1.6
-    left = 1.6
+    turnPower = 90
+    right = 1.5
+    left = 1.5
     
     car.right(turnPower)
     time.sleep(right)
