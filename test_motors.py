@@ -15,8 +15,8 @@ def motors():
     
     while (t <= right):
         car.right(turnPower)
-        time.sleep(0.1)
-        car.backward(turnpower)
+        time.sleep(0.2)
+        car.backward(30)
         time.sleep(0.1)
         t += 0.1
         car.stop()
