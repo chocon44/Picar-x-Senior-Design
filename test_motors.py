@@ -8,7 +8,7 @@ car = Picarx()
 def motors():
     car.stop()
     
-    turnPower = 70
+    turnPower = 80
     right = 1.6
     left = 1.6
     
