@@ -4,9 +4,9 @@ import time
 
 car = Picarx()
 
-
+# for pi3
 def motors():
-    turnPower = 50
+    turnPower = 70
     right = 1.6
     left = 1.6
 
