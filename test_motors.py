@@ -6,14 +6,18 @@ car = Picarx()
 
 
 def motors():
+    turnPower = 70
+    right = 1.8
+    left = 1.8
+
     print('Pivot right')
     time.sleep(1)
-    car.right(50)
-    time.sleep(2)
+    car.right(turnPower)
+    time.sleep(right)
     car.stop()
     print('Pivot left')
     time.sleep(1)
-    car.left(50)
+    car.left(left)
     time.sleep(2)
     car.stop()
 
