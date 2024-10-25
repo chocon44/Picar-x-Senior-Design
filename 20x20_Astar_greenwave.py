@@ -52,8 +52,8 @@ database = firebase.database()
 
 
 car = Picarx()
-leftTurnTime = 1.6    # time to pivot turn the car left
-rightTurnTime = 1.6   # time to pivot turn the car right
+leftTurnTime = 1.75   # time to pivot turn the car left
+rightTurnTime = 1.75   # time to pivot turn the car right
 turnPower = 50  # power to pivot turn 
 power = 30      # power to go forward
 t = 0.3          # time for car going forward, 1 block distance
