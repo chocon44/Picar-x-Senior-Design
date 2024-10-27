@@ -188,9 +188,9 @@ def ObstacleSweep():
     car.set_cam_pan_angle(0)    # reset pan servo angle 
     time.sleep(0.5)
     angle = -50     # initialize to -50 deg
-    danger = 20
+    danger = 10
     sweepTime = 0.1
-    waitTime = 0.5    # time to read inputs again
+    waitTime = 0.2    # time to read inputs again
     while (angle <= 50):
         car.set_cam_pan_angle(angle)
         time.sleep(sweepTime)
@@ -230,7 +230,7 @@ def ObstacleSweep():
 red = 0
 # This function is used to detect other cars when going straight
 def ObstacleAhead():
-    danger = 20
+    danger = 10
     dist = round(car.ultrasonic.read(),2)
    
     if (dist > 0) and (dist <= danger):      # if obstacle is detected closely
