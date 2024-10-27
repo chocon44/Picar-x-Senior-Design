@@ -251,13 +251,15 @@ def Travel(thisPos,nextPos,i):
         Vilib.color_detect("red")
         # red signal detect
         if Vilib.detect_obj_parameter['color_n']!=0:    # if red is detected
-            car.stop()      # stop the car immediately 
-            time.sleep(0.1)
-            RedLight()      # check red light agai 
+            print("Red light detected")
+            car.stop()      # stop the car immediately
+            Vilib.camera_close()
+            time.sleep(1)
+            RedLight()      # check red light again
+
         else:        # if red is not detected -- green or yellow
             Vilib.camera_close()
-            print("Red light detected")
-            time.sleep(1)
+            return
                 
     
     if (thisPos == nextPos) :    # when destination is reached, stop the car, stop recursion
