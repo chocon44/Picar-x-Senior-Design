@@ -10,7 +10,7 @@ car = Picarx()
 rightPower = 30
 leftPower = 30
 t = 1           # time to go straight
-power = 50      # power to go straight
+power = 30      # power to go straight
 leftTime = 1.5    # time to pivot left 90 deg
 rightTime = 1.5
 
@@ -46,14 +46,13 @@ def test_turns():
 
     car.stop()
 
-    car.right(rightPower)
-    time.sleep(rightTime)
+    car.forward(power)
+    time.sleep(t)
 
-    car.stop()
-    time.sleep(1)
-
-    car.left(rightPower)
-    time.sleep(rightTime)
+    car.backward(power)
+    time.sleep(t)
+    
+    
 
     car.stop()
 
