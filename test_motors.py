@@ -8,7 +8,7 @@ car = Picarx()
 
 # global parameters to change 
 rightPower = 60     # this works when grayscale positions 
-leftPower = 50
+leftPower = 45
 t = 1.5           # time to go straight
 power = 30      # power to go straight
 leftTime = 2.8    # time to pivot left 90 deg
