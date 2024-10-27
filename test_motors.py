@@ -11,27 +11,28 @@ rightPower = 30
 leftPower = 30
 t = 1.5           # time to go straight
 power = 30      # power to go straight
-leftTime = 1.5    # time to pivot left 90 deg
-rightTime = 1.5
+leftTime = 1    # time to pivot left 90 deg
+rightTime = 1
 
 
 
 
 def motors_testing():
-    car.stop()
-    
-    turnPower = 50
-    right = 1.6
-    left = 1
-    t = 0
+    global rightPower
+    global leftPower
+    global leftTime 
+    global rightTime
+    global t 
+    global power 
+
     # This method works -- can try another medthod of using rubber band
-    # If rubber band does not work then can replicate the same for left pivot turn
-    while (t <= right):
-        car.right(turnPower)
-        time.sleep(0.2)
-        car.backward(30)
+    while (t <= rightTime):
+        step = 0.2
+        car.right(rightPower)
+        time.sleep(step)
+        car.backward(20)
         time.sleep(0.1)
-        t += 0.1
+        t+=step
         car.stop()
 
     car.stop()
@@ -117,7 +118,7 @@ def pan():
 
 
 def main():
-    test_turns()
+    motors_testing()
     car.stop()
     car.set_cam_pan_angle(0)
     
