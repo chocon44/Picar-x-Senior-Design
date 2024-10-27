@@ -25,14 +25,17 @@ def motors_testing():
     global t 
     global power 
 
+    car.stop() 
+
     # This method works -- can try another medthod of using rubber band
-    while (t <= rightTime):
+    dummy = 0
+    while (dummy <= rightTime):
         step = 0.2
         car.right(rightPower)
         time.sleep(step)
         car.backward(20)
         time.sleep(0.1)
-        t+=step
+        dummy+=step
         car.stop()
 
     car.stop()
