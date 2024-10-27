@@ -218,6 +218,7 @@ def ObstacleSweep():
 red = 0
 # This function is used to detect other cars when going straight
 def ObstacleAhead():
+    Vilib.camera_close()
     danger = 10
     dist = round(car.ultrasonic.read(),2)
     Vilib.camera_close()
@@ -539,6 +540,7 @@ def GetEnding():
     return([x2,y2])
 
 def main():
+    Vilib.camera_close()
     grid_size = 20
     grid = np.zeros((grid_size, grid_size))  # Create an empty grid
     
@@ -575,6 +577,8 @@ def main():
     car.set_cam_pan_angle(0)    # reset pan servo angle
 
 if __name__ == "__main__":
+   
     main()
     car.stop()      # stop the car
     car.set_cam_pan_angle(0)    # reset pan servo angle
+    Vilib.camera_close()
