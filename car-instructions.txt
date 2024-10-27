@@ -32,6 +32,11 @@ PiplupMantis
 9/24 token: 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
 
 
+---- For home wifi sd card ---------
+picar4@raspberrypi4.local
+1234
+
+
 
 -------- PATH TO PICARX.PY ROOT FILE ---------
 
