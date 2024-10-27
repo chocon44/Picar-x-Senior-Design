@@ -502,6 +502,7 @@ def Mobilize(starting, ending, path_list):
     left_list = [9,19]      #[[19,19], [19,9]] 
     right_list = [4,14]     #[[4,0], [14,0]]
     
+    # Initial orientation
     if (start[0] in right_list):
         right = 1
         print("Original orientation: right")
