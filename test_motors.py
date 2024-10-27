@@ -12,7 +12,7 @@ leftPower = 30
 t = 1.5           # time to go straight
 power = 30      # power to go straight
 leftTime = 1    # time to pivot left 90 deg
-rightTime = 2
+rightTime = 2.6
 
 
 
