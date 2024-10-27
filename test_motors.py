@@ -47,10 +47,10 @@ def Turn_Left():
     # This method works -- can try another medthod of using rubber band
     dummy = 0
     while (dummy <= leftTime):
-        step = 0.3
+        step = 0.2
         car.left(leftPower)
         time.sleep(step)
-        car.backward(20)
+        car.backward(15)
         time.sleep(0.1)
         dummy+=step
         car.stop()
