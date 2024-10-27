@@ -254,7 +254,7 @@ def Travel(thisPos,nextPos,i):
     global up, down, left, right
     global intersections
     
-    
+    Vilib.camera_close()
 
     def RedLight():  
         Vilib.camera_start()
@@ -264,10 +264,11 @@ def Travel(thisPos,nextPos,i):
         if Vilib.detect_obj_parameter['color_n']!=0:    # if red is detected
             car.stop()      # stop the car immediately 
             time.sleep(0.1)
+            RedLight()      # check red light agai 
         else:        # if red is not detected -- green or yellow
+            Vilib.camera_close()
             print("Red light detected")
             time.sleep(0.1)
-            RedLight()
                 
     
     if (thisPos == nextPos) :    # when destination is reached, stop the car, stop recursion
@@ -518,20 +519,6 @@ def Mobilize(starting, ending, path_list):
         print("Original orientation: down")
 
 
-    
-    # Set initial orientation
-    #if start in down_list: 
-    #    down = 1
-    #    print("Original orientation: down")
-    #elif start in up_list: 
-    #    up = 1
-    #    print("Original orientation: up")
-    #elif start in left_list: 
-    #    left = 1
-    #    print("Original orientation: left")
-    #elif start in right_list: 
-    #    right = 1
-    #    print("Original orientation: right")
         
      
     #-----  Moving the car from here to end of function -------# READ FROM DATABASE
