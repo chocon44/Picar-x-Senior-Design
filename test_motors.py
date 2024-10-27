@@ -57,6 +57,17 @@ def Turn_Left():
 
     car.stop()
 
+def TurnWServo():
+    global rightPower
+    global rightTime
+    global power 
+    global t
+    global leftPower
+    global leftTime 
+
+    print("Turn right")
+    car.set_dir_servo_angle(30)
+
 
 def read_ultrasonic():
     dist = round(car.ultrasonic.read(),2)
@@ -118,7 +129,7 @@ def pan():
 
 
 def main():
-    Turn_Left()
+    TurnWServo()
     car.stop()
     car.set_cam_pan_angle(0)
     
