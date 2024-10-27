@@ -283,7 +283,7 @@ def Travel(thisPos,nextPos,i):
         
         # if the next position is an intersection, check for traffic signal
         if (nextPos in intersections):
-            Redlight()
+            RedLight()
 
         if (thisX == nextX):    # on the same horizontal line (row)
             if (thisY < nextY): # go right
