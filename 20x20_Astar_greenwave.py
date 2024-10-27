@@ -244,20 +244,17 @@ path = []
 def Travel(thisPos,nextPos,i):
     global path
     global up, down, left, right
-    global red
     
     Vilib.camera_start()
     #Vilib.display()        # toggle display on when needed
     Vilib.color_detect("red")
     def RedLight():  
-        while (red == 1):
-            # red signal detect
-            if Vilib.detect_obj_parameter['color_n']!=0:    # if red is detected
-                car.stop()      # stop the car immediately 
-                red = 0
-            else:   # if red is not detected -- green or yellow
-                print("Red light detected")
-                red = 1
+        # red signal detect
+        if Vilib.detect_obj_parameter['color_n']!=0:    # if red is detected
+            car.stop()      # stop the car immediately 
+        else:        # if red is not detected -- green or yellow
+            print("Red light detected")
+            RedLight()
                 
     
     if (thisPos == nextPos) :    # when destination is reached, stop the car, stop recursion
@@ -442,18 +439,6 @@ def Travel(thisPos,nextPos,i):
                     UpdateFirebase(nextX,nextY) # update position to firebase
                     down = 1   # update orientation
                     left = up = right = 0
-        
-        
-        
-        # ------ Check for light at intersection -------- #
-        #while RedLight() == 1:
-        #    car.stop()
-        #    print("Red light detected")
-        #    time.sleep(2)
-        #else:
-        #    pass
-        
-        # moving on to the next 2 coordinates
         
         i+=1        # increment i
         if (i+1 >= len(path)):
