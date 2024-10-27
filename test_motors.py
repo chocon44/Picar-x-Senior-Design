@@ -11,7 +11,7 @@ rightPower = 60     # this works when grayscale positions
 leftPower = 30
 t = 1.5           # time to go straight
 power = 30      # power to go straight
-leftTime = 1    # time to pivot left 90 deg
+leftTime = 2.6    # time to pivot left 90 deg
 rightTime = 2.6
 
 
