@@ -47,13 +47,15 @@ def test_turns():
     car.stop()
 
     car.right(rightPower)
-    car.sleep(rightTime)
+    time.sleep(rightTime)
 
     car.stop()
     time.sleep(1)
 
     car.left(rightPower)
-    car.sleep(rightTime)
+    time.sleep(rightTime)
+
+    car.stop()
 
 
 def read_ultrasonic():
