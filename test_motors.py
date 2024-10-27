@@ -67,6 +67,9 @@ def TurnWServo():
 
     print("Turn right")
     car.set_dir_servo_angle(30)
+    car.forward(20)
+    time.sleep(0.1)
+    car.stop()
 
 
 def read_ultrasonic():
@@ -132,6 +135,7 @@ def main():
     TurnWServo()
     car.stop()
     car.set_cam_pan_angle(0)
+    car.set_dir_servo_angle(0)
     
 
 main()
