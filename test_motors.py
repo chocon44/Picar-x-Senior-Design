@@ -9,7 +9,7 @@ car = Picarx()
 # global parameters to change 
 rightPower = 30
 leftPower = 30
-t = 1           # time to go straight
+t = 1.5           # time to go straight
 power = 30      # power to go straight
 leftTime = 1.5    # time to pivot left 90 deg
 rightTime = 1.5
