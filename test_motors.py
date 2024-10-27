@@ -69,7 +69,7 @@ def TurnWServo():
     print("Turn right")
     car.set_dir_servo_angle(30)
     car.forward(20)
-    time.sleep(0.2)
+    time.sleep(0.5)
     car.stop()
 
 
