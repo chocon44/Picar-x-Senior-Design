@@ -33,8 +33,8 @@ def motors_testing():
         step = 0.3
         car.right(rightPower)
         time.sleep(step)
-        car.backward(10)
-        #time.sleep(0.1)
+        car.backward(20)
+        time.sleep(0.2)
         dummy+=step
         car.stop()
 
