@@ -118,7 +118,7 @@ def pan():
 
 
 def main():
-    Turn_Right()
+    Turn_Left()
     car.stop()
     car.set_cam_pan_angle(0)
     
