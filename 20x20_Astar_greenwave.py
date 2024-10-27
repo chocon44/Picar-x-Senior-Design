@@ -14,9 +14,8 @@
     #     [14,4],[14,9],[14,14],[14,19],[19,4],[19,9],[19,14],[19,19]]
     
 # Redlight() still raises exceptions but work
-# Obstacle check is on and working
-# Ride and turn time depends on grid size
-# Last updated: 10/25
+# Obstacle check is on and working -- increase range, close right now
+# Last updated: 10/27
 
 
 from picarx import Picarx 
@@ -166,16 +165,16 @@ def visualize_path_text(grid_size: int, path: List[Tuple[int, int]]) -> str:
 
 
 # this function returns 1 if red light is detected, 0 if green light detected 
-def RedLight():
-    Vilib.camera_start()
+#def RedLight():
+#    Vilib.camera_start()
     #Vilib.display()        # toggle display on when needed
-    Vilib.color_detect("red")
-    while True:
-        if Vilib.detect_obj_parameter['color_n']!=0:    # if red is detected
-            car.stop()      # stop the car immediately 
-            return 1
-        else:   # if red is not detected -- green or yellow
-            return 0 
+#    Vilib.color_detect("red")
+#    while True:
+#        if Vilib.detect_obj_parameter['color_n']!=0:    # if red is detected
+#            car.stop()      # stop the car immediately 
+#            return 1
+#        else:   # if red is not detected -- green or yellow
+#            return 0 
     
 
         
@@ -245,6 +244,18 @@ path = []
 def Travel(thisPos,nextPos,i):
     global path
     global up, down, left, right
+
+    # this function returns 1 if red light is detected, 0 if green light detected 
+    def RedLight():
+        Vilib.camera_start()
+        #Vilib.display()        # toggle display on when needed
+        Vilib.color_detect("red")
+        while True:
+            if Vilib.detect_obj_parameter['color_n']!=0:    # if red is detected
+                car.stop()      # stop the car immediately 
+                return 1
+            else:   # if red is not detected -- green or yellow
+                return 0 
     
     if (thisPos == nextPos) :    # when destination is reached, stop the car, stop recursion
         car.stop()
