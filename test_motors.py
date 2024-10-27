@@ -7,7 +7,7 @@ import time
 car = Picarx()
 
 # global parameters to change 
-rightPower = 30
+rightPower = 50
 leftPower = 30
 t = 1.5           # time to go straight
 power = 30      # power to go straight
@@ -34,7 +34,7 @@ def motors_testing():
         car.right(rightPower)
         time.sleep(step)
         car.backward(20)
-        time.sleep(0.2)
+        time.sleep(0.1)
         dummy+=step
         car.stop()
 
