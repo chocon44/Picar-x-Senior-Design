@@ -7,7 +7,7 @@ import time
 car = Picarx()
 
 # global parameters to change 
-rightPower = 60
+rightPower = 60     # this works when grayscale positions 
 leftPower = 30
 t = 1.5           # time to go straight
 power = 30      # power to go straight
@@ -17,12 +17,9 @@ rightTime = 2.6
 
 
 
-def motors_testing():
+def Turn_Right():
     global rightPower
-    global leftPower
-    global leftTime 
     global rightTime
-    global t 
     global power 
 
     car.stop() 
@@ -40,23 +37,23 @@ def motors_testing():
 
     car.stop()
 
-def test_turns():
-    global rightPower
+def Turn_Left():
     global leftPower
     global leftTime 
-    global rightTime
-    global t 
     global power 
 
-    car.stop()
+    car.stop() 
 
-    car.forward(power)
-    time.sleep(t)
-
-    car.backward(power)
-    time.sleep(t)
-    
-    
+    # This method works -- can try another medthod of using rubber band
+    dummy = 0
+    while (dummy <= leftTime):
+        step = 0.3
+        car.left(leftPower)
+        time.sleep(step)
+        car.backward(20)
+        time.sleep(0.1)
+        dummy+=step
+        car.stop()
 
     car.stop()
 
@@ -121,7 +118,7 @@ def pan():
 
 
 def main():
-    motors_testing()
+    Turn_Right()
     car.stop()
     car.set_cam_pan_angle(0)
     
