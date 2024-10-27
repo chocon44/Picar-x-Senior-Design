@@ -6,6 +6,16 @@ import time
 
 car = Picarx()
 
+# global parameters to change 
+rightPower = 30
+leftPower = 30
+t = 1           # time to go straight
+power = 50      # power to go straight
+leftTime = 1.5    # time to pivot left 90 deg
+rightTime = 1.5
+
+
+
 # for pi3
 def motors():
     car.stop()
@@ -26,6 +36,24 @@ def motors():
 
     car.stop()
 
+def test_turns():
+    global rightPower
+    global leftPower
+    global leftTime 
+    global rightTime
+    global t 
+    global power 
+
+    car.stop()
+
+    car.right(rightPower)
+    car.sleep(rightTime)
+
+    car.stop()
+    time.sleep(1)
+
+    car.left(rightPower)
+    car.sleep(rightTime)
 
 
 def read_ultrasonic():
