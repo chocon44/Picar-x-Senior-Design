@@ -37,7 +37,6 @@ picar4@raspberrypi4.local
 1234
 
 
-
 -------- PATH TO PICARX.PY ROOT FILE ---------
 
 cd picar-x/picarx/
@@ -100,10 +99,47 @@ https://docs.sunfounder.com/projects/picar-x/en/stable/about_robot_hat.html
 cp picar-x/picarx/picarx.py picar_stuff/SeniorDesign/.
 
 
+------- CLONE COPY OF PICAR ROOT FILE STEPS -----------
+
+sudo apt-get update
+sudo apt-get install git
+git config --global user.name "Your GitHub Username"
+git config --global user.email "your.email@example.com"
+cd /path/to/your/directory
+git init 
+touch .gitignore    # Add any files/directories you want to ignore
+git add .
+git commit -m "Initial commit"
+git remote add origin https://github.com/username/repository-name.git  # can change this to ssh 
+git push -u origin master
+# or if you're using main branch
+git push -u origin main
+
+# if having issues authencating 
+ssh-keygen -t ed25519 -C "your.email@example.com"
+eval "$(ssh-agent -s)"  # start ssh agent
+ssh-add ~/.ssh/id_ed25519   # add ssh key to agent 
+cat ~/.ssh/id_ed25519.pub   # display public key
+
+Copy the entire output from the above command.
+Add the SSH key to your GitHub account:
+
+Go to GitHub.com
+Click your profile photo → Settings
+Click "SSH and GPG keys" in the sidebar
+Click "New SSH key" or "Add SSH key"
+Give it a title (e.g., "Raspberry Pi")
+Paste your key into the "Key" field
+Click "Add SSH key"
 
 
-GRID INFORMATION: 
-block square size: 8x8
-white road width: 18 in
+Test your SSH connection:
+ssh -T git@github.com
+git remote set-url origin git@github.com:username/repository-name.git
+git push -u origin master
+git remote -v
 
-Brian L. Mark <bmark@gmu.edu>; Michael Schroeder <mschro2@gmu.edu>; Ngoc T Le <nle34@gmu.edu>; Huy Dang <hdang24@gmu.edu>; Quynh Ngoc Vo <qvo22@gmu.edu>;Tolga Soyata <tsoyata@gmu.edu>; Cameron Nowzari <cnowzari@gmu.edu>
+
+
+
+
