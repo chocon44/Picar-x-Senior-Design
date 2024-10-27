@@ -64,7 +64,8 @@ def TurnWServo():
     global t
     global leftPower
     global leftTime 
-
+    car.set_dir_servo_angle(0)
+    
     print("Turn right")
     car.set_dir_servo_angle(30)
     car.forward(20)
