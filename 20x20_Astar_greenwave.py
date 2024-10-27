@@ -164,19 +164,6 @@ def visualize_path_text(grid_size: int, path: List[Tuple[int, int]]) -> str:
 
 
 
-# this function returns 1 if red light is detected, 0 if green light detected 
-#def RedLight():
-#    Vilib.camera_start()
-    #Vilib.display()        # toggle display on when needed
-#    Vilib.color_detect("red")
-#    while True:
-#        if Vilib.detect_obj_parameter['color_n']!=0:    # if red is detected
-#            car.stop()      # stop the car immediately 
-#            return 1
-#        else:   # if red is not detected -- green or yellow
-#            return 0 
-    
-
         
 # 2D list contains coordinates of intersections where there are traffic signals       
 intersections =[[4,4],[4,9],[4,14],[4,19],[9,4],[9,9],[9,14],[9,19],
@@ -185,6 +172,7 @@ intersections =[[4,4],[4,9],[4,14],[4,19],[9,4],[9,9],[9,14],[9,19],
 # This function stops the car when obstacle is detected (<= 40)
 # sweep the pan servo while reading ultrasonic sensor reading 
 def ObstacleSweep():
+    Vilib.camera_close()
     car.set_cam_pan_angle(0)    # reset pan servo angle 
     time.sleep(0.5)
     angle = -50     # initialize to -50 deg
@@ -232,7 +220,7 @@ red = 0
 def ObstacleAhead():
     danger = 10
     dist = round(car.ultrasonic.read(),2)
-   
+    Vilib.camera_close()
     if (dist > 0) and (dist <= danger):      # if obstacle is detected closely
         car.stop()          # stop the car 
         print("Obstacle detected at: ", dist)
