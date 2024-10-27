@@ -188,7 +188,7 @@ def ObstacleSweep():
     car.set_cam_pan_angle(0)    # reset pan servo angle 
     time.sleep(0.5)
     angle = -50     # initialize to -50 deg
-    danger = 10
+    danger = 20
     sweepTime = 0.1
     waitTime = 0.5    # time to read inputs again
     while (angle <= 50):
@@ -223,12 +223,14 @@ def ObstacleSweep():
     car.set_cam_pan_angle(0)        # reset pan servo angle at the end    
     return
 
-        
+
+
+
         
 red = 0
 # This function is used to detect other cars when going straight
 def ObstacleAhead():
-    danger = 10
+    danger = 20
     dist = round(car.ultrasonic.read(),2)
    
     if (dist > 0) and (dist <= danger):      # if obstacle is detected closely
@@ -237,36 +239,51 @@ def ObstacleAhead():
         time.sleep(2)       # wait 2 seconds before checking again 
         ObstacleAhead()     # repeat this function until the obstacle is cleared
     return
-    
+
+
+intersections = [[4,4],[4,9],[4,14],[4,19],[9,4],[9,9],[9,14],[9,19],[14,4],[14,9],[14,14],[14,19],[19,4],[19,9],[19,14],[19,19]]
+
+
+
+
 # flags to indicate orientation 
 up = down = left = right = 0
 path = []
 def Travel(thisPos,nextPos,i):
     global path
     global up, down, left, right
+    global intersections
     
     Vilib.camera_start()
     #Vilib.display()        # toggle display on when needed
     Vilib.color_detect("red")
+
     def RedLight():  
         # red signal detect
         if Vilib.detect_obj_parameter['color_n']!=0:    # if red is detected
             car.stop()      # stop the car immediately 
+            time.sleep(0.1)
         else:        # if red is not detected -- green or yellow
             print("Red light detected")
+            time.sleep(0.1)
             RedLight()
                 
     
     if (thisPos == nextPos) :    # when destination is reached, stop the car, stop recursion
         car.stop()
-        print("Done")
+        print("Reached destination")
         return
+
     else:
         thisX = thisPos[0]
         thisY = thisPos[1]
         nextX = nextPos[0]
         nextY = nextPos[1]
         
+        # if the next position is an intersection, check for traffic signal
+        if (nextPos in intersections):
+            Redlight()
+
         if (thisX == nextX):    # on the same horizontal line (row)
             if (thisY < nextY): # go right
                 print("Going right")
@@ -480,25 +497,39 @@ def Mobilize(starting, ending, path_list):
     
     #------- list of coordinates that have named original orientation ------# 
     
-    down_list = [[0,9], [0,19], [4,19], [9,19], [14,19]]
-    up_list = [[19,4], [19,14]]
-    left_list = [[19,19], [19,9]] 
-    right_list = [[4,0], [14,0]]
+    down_list = [4,19]      #[[0,9], [0,19], [4,19], [9,19], [14,19]]
+    up_list = [4,14]       #[[19,4], [19,14]]
+    left_list = [9,19]      #[[19,19], [19,9]] 
+    right_list = [4,14]     #[[4,0], [14,0]]
     
-    
-    # Set initial orientation
-    if start in down_list: 
-        down = 1
-        print("Original orientation: down")
-    elif start in up_list: 
-        up = 1
-        print("Original orientation: up")
-    elif start in left_list: 
-        left = 1
-        print("Original orientation: left")
-    elif start in right_list: 
+    if (start[0] in right_list):
         right = 1
         print("Original orientation: right")
+    elif (start[0] in left_list):
+        left = 1
+        print("Original orientation: left")
+    elif (start[1] in up_list):
+        up = 1
+        print("Original orientation: up")
+    elif (start[1] in down_list):
+        down = 1
+        print("Original orientation: down")
+
+
+    
+    # Set initial orientation
+    #if start in down_list: 
+    #    down = 1
+    #    print("Original orientation: down")
+    #elif start in up_list: 
+    #    up = 1
+    #    print("Original orientation: up")
+    #elif start in left_list: 
+    #    left = 1
+    #    print("Original orientation: left")
+    #elif start in right_list: 
+    #    right = 1
+    #    print("Original orientation: right")
         
      
     #-----  Moving the car from here to end of function -------# READ FROM DATABASE
