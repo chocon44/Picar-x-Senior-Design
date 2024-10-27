@@ -16,8 +16,8 @@ rightTime = 1.5
 
 
 
-# for pi3
-def motors():
+
+def motors_testing():
     car.stop()
     
     turnPower = 50
@@ -116,7 +116,7 @@ def pan():
 
 
 def main():
-    motors()
+    test_turns()
     car.stop()
     car.set_cam_pan_angle(0)
     
