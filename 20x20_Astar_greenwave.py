@@ -482,7 +482,7 @@ def Mobilize(starting, ending, path_list):
     global up, down, left, right
     
     # new 2d list to store all coordinates
-    #path = []
+    # path = []
     for coord in path_list:
         # Convert tuple coordinates to list of integers
         path.append([int(coord[0]), int(coord[1])])
