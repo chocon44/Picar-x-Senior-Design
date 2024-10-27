@@ -50,7 +50,7 @@ def Turn_Left():
         step = 0.2
         car.left(leftPower)
         time.sleep(step)
-        car.backward(15)
+        car.backward(10)
         time.sleep(0.1)
         dummy+=step
         car.stop()
