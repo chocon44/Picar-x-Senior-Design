@@ -12,7 +12,7 @@ leftPower = 30
 t = 1.5           # time to go straight
 power = 30      # power to go straight
 leftTime = 1    # time to pivot left 90 deg
-rightTime = 1
+rightTime = 2
 
 
 
@@ -30,11 +30,11 @@ def motors_testing():
     # This method works -- can try another medthod of using rubber band
     dummy = 0
     while (dummy <= rightTime):
-        step = 0.2
+        step = 0.3
         car.right(rightPower)
         time.sleep(step)
-        car.backward(20)
-        time.sleep(0.1)
+        car.backward(10)
+        #time.sleep(0.1)
         dummy+=step
         car.stop()
 
