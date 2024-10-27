@@ -225,7 +225,7 @@ def ObstacleSweep():
 
         
         
-
+red = 0
 # This function is used to detect other cars when going straight
 def ObstacleAhead():
     danger = 10
@@ -244,18 +244,21 @@ path = []
 def Travel(thisPos,nextPos,i):
     global path
     global up, down, left, right
-
-    # this function returns 1 if red light is detected, 0 if green light detected 
-    def RedLight():
-        Vilib.camera_start()
-        #Vilib.display()        # toggle display on when needed
-        Vilib.color_detect("red")
-        while True:
+    global red
+    
+    Vilib.camera_start()
+    #Vilib.display()        # toggle display on when needed
+    Vilib.color_detect("red")
+    def RedLight():  
+        while (red == 1):
+            # red signal detect
             if Vilib.detect_obj_parameter['color_n']!=0:    # if red is detected
                 car.stop()      # stop the car immediately 
-                return 1
+                red = 0
             else:   # if red is not detected -- green or yellow
-                return 0 
+                print("Red light detected")
+                red = 1
+                
     
     if (thisPos == nextPos) :    # when destination is reached, stop the car, stop recursion
         car.stop()
@@ -443,12 +446,12 @@ def Travel(thisPos,nextPos,i):
         
         
         # ------ Check for light at intersection -------- #
-        while RedLight() == 1:
-            car.stop()
-            print("Red light detected")
-            time.sleep(2)
-        else:
-            pass
+        #while RedLight() == 1:
+        #    car.stop()
+        #    print("Red light detected")
+        #    time.sleep(2)
+        #else:
+        #    pass
         
         # moving on to the next 2 coordinates
         
