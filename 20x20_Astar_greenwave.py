@@ -268,8 +268,8 @@ def Travel(thisPos,nextPos,i):
         else:        # if red is not detected -- green or yellow
             Vilib.camera_close()
             data = {
-            "Redlight detected": 0}
-            database.child("Picarx4").child("Red light detected").set(data)
+            "Red light detected": 0}
+            database.child("Picarx4").set(data)
             return
                 
     
