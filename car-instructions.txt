@@ -3,9 +3,7 @@ current OS image Legacy 32-bit
 hostname: raspberrypi (raspberrypi.local)
 username: picar
 password: 1234
-wifi
-ssid: picarx
-password:12341234
+
 
 -- Raspberry pi 4
 current OS image Legacy 32-bit
@@ -15,6 +13,18 @@ password: 1234
 wifi
 	SSID: TP-Link_7813
 	PIN: 57631301
+
+-- Pi3b
+current OS image Legacy 32-bit
+hostname: (raspberrypi3b.local)
+username: pi3b
+password: 1234
+wifi
+	SSID: TP-Link_7813
+	PIN: 57631301
+
+
+
 
 --- Video from previous group
 https://www.youtube.com/watch?v=E5JR1wnvWe8
