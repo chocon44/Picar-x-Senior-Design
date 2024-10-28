@@ -256,20 +256,20 @@ def Travel(thisPos,nextPos,i):
             Vilib.camera_close()
             
             # TESTING PURPOSE push redlight result to firebase
-            data = {
-            "Redlight detected": 1}
-            database.child("Picarx4").child("Red light detected").set(data)
-            car.stop()
+            # data = {
+            # "Redlight detected": 1}
+            # database.child("Picarx4").child("Red light detected").set(data)
             
+            car.stop()
             time.sleep(1)
             RedLight()      # check red light again
             
             
         else:        # if red is not detected -- green or yellow
             Vilib.camera_close()
-            data = {
-            "Red light detected": 0}
-            database.child("Picarx4").set(data)
+            # data = {
+            # "Red light detected": 0}
+            # database.child("Picarx4").set(data)
             return
                 
     
