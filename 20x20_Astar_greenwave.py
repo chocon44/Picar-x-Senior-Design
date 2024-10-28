@@ -15,7 +15,7 @@
     
 # Redlight() still raises exceptions but work
 # Obstacle check is on and working -- increase range, close right now
-# Last updated: 10/27
+# Last updated: 10/28
 
 
 from picarx import Picarx 
@@ -254,11 +254,22 @@ def Travel(thisPos,nextPos,i):
             print("Red light detected")
             car.stop()      # stop the car immediately
             Vilib.camera_close()
+            
+            # TESTING PURPOSE push redlight result to firebase
+            data = {
+            "Redlight detected": 1}
+            database.child("Picarx4").child("Red light detected").set(data)
+            car.stop()
+            
             time.sleep(1)
             RedLight()      # check red light again
-
+            
+            
         else:        # if red is not detected -- green or yellow
             Vilib.camera_close()
+            data = {
+            "Redlight detected": 0}
+            database.child("Picarx4").child("Red light detected").set(data)
             return
                 
     
