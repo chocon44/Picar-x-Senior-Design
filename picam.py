@@ -1,8 +1,10 @@
+#
+# Last updated 10/29/24
+#
+
 import time
 from pyrebase import pyrebase
 from vilib import Vilib
-
-
 
 #-------- Firebase -----------#
 
@@ -22,26 +24,22 @@ firebase = pyrebase.initialize_app(config)
 database = firebase.database()
 
 def main():
-    Vilib.camera_start()
-    Vilib.display()      # display camera feed, can turn display off 
-    Vilib.color_detect("red")
-    
-    while True:
-        if Vilib.detect_obj_parameter['color_n']!=0:
-		        data = {
-    			  "Redlight detected": 0}
-    			  database.child("Picam pico").child("Red light detected").set(data)
-		      
-        else:
-    		  
-    			  data = {
-    			  "Redlight detected": 0}
-    			  database.child("Picam pico").child("Red light detected").set(data)
-               
-          
-if __name__ == "__main__":
-    try:
-        main()
+	Vilib.camera_start()
+	Vilib.display()	
+	Vilib.color_detect("red")
+	
+	while True:
+		if Vilib.detect_obj_parameter['color_n'] != 0:	# if red is detected...
+			data = { "Red light detected": 1}			# database value is 1
+			database.child("Picam pico").set(data)
+			print("Red detected")
+		else:											# if no red is detected...
+			data = { "Red light detected": 0}			# databse value is 0
+			database.child("Picam pico").set(data)
+			
 
-    finally:
-        Vilib.camera_close()
+if __name__ == "__main__":
+	try:
+		main()
+	finally:
+		Vilib.camera_close()
