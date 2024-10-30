@@ -72,8 +72,12 @@ def TurnWServo():
     time.sleep(1.3)
     car.stop()
 
+# calibrating function
 def GoStraight():
     car.forward(30)
+    time.sleep(1.3)
+    car.stop()
+    car.left(50)
     time.sleep(1.3)
     car.stop()
     return 
