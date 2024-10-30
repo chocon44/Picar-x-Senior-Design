@@ -78,7 +78,7 @@ def GoStraight():
     time.sleep(1.3)
     car.stop()
     car.left(50)
-    time.sleep(1.3)
+    time.sleep(1.5)
     car.stop()
     return 
 
