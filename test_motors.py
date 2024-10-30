@@ -88,7 +88,7 @@ def GoStraight():
 
 def car_forward():
     while True:
-        gm_val_list = px.get_grayscale_data()
+        gm_val_list = car.get_grayscale_data()
 
 def read_ultrasonic():
     dist = round(car.ultrasonic.read(),2)
