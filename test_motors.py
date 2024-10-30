@@ -89,9 +89,17 @@ def GoStraight():
 def car_forward():
     while True:
         gm_val_list = car.get_grayscale_data()
-        for i in gm_val_list:
-            print(i, end=" ")
-        print()
+        while (gm_val_list[1] > 700):   # white line is on the middle
+            car.forward(30)
+        if (gm_val_list[0] > 700):  # white line is on the left 
+            car.left(20)
+            time.sleep(0.1)
+            car_forward()
+        elif (gm_val_list[2] > 700):    # line is on the right 
+            car.right(20)
+            time.sleep(0.1)
+            car_forward()
+
 
 def read_ultrasonic():
     dist = round(car.ultrasonic.read(),2)
