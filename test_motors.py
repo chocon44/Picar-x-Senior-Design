@@ -93,14 +93,16 @@ def car_forward():
             car.forward(10)
         elif (gm_val_list[0] > 700)and (gm_val_list[1] < 700) and (gm_val_list[2] < 700):  # white line is on the left 
             car.stop()
-            #car.left(20)
-            #time.sleep(0.1)
-            #car_forward()
+            car.left(20)
+            time.sleep(0.1)
+            car_forward()
         elif (gm_val_list[0] < 700)and (gm_val_list[1] < 700) and (gm_val_list[2] > 700):    # line is on the right 
             car.stop()
-            #car.right(20)
-            #time.sleep(0.1)
-            #car_forward()
+            car.right(20)
+            time.sleep(0.1)
+            car_forward()
+        else:
+            car.stop()
     car.stop()
 
 def read_ultrasonic():
