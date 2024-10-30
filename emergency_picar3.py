@@ -41,5 +41,9 @@ def main():
     car.set_motor_speed(2,-1*speed)   # left motor
     time.sleep(3)
     car.stop() 
+    data = {
+        "Presence": 0}
+        
+    database.child("Emergency vehicle").set(data)
 
 main()
