@@ -2,14 +2,18 @@
 # 1) Read from firebase without pyrebase 2) Get rid of path searching algorithm , the car can travel in a fixed path
 # Last updated: 10/30
 
-
+import network 
+from wlan import do_connect
+do_connect()
+import urequests
 import pico_4wd as car
-import time
 import math 
-import numpy as np
-import heapq
-from typing import List, Tuple
-import pyrebase
+import time
+
+#import numpy as np
+#import heapq
+#from typing import List, Tuple
+#import pyrebase
 
 # --------- Global parameters ------------#
 
