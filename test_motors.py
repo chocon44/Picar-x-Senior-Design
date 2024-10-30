@@ -72,6 +72,13 @@ def TurnWServo():
     time.sleep(1.3)
     car.stop()
 
+def GoStraight():
+    car.forward(30)
+    time.sleep(0.7)
+    car.stop()
+    return 
+
+
 
 def read_ultrasonic():
     dist = round(car.ultrasonic.read(),2)
@@ -133,10 +140,7 @@ def pan():
 
 
 def main():
-    TurnWServo()
-    car.stop()
-    car.set_cam_pan_angle(0)
-    car.set_dir_servo_angle(0)
+    GoStraight()
     
 
 main()
