@@ -39,7 +39,7 @@ def main():
     #speed = 50
     #car.set_motor_speed(1, 50) #right motor
     car.set_motor_speed(2,-1*50)   # left motor
-    time.sleep(3)
+    time.sleep(2)
 
     time.sleep(3)
     car.stop() 
