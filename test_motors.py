@@ -74,7 +74,7 @@ def TurnWServo():
 
 # calibrating function
 def GoStraight():
-    t = 1.3 # per block 
+    t = 1.3     # per block 
     car.forward(30)
     time.sleep(t)
     car.stop()
@@ -89,6 +89,8 @@ def GoStraight():
 def car_forward():
     while True:
         gm_val_list = car.get_grayscale_data()
+        for i in gm_valist:
+            print(i)
 
 def read_ultrasonic():
     dist = round(car.ultrasonic.read(),2)
