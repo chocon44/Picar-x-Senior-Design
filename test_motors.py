@@ -76,7 +76,7 @@ def TurnWServo():
 def GoStraight():
     t = 1.3 # per block 
     car.forward(30)
-    time.sleep(t*2)
+    time.sleep(t)
     car.stop()
     #car.left(50)
     #time.sleep(1.5)
