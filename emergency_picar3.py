@@ -37,8 +37,8 @@ def main():
     database.child("Emergency vehicle").set(data)
 
     speed = 50
-    car.set_motor_speed(1, speed) #right motor
-    #car.set_motor_speed(2,-1*speed+20)   # left motor
+    #car.set_motor_speed(1, speed) #right motor
+    car.set_motor_speed(2,-1*speed)   # left motor
     time.sleep(3)
 
     time.sleep(3)
