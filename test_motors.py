@@ -86,7 +86,9 @@ def GoStraight():
     #car.stop()
     return 
 
-
+def car_forward():
+    while True:
+        gm_val_list = px.get_grayscale_data()
 
 def read_ultrasonic():
     dist = round(car.ultrasonic.read(),2)
@@ -148,7 +150,7 @@ def pan():
 
 
 def main():
-    GoStraight()
+    car_forward()
     
 
 main()
