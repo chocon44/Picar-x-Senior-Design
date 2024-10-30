@@ -1,3 +1,7 @@
+# Notes: Micropython cannot use numpy, cannot use pyrebase
+# 1) Read from firebase without pyrebase 2) Get rid of path searching algorithm , the car can travel in a fixed path
+# Last updated: 10/30
+
 
 import pico_4wd as car
 import time
