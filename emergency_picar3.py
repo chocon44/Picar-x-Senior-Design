@@ -38,7 +38,7 @@ def main():
 
     #speed = 50
     car.set_motor_speed(1, 90) #right motor
-    car.set_motor_speed(2,-1*30)   # left motor
+    car.set_motor_speed(2,-1*20)   # left motor
     time.sleep(2)
 
     time.sleep(3)
