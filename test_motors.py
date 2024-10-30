@@ -90,7 +90,7 @@ def car_forward():
     while True:
         gm_val_list = car.get_grayscale_data()
         while (gm_val_list[1] > 700):   # white line is on the middle
-            car.forward(30)
+            car.forward(10)
         if (gm_val_list[0] > 700):  # white line is on the left 
             car.left(20)
             time.sleep(0.1)
