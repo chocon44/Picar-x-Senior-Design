@@ -74,7 +74,7 @@ def TurnWServo():
 
 def GoStraight():
     car.forward(30)
-    time.sleep(1.5)
+    time.sleep(1.2)
     car.stop()
     return 
 
