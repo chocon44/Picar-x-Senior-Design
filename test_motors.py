@@ -89,7 +89,7 @@ def GoStraight():
 def car_forward():
     while True:
         gm_val_list = car.get_grayscale_data()
-        for i in gm_valist:
+        for i in gm_val_list:
             print(i)
 
 def read_ultrasonic():
