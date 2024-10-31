@@ -46,7 +46,7 @@ def get_status(val_list):
 if __name__=='__main__':
     try:
         max_time = time.time() + 7
-        while time.time() <= max_time:
+        while time.time() < max_time:
             gm_val_list = px.get_grayscale_data()
             gm_state = get_status(gm_val_list)
             print("gm_val_list: %s, %s"%(gm_val_list, gm_state))
