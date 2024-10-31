@@ -1,5 +1,6 @@
 from picarx import Picarx
-from time import sleep
+#from time import sleep
+import time 
 
 px = Picarx()
 # px = Picarx(grayscale_pins=['A0', 'A1', 'A2'])
@@ -9,6 +10,7 @@ current_state = None
 px_power = 10
 offset = 20
 last_state = "stop"
+
 
 def outHandle():
     global last_state, current_state
@@ -40,8 +42,8 @@ def get_status(val_list):
 
 if __name__=='__main__':
     try:
-        t = 0 
-        while (t < 3):      # run for 3 seconds
+        t_end = time.time() + 4
+        while (time.time() < t_end):      # run for 4 seconds
             gm_val_list = px.get_grayscale_data()
             gm_state = get_status(gm_val_list)
             print("gm_val_list: %s, %s"%(gm_val_list, gm_state))
