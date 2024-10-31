@@ -13,7 +13,7 @@ ref = 600
 #px.set_line_reference([1400, 1400, 1400])
 
 def Forward():
-    max_time = time.time() + 1  # set max time 
+    max_time = time.time() + 1.25  # set max time 
     while (time.time() < max_time):
         gm_val_list = px.get_grayscale_data()
         if gm_val_list[1] > ref:
