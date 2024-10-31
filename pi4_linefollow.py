@@ -62,18 +62,18 @@ def Forward():
     go_forward(1.3)
 
     # check for traffic light before moving to the next block 
-    RedLight()
+    #RedLight()
 
-    go_forward(1.5)
+    #go_forward(1.5)
     # start turningg here, check for light and obstacle
-    RedLight()
-    ObstacleSweep()
+    #RedLight()
+    #ObstacleSweep()
     
-    px.left(50)
-    time.sleep(1.3)
+    #px.left(50)
+    #time.sleep(1.3)
 
     # go forward for 1 more block
-    go_forward(1.5)
+    #go_forward(1.5)
 
 
     px.stop()
