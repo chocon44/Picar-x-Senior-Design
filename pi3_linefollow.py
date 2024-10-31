@@ -4,7 +4,7 @@ import time
 
 px = Picarx()
 # px = Picarx(grayscale_pins=['A0', 'A1', 'A2'])
-px.set_line_reference([500, 1400, 500])
+px.set_line_reference([700, 700, 700])
 
 current_state = None
 px_power = 10
