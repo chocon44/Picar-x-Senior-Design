@@ -14,7 +14,7 @@ ref = 600
 
 def Forward():
     px.set_dir_servo_angle(0)
-    car.forward(px_power)
+    px.forward(px_power)
     time.sleep(1)
     px.stop()
     px.set_dir_servo_angle(0)
