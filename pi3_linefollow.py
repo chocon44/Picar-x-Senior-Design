@@ -1,5 +1,5 @@
 from picarx import Picarx
-#from time import sleep
+from time import sleep
 import time 
 
 px = Picarx()
@@ -67,4 +67,3 @@ if __name__=='__main__':
     finally:
         px.stop()
         print("stop and exit")
-        sleep(0.1)
