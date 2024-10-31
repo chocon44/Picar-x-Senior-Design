@@ -37,14 +37,19 @@ def get_status(val_list):
     #for i in _state:
     #    print (i, end=" ")
     #print()
-    if _state == [0, 0, 0]:
-        return 'stop'
-    elif _state[1] == 1:
+    if _state == [0, 0, 0]: # all three get the referenced values -- forward
+        #return 'stop'
         return 'forward'
-    elif _state[0] == 1:
-        return 'right'
-    elif _state[2] == 1:
+    elif _state == [0,0,1]: # left and middle get the line -- move slight left 
+        return 'slight left'
+    elif _state == [1,0,0]: # right and middle  get the line -- move slight right
+        return 'slight right'
+    elif _state == [1,0,1]: # middle gets the line -- forward
+        return 'forward'
+    elif _state == [1,1,0]: # only right gets the line -- left
         return 'left'
+    elif _state == [0,1,1]: # only left gets the line -- right
+        return 'right'
 
 if __name__=='__main__':
     try:
@@ -66,6 +71,14 @@ if __name__=='__main__':
             elif gm_state == 'right':
                 px.set_dir_servo_angle(-offset)
                 px.forward(px_power)
+            elif gm_state == 'slight right':
+                px.set_dir_servo_angle(-offset+5)
+                px.forward(px_power)
+            elif gm_state == 'slight left':
+                px.set_dir_servo_angle(offset-5)
+                px.forward(px_power)
+                
+                
             else:
                 outHandle()
         px.stop()
