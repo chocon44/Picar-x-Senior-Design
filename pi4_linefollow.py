@@ -3,6 +3,7 @@
 from picarx import Picarx
 from time import sleep
 import time
+from vilib import Vilib
 
 px = Picarx()
 px_power = 30
@@ -12,8 +13,11 @@ ref = 600
 
 #px.set_line_reference([1400, 1400, 1400])
 
-def Forward():
+
+def go_forward():
+    Vilib.camera_close()
     max_time = time.time() + 1.5  # set max time 
+    # go straight
     while (time.time() < max_time):
         gm_val_list = px.get_grayscale_data()
         if gm_val_list[1] > ref:
@@ -32,8 +36,105 @@ def Forward():
         else:
             px.stop()
     px.stop()
-    px.set_dir_servo_angle(0)
+    return
+
+def Forward():
+
+    def RedLight():  
+        Vilib.camera_start()
+        #Vilib.display()        # toggle display on when needed
+        Vilib.color_detect("red")
+        # red signal detect
+        if Vilib.detect_obj_parameter['color_n']!=0:    # if red is detected
+            print("Red light detected")
+            car.stop()      # stop the car immediately
+            Vilib.camera_close()
+            
+            # TESTING PURPOSE push redlight result to firebase
+            # data = {
+            # "Redlight detected": 1}
+            # database.child("Picarx4").child("Red light detected").set(data)
+            
+            car.stop()
+            time.sleep(1)
+            RedLight()      # check red light again
+
+    go_forward()
+
+    # check for traffic light before moving to the next block 
+    RedLight()
+
+    go_forward()
+    # start turningg here, check for light and obstacle
+    RedLight()
+    ObstacleSweep()
     
+    px.left(50)
+    time.sleep(1.5)
+    px.stop()
+
+    # go forward for 1 more block
+    go_forward()
+
+
+    px.stop()
+    px.set_dir_servo_angle(0)
+
+
+def ObstacleAhead():
+    Vilib.camera_close()
+    danger = 10
+    dist = round(car.ultrasonic.read(),2)
+    Vilib.camera_close()
+    if (dist > 0) and (dist <= danger):      # if obstacle is detected closely
+        car.stop()          # stop the car 
+        print("Obstacle detected at: ", dist)
+        time.sleep(2)       # wait 2 seconds before checking again 
+        ObstacleAhead()     # repeat this function until the obstacle is cleared
+    return
+
+
+def ObstacleSweep():
+    Vilib.camera_close()
+    car.set_cam_pan_angle(0)    # reset pan servo angle 
+    time.sleep(0.5)
+    angle = -50     # initialize to -50 deg
+    danger = 10
+    sweepTime = 0.1
+    waitTime = 0.2    # time to read inputs again
+    while (angle <= 50):
+        car.set_cam_pan_angle(angle)
+        time.sleep(sweepTime)
+        # read ultrasonic sensor value 
+        dist = round(car.ultrasonic.read(),2)
+        if (dist > 0) and (dist <= danger):      # if obstacle is detected closely
+            car.stop()          # stop the car 
+            print("Obstacle detected at: ", dist)
+            obsAngle = angle    # note the angle obstacle is detected
+            time.sleep(waitTime)       # wait 2 seconds before checking again 
+            ObstacleSweep()     # repeat this function until the obstacle is cleared
+        else:   # when no close obstacle is detected, do nothing
+            pass
+        angle += 10
+    # do the same thing on the other side 
+    while (angle >= -50):
+        car.set_cam_pan_angle(angle)
+        time.sleep(sweepTime)
+        # read ultrasonic sensor value 
+        dist = round(car.ultrasonic.read(),2)
+        if (dist > 0) and (dist <= danger):        # if obstacle is detected closely
+            car.stop()          # stop the car 
+            print("Obstacle detected at: ", dist)
+            obsAngle = angle    # note the angle obstacle is detected
+            time.sleep(waitTime)       # wait 2 seconds before checking again 
+            ObstacleSweep()     # repeat this function until the obstacle is cleared
+        else:   # when no close obstacle is detected, do nothing
+            pass
+        angle -= 10
+    car.set_cam_pan_angle(0)        # reset pan servo angle at the end    
+    return
+
+
 
 def main():
     max_time = time.time() + 10
