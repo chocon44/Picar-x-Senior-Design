@@ -62,7 +62,8 @@ def go_forward_again():
     px.stop()
     return
 
-
+def go_left():
+    
 def Forward():
 
     def RedLight():  
