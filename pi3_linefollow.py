@@ -8,8 +8,6 @@ offset = 20
 ref = 600
 # px = Picarx(grayscale_pins=['A0', 'A1', 'A2'])
 
-# Please run ./calibration/grayscale_calibration.py to Auto calibrate grayscale values
-# or manual modify reference value by follow code
 #px.set_line_reference([1400, 1400, 1400])
 
 def main():
