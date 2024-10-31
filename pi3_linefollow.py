@@ -62,8 +62,8 @@ if __name__=='__main__':
                 px.forward(px_power)
             else:
                 outHandle()
-            t += 1
-        px.stop()
+        
+        px.stop()       # stop the car after time set
     finally:
         px.stop()
         print("stop and exit")
