@@ -33,6 +33,10 @@ def outHandle():
 
 def get_status(val_list):
     _state = px.get_line_status(val_list)  # [bool, bool, bool], 0 means line, 1 means background
+    # testing
+    for i in _state:
+        print (i, end=" ")
+    print()
     if _state == [0, 0, 0]:
         return 'stop'
     elif _state[1] == 1:
