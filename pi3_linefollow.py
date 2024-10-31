@@ -41,6 +41,8 @@ def get_status(val_list):
         return 'right'
     elif _state[2] == 1:
         return 'left'
+    elif _state == [0,1,0]:     # just added
+        return 'forward'
 
 
 if __name__=='__main__':
