@@ -42,7 +42,7 @@ def get_status(val_list):
 
 if __name__=='__main__':
     try:
-        t_end = time.time() + 4
+        t_end = time.time() + 9         # set max time for 4 seconds
         while (time.time() < t_end):      # run for 4 seconds
             gm_val_list = px.get_grayscale_data()
             gm_state = get_status(gm_val_list)
