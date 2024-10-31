@@ -62,7 +62,6 @@ if __name__=='__main__':
                 px.set_dir_servo_angle(offset)
                 px.forward(px_power)
             else:
-                last_state = gm_state
                 px.stop()
 
             
