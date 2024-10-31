@@ -1,13 +1,12 @@
 from picarx import Picarx
 from time import sleep
-import time
 
 px = Picarx()
 # px = Picarx(grayscale_pins=['A0', 'A1', 'A2'])
 
 # Please run ./calibration/grayscale_calibration.py to Auto calibrate grayscale values
 # or manual modify reference value by follow code
-#px.set_line_reference([0, 1400, 0])
+# px.set_line_reference([1400, 1400, 1400])
 
 current_state = None
 px_power = 10
@@ -41,14 +40,11 @@ def get_status(val_list):
         return 'right'
     elif _state[2] == 1:
         return 'left'
-    elif _state == [0,1,0]:     # just added
-        return 'forward'
-
 
 if __name__=='__main__':
     try:
-        t_end = time.time() + 5
-        while time.time() < t_end:
+        max_time = time.time() + 10     # 10 sec
+        while time.time() < max_time:
             gm_val_list = px.get_grayscale_data()
             gm_state = get_status(gm_val_list)
             print("gm_val_list: %s, %s"%(gm_val_list, gm_state))
