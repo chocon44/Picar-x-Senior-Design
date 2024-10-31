@@ -14,9 +14,9 @@ ref = 600
 #px.set_line_reference([1400, 1400, 1400])
 
 
-def go_forward():
+def go_forward(max_time):
     Vilib.camera_close()
-    max_time = time.time() + 1.3  # set max time 
+    #max_time = time.time() + 1.3  # set max time 
     # go straight
     while (time.time() < max_time):
         gm_val_list = px.get_grayscale_data()
@@ -59,12 +59,12 @@ def Forward():
             time.sleep(1)
             RedLight()      # check red light again
 
-    go_forward()
+    go_forward(1.3)
 
     # check for traffic light before moving to the next block 
     RedLight()
 
-    go_forward()
+    go_forward(1.5)
     # start turningg here, check for light and obstacle
     RedLight()
     ObstacleSweep()
