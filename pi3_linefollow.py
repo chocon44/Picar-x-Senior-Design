@@ -1,7 +1,7 @@
   
 from picarx import Picarx
 from time import sleep
-from time
+import time
 
 px = Picarx()
 # px = Picarx(grayscale_pins=['A0', 'A1', 'A2'])
