@@ -3,9 +3,6 @@ from time import sleep
 
 px = Picarx()
 # px = Picarx(grayscale_pins=['A0', 'A1', 'A2'])
-
-# Please run ./calibration/grayscale_calibration.py to Auto calibrate grayscale values
-# or manual modify reference value by follow code
 # px.set_line_reference([1400, 1400, 1400])
 
 current_state = None
@@ -43,7 +40,8 @@ def get_status(val_list):
 
 if __name__=='__main__':
     try:
-        while True:
+        t = 0 
+        while (t < 3):      # run for 3 seconds
             gm_val_list = px.get_grayscale_data()
             gm_state = get_status(gm_val_list)
             print("gm_val_list: %s, %s"%(gm_val_list, gm_state))
@@ -62,6 +60,8 @@ if __name__=='__main__':
                 px.forward(px_power)
             else:
                 outHandle()
+            t += 1
+        px.stop()
     finally:
         px.stop()
         print("stop and exit")
