@@ -39,7 +39,7 @@ def get_status(val_list):
         return 'stop'
     elif _state == [0,1,1]:
         return 'right'
-    elif _state = [1,1,0]:
+    elif _state == [1,1,0]:
         return 'left'
     else:
         return 'stop'
