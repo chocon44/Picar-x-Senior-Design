@@ -7,7 +7,7 @@ px = Picarx()
 
 # Please run ./calibration/grayscale_calibration.py to Auto calibrate grayscale values
 # or manual modify reference value by follow code
-px.set_line_reference([0, 1300, 0])
+#px.set_line_reference([0, 1300, 0])
 
 current_state = None
 px_power = 10
@@ -29,7 +29,7 @@ def outHandle():
         currentSta = gm_state
         if currentSta != last_state:
             break
-    sleep(0.001)
+    sleep(0.01)
 
 def get_status(val_list):
     _state = px.get_line_status(val_list)  # [bool, bool, bool], 0 means line, 1 means background
@@ -48,7 +48,8 @@ def get_status(val_list):
 
 if __name__=='__main__':
     try:
-        while True:
+        time_end = time.time() + 7
+        while time.time() <= time_end:
             gm_val_list = px.get_grayscale_data()
             gm_state = get_status(gm_val_list)
             print("gm_val_list: %s, %s"%(gm_val_list, gm_state))
