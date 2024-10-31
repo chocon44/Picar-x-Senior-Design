@@ -85,14 +85,17 @@ def Forward():
             RedLight()      # check red light again
 
     go_forward()
+    px.stop()
+    time.sleep(1)
 
     # check for traffic light before moving to the next block 
-    #RedLight()
-
+    RedLight()
+    ObstacleSweep()
     go_forward_again()
+    
     # start turningg here, check for light and obstacle
     #RedLight()
-    #ObstacleSweep()
+    #
     
     #px.left(50)
     #time.sleep(1.3)
