@@ -16,7 +16,7 @@ ref = 600
 
 def go_forward():
     Vilib.camera_close()
-    max_time = time.time() + 1.5  # set max time 
+    max_time = time.time() + 1.3  # set max time 
     # go straight
     while (time.time() < max_time):
         gm_val_list = px.get_grayscale_data()
@@ -70,7 +70,7 @@ def Forward():
     ObstacleSweep()
     
     px.left(50)
-    time.sleep(1.5)
+    time.sleep(1.3)
     px.stop()
 
     # go forward for 1 more block
