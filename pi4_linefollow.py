@@ -71,8 +71,6 @@ def Forward():
     
     px.left(50)
     time.sleep(1.3)
-    px.forward(20)
-    time.sleep(0.3)
 
     # go forward for 1 more block
     go_forward()
