@@ -1,6 +1,5 @@
 from picarx import Picarx
 from time import sleep
-import time
 
 px = Picarx()
 # px = Picarx(grayscale_pins=['A0', 'A1', 'A2'])
@@ -34,8 +33,6 @@ def outHandle():
 def get_status(val_list):
     _state = px.get_line_status(val_list)  # [bool, bool, bool], 0 means line, 1 means background
     if _state == [0, 0, 0]:
-        return 'forward'
-    if _state == [1,1,1]:
         return 'stop'
     elif _state[1] == 1:
         return 'forward'
@@ -46,26 +43,26 @@ def get_status(val_list):
 
 if __name__=='__main__':
     try:
-        max_time = time.time() + 10     # 10 sec
-        while time.time() < max_time:
+        while True:
             gm_val_list = px.get_grayscale_data()
-            
-            if (gm_val_list[1] > gm_val_list[0]) and (gm_val_list[1] > gm_val_list[2]):
-                gm_state = 'forward'
+            gm_state = get_status(gm_val_list)
+            print("gm_val_list: %s, %s"%(gm_val_list, gm_state))
+
+            if gm_state != "stop":
+                last_state = gm_state
+
+            if gm_state == 'forward':
                 px.set_dir_servo_angle(0)
                 px.forward(px_power)
-            elif (gm_val_list[0] > gm_val_list[1]) and (gm_val_list[0] > gm_val_list[2]): # line is on the left 
-                gm_state = 'left'
+            elif gm_state == 'left':
                 px.set_dir_servo_angle(offset)
                 px.forward(px_power)
-            elif (gm_val_list[2] > gm_val_list[1]) and (gm_val_list[2] > gm_val_list[1]):   # line is on the right
-                gm_state = 'right'
+            elif gm_state == 'right':
                 px.set_dir_servo_angle(-offset)
                 px.forward(px_power)
-            
-            
-            
+            else:
+                outHandle()
     finally:
         px.stop()
         print("stop and exit")
-        time.sleep(0.1)
+        sleep(0.1)
