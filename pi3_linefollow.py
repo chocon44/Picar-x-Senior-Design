@@ -1,5 +1,6 @@
 from picarx import Picarx
 from time import sleep
+import time
 
 px = Picarx()
 # px = Picarx(grayscale_pins=['A0', 'A1', 'A2'])
@@ -66,4 +67,4 @@ if __name__=='__main__':
     finally:
         px.stop()
         print("stop and exit")
-        sleep(0.1)
+        time.sleep(0.1)
