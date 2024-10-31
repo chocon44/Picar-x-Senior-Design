@@ -4,7 +4,7 @@ import time
 
 px = Picarx()
 # px = Picarx(grayscale_pins=['A0', 'A1', 'A2'])
-# px.set_line_reference([1400, 1400, 1400])
+ px.set_line_reference([300, 1400, 300])
 
 current_state = None
 px_power = 10
@@ -42,8 +42,8 @@ def get_status(val_list):
 
 if __name__=='__main__':
     try:
-        t_end = time.time() + 9         # set max time for 4 seconds
-        while (time.time() < t_end):      # run for 4 seconds
+        t_end = time.time() + 12         # set max time for 12 seconds
+        while (time.time() < t_end):      
             gm_val_list = px.get_grayscale_data()
             gm_state = get_status(gm_val_list)
             print("gm_val_list: %s, %s"%(gm_val_list, gm_state))
