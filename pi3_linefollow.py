@@ -1,5 +1,6 @@
 from picarx import Picarx
 from time import sleep
+import time
 
 px = Picarx()
 # px = Picarx(grayscale_pins=['A0', 'A1', 'A2'])
@@ -52,7 +53,8 @@ def get_status(val_list):
 
 if __name__=='__main__':
     try:
-        while True:
+        t_end = time.time() + 5
+        while time.time() < t_end:
             gm_val_list = px.get_grayscale_data()
             gm_state = get_status(gm_val_list)
             print("gm_val_list: %s, %s"%(gm_val_list, gm_state))
