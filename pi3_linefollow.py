@@ -1,13 +1,14 @@
+  
 from picarx import Picarx
 from time import sleep
-import time 
+from time
 
 px = Picarx()
 # px = Picarx(grayscale_pins=['A0', 'A1', 'A2'])
 
 # Please run ./calibration/grayscale_calibration.py to Auto calibrate grayscale values
 # or manual modify reference value by follow code
-#px.set_line_reference([0, 1300, 0])
+# px.set_line_reference([1400, 1400, 1400])
 
 current_state = None
 px_power = 10
@@ -29,47 +30,38 @@ def outHandle():
         currentSta = gm_state
         if currentSta != last_state:
             break
-    sleep(0.01)
+    sleep(0.001)
 
 def get_status(val_list):
     _state = px.get_line_status(val_list)  # [bool, bool, bool], 0 means line, 1 means background
-    if _state == [0, 0, 0]:     # no line detected
+    if _state == [0, 0, 0]:
         return 'stop'
-    elif _state == [0,0,1]:     # line on the right
-        return 'left'           # move left
-    elif _state == [0,1,0]:     # line on the middle
-        return 'forward'        # go forward
-    elif _state == [0,1,1]:     # line on slight right
-        return 'slight left'           # go left 
-    elif _state == [1,1,0]:     # line on slight left
-        return 'slight right'          # go right
-    elif _state == [1,1,1]:     # all three sensors got the line
-        return 'stop'
+    elif _state[1] == 1:
+        return 'forward'
+    elif _state[0] == 1:
+        return 'right'
+    elif _state[2] == 1:
+        return 'left'
 
 if __name__=='__main__':
     try:
-        time_end = time.time() + 7
-        while time.time() <= time_end:
+        max_time = time.time() + 7
+        while time.time() <= max_time:
             gm_val_list = px.get_grayscale_data()
             gm_state = get_status(gm_val_list)
             print("gm_val_list: %s, %s"%(gm_val_list, gm_state))
 
             if gm_state != "stop":
                 last_state = gm_state
+
             if gm_state == 'forward':
                 px.set_dir_servo_angle(0)
                 px.forward(px_power)
             elif gm_state == 'left':
                 px.set_dir_servo_angle(offset)
                 px.forward(px_power)
-            elif gm_state == 'slight left':
-                px.set_dir_servo_angle(offset-10)
-                px.forward(px_power)
             elif gm_state == 'right':
                 px.set_dir_servo_angle(-offset)
-                px.forward(px_power)
-            elif gm_state == 'slight right':
-                px.set_dir_servo_angle(-offset+10)
                 px.forward(px_power)
             else:
                 outHandle()
