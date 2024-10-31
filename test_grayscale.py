@@ -4,13 +4,13 @@ import time
 
 px = Picarx()
 
-def test_grayscale():
+def main():
     while True:
         gm_val_list = px.get_grayscale_data()
         for val in gm_val_list:
             print (val, end =" ")
         print()
 
-def main():
-    
+
+
 main()
