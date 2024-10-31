@@ -48,23 +48,24 @@ if __name__=='__main__':
         max_time = time.time() + 7
         while time.time() < max_time:
             gm_val_list = px.get_grayscale_data()
-            gm_state = get_status(gm_val_list)
-            print("gm_val_list: %s, %s"%(gm_val_list, gm_state))
-
-            if gm_state != "stop":
-                last_state = gm_state
-
-            if gm_state == 'forward':
+            if gm_val_list[1] > 1300:
                 px.set_dir_servo_angle(0)
                 px.forward(px_power)
-            elif gm_state == 'left':
-                px.set_dir_servo_angle(offset)
+            
+            elif (gm_val_list[0] > 1300) and (gm_val_list[1] > 1300) and (gm_val_list[2] > 1300):
+                px.set_dir_servo_angle(0)
                 px.forward(px_power)
-            elif gm_state == 'right':
+            elif gm_val_list[0] > 1300:   # line is on the left -- move right
                 px.set_dir_servo_angle(-offset)
                 px.forward(px_power)
+            elif gm_val_list[2] > 1300:   # line is on the right -- move left
+                px.set_dir_servo_angle(offset)
+                px.forward(px_power)
             else:
-                outHandle()
+                last_state = gm_state
+                px.stop()
+
+            
     finally:
         px.stop()
         print("stop and exit")
