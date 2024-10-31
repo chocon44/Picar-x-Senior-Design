@@ -4,7 +4,7 @@ import time
 
 px = Picarx()
 # px = Picarx(grayscale_pins=['A0', 'A1', 'A2'])
-px.set_line_reference([700, 1300, 700])
+#px.set_line_reference([700, 1300, 700])
 
 current_state = None
 px_power = 10
@@ -32,7 +32,7 @@ def outHandle():
 def get_status(val_list):
     _state = px.get_line_status(val_list)  # [bool, bool, bool], 0 means line, 1 means background
     if _state == [0, 0, 0]:
-        return 'forward'
+        return 'stop'
     elif _state[1] == 1:    # middle sensor gets the line
         return 'forward'
     elif _state[0] == 1:    # left sensor gets the line -- go right
