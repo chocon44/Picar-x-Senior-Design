@@ -47,7 +47,7 @@ def Forward():
         # red signal detect
         if Vilib.detect_obj_parameter['color_n']!=0:    # if red is detected
             print("Red light detected")
-            car.stop()      # stop the car immediately
+            px.stop()      # stop the car immediately
             Vilib.camera_close()
             
             # TESTING PURPOSE push redlight result to firebase
@@ -55,7 +55,7 @@ def Forward():
             # "Redlight detected": 1}
             # database.child("Picarx4").child("Red light detected").set(data)
             
-            car.stop()
+            px.stop()
             time.sleep(1)
             RedLight()      # check red light again
 
@@ -84,10 +84,10 @@ def Forward():
 def ObstacleAhead():
     Vilib.camera_close()
     danger = 10
-    dist = round(car.ultrasonic.read(),2)
+    dist = round(px.ultrasonic.read(),2)
     Vilib.camera_close()
     if (dist > 0) and (dist <= danger):      # if obstacle is detected closely
-        car.stop()          # stop the car 
+        px.stop()          # stop the px 
         print("Obstacle detected at: ", dist)
         time.sleep(2)       # wait 2 seconds before checking again 
         ObstacleAhead()     # repeat this function until the obstacle is cleared
@@ -96,19 +96,19 @@ def ObstacleAhead():
 
 def ObstacleSweep():
     Vilib.camera_close()
-    car.set_cam_pan_angle(0)    # reset pan servo angle 
+    px.set_cam_pan_angle(0)    # reset pan servo angle 
     time.sleep(0.5)
     angle = -50     # initialize to -50 deg
     danger = 10
     sweepTime = 0.1
     waitTime = 0.2    # time to read inputs again
     while (angle <= 50):
-        car.set_cam_pan_angle(angle)
+        px.set_cam_pan_angle(angle)
         time.sleep(sweepTime)
         # read ultrasonic sensor value 
-        dist = round(car.ultrasonic.read(),2)
+        dist = round(px.ultrasonic.read(),2)
         if (dist > 0) and (dist <= danger):      # if obstacle is detected closely
-            car.stop()          # stop the car 
+            px.stop()          # stop the car 
             print("Obstacle detected at: ", dist)
             obsAngle = angle    # note the angle obstacle is detected
             time.sleep(waitTime)       # wait 2 seconds before checking again 
@@ -118,12 +118,12 @@ def ObstacleSweep():
         angle += 10
     # do the same thing on the other side 
     while (angle >= -50):
-        car.set_cam_pan_angle(angle)
+        px.set_cam_pan_angle(angle)
         time.sleep(sweepTime)
         # read ultrasonic sensor value 
-        dist = round(car.ultrasonic.read(),2)
+        dist = round(px.ultrasonic.read(),2)
         if (dist > 0) and (dist <= danger):        # if obstacle is detected closely
-            car.stop()          # stop the car 
+            px.stop()          # stop the car 
             print("Obstacle detected at: ", dist)
             obsAngle = angle    # note the angle obstacle is detected
             time.sleep(waitTime)       # wait 2 seconds before checking again 
@@ -131,7 +131,7 @@ def ObstacleSweep():
         else:   # when no close obstacle is detected, do nothing
             pass
         angle -= 10
-    car.set_cam_pan_angle(0)        # reset pan servo angle at the end    
+    px.set_cam_pan_angle(0)        # reset pan servo angle at the end    
     return
 
 
