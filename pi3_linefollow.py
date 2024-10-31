@@ -48,17 +48,17 @@ if __name__=='__main__':
         max_time = time.time() + 7
         while time.time() < max_time:
             gm_val_list = px.get_grayscale_data()
-            if gm_val_list[1] > 1300:
+            if gm_val_list[1] > 1000:
                 px.set_dir_servo_angle(0)
                 px.forward(px_power)
             
-            elif (gm_val_list[0] > 1300) and (gm_val_list[1] > 1300) and (gm_val_list[2] > 1300):
+            elif (gm_val_list[0] > 1000) and (gm_val_list[1] > 1000) and (gm_val_list[2] > 1000):
                 px.set_dir_servo_angle(0)
                 px.forward(px_power)
-            elif gm_val_list[0] > 1300:   # line is on the left -- move right
+            elif gm_val_list[0] > 1000:   # line is on the left -- move right
                 px.set_dir_servo_angle(-offset)
                 px.forward(px_power)
-            elif gm_val_list[2] > 1300:   # line is on the right -- move left
+            elif gm_val_list[2] > 1000:   # line is on the right -- move left
                 px.set_dir_servo_angle(offset)
                 px.forward(px_power)
             else:
