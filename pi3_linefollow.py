@@ -3,7 +3,7 @@ from time import sleep
 import time
 
 px = Picarx()
-px_power = 40
+px_power = 30
 offset = 20
 ref = 600
 # px = Picarx(grayscale_pins=['A0', 'A1', 'A2'])
