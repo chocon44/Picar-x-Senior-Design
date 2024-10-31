@@ -7,7 +7,7 @@ px = Picarx()
 
 # Please run ./calibration/grayscale_calibration.py to Auto calibrate grayscale values
 # or manual modify reference value by follow code
-# px.set_line_reference([1400, 1400, 1400])
+px.set_line_reference([800, 1300, 800])
 
 current_state = None
 px_power = 10
