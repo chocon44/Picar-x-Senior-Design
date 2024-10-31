@@ -5,7 +5,7 @@ import time
 px = Picarx()
 px_power = 10
 offset = 20
-ref = 800
+ref = 700
 # px = Picarx(grayscale_pins=['A0', 'A1', 'A2'])
 
 # Please run ./calibration/grayscale_calibration.py to Auto calibrate grayscale values
