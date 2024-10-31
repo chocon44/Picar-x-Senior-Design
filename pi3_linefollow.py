@@ -63,6 +63,7 @@ if __name__=='__main__':
                 px.forward(px_power)
             else:
                 px.stop()
+        px.stop()
 
             
     finally:
