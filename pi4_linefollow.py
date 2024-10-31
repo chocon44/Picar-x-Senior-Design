@@ -12,6 +12,14 @@ ref = 600
 
 #px.set_line_reference([1400, 1400, 1400])
 
+def Forward():
+    px.set_dir_servo_angle(0)
+    car.forward(px_power)
+    time.sleep(1)
+    px.stop()
+    px.set_dir_servo_angle(0)
+    return
+
 def main():
     max_time = time.time() + 10
     while time.time() < max_time:
@@ -32,5 +40,6 @@ def main():
         else:
             px.stop()
     px.stop()
+    px.set_dir_servo_angle(0)
 
-main()
+Forward()
