@@ -14,7 +14,7 @@ ref = 600
 #px.set_line_reference([1400, 1400, 1400])
 
 
-def go_forward(max_time):
+def go_forward():
     Vilib.camera_close()
     max_time = time.time() + 1.3  # set max time 
     # go straight
