@@ -73,7 +73,7 @@ def Forward():
     time.sleep(1.3)
 
     # go forward for 1 more block
-    go_forward()
+    go_forward(1.5)
 
 
     px.stop()
