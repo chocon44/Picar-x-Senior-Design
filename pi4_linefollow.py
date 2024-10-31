@@ -16,7 +16,7 @@ ref = 600
 
 def go_forward():
     Vilib.camera_close()
-    max_time = time.time() + 1.2  # set max time 
+    max_time = time.time() + 1.25  # set max time 
     # go straight
     while (time.time() < max_time):
         gm_val_list = px.get_grayscale_data()
@@ -40,7 +40,7 @@ def go_forward():
 
 def go_forward_again():
     Vilib.camera_close()
-    max_time = time.time() + 1.4  # set max time 
+    max_time = time.time() + 1.45  # set max time 
     # go straight
     while (time.time() < max_time):
         gm_val_list = px.get_grayscale_data()
