@@ -11,7 +11,7 @@ import math
 px = Picarx()
 px_power = 50
 offset = 20
-ref = 600
+ref = 500
 short = 1
 long = 1.8     # time to travel 1 block 
 
