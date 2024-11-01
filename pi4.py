@@ -167,12 +167,8 @@ def RedLight():
 def main():
     
     go_forward_short()
+
+    px.stop()
         
         
-if __name__ == "__main__":
-    try:
-        main()
-    finally:
-        px.stop()
-        px.set_cam_pan_angle(0)    # reset pan servo angle 
-        px.set_dir_servo_angle(0)
+main()
