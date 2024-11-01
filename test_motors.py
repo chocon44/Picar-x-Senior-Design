@@ -17,9 +17,11 @@ def reset_dir_servo():
 def main():
     try:
         Vilib.camera_close()
-        print("Setting servo angle to 30 degrees...")
+       
         px.set_dir_servo_angle(30)
         sleep(0.5)  # Give servo time to turn
+        px.forward(20)
+        time.sleep(0.3)
         
         time_max = time.time() + 3 
         while time.time() <= time_max:
