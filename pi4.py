@@ -185,6 +185,10 @@ def main():
 
         # # rotate steering servo while going forward in small steps until 1 sensor meets the white line 
         #turn_right()
+        px.forward(20)
+        time.sleep(0.1)
+        car.stop()
+        time.sleep(0.1)
         px.set_dir_servo_angle(30)
         px.forward(20)
         time.sleep(1)
