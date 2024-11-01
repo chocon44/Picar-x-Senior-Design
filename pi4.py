@@ -168,7 +168,7 @@ def main():
     try: 
         RedLight()
         go_forward()
-        RedLight()
+        #RedLight()
         go_forward_short()
         px.stop()
         #RedLight()
