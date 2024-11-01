@@ -19,26 +19,26 @@ def main():
         Vilib.camera_close()
        
         px.set_dir_servo_angle(30)
-        sleep(0.5)  # Give servo time to turn
         px.forward(20)
-        time.sleep(0.4)
+        sleep(1)  # Give servo time to turn
+        #px.forward(20)
+        #time.sleep(0.4)
         
-        time_max = time.time() + 3 
-        while time.time() <= time_max:
-            gm_val_list = px.get_grayscale_data()
-            print("Grayscale values:", gm_val_list)  # Debug print
+        #time_max = time.time() + 3 
+        #while time.time() <= time_max:
+        #    gm_val_list = px.get_grayscale_data()
+        #    print("Grayscale values:", gm_val_list)  # Debug print
             
-            if any(val > ref for val in gm_val_list):
-                print("Line detected, stopping")
-                px.stop()
-                break
-            else:
-                print("Moving forward")
-                px.forward(20)
-                sleep(0.1)  # Small delay to prevent CPU overload
+        #    if any(val > ref for val in gm_val_list):
+        #        print("Line detected, stopping")
+        #        px.stop()
+        #        break
+        #    else:
+        #        print("Moving forward")
+        #        px.forward(20)
+        #        sleep(0.1)  # Small delay to prevent CPU overload
                 
-    except Exception as e:
-        print(f"Error occurred: {e}")
+   
         
     finally: 
         px.stop()
