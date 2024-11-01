@@ -189,6 +189,7 @@ def main():
         px.forward(20)
         time.sleep(0.4)
 
+        go_forward()
         
         # # let the car go forward, following that white line (3 blocks)
         # go_forward_short()    # go forward for a short bit to meet the intersection 
@@ -203,6 +204,7 @@ def main():
         # RedLight()          # check for light 
         # ObstacleSweep()    # sweep for obstacle 
     finally:
+        px.stop()
         px.set_cam_pan_angle(0)    # reset pan servo angle 
         px.set_dir_servo_angle(0)
         
