@@ -139,34 +139,33 @@ def RedLight():
 def main():
     Vilib.camera_close()
     
+    go_forward(1.2)
     
     # car will start at intersection 
-    # check for light 
-    RedLight()
     
-    # sweep for obstacle 
-    ObstacleSweep()
+    # RedLight()  # check for light 
     
-    # go forward while checking obstacle ahead (1 block) 
-    go_forward(1.45)
+    # ObstacleSweep() # sweep for obstacle 
     
-    # prepare to turn right 
-    RedLight()           # check for light 
+    # go_forward(1.45)    # go forward while checking obstacle ahead (1 block) 
     
-    ObstacleSweep()     # sweep for obstacle 
-    # rotate steering servo while going forward in small steps until 1 sensor meets the white line 
-    go_right()
+    # # prepare to turn right 
+    # RedLight()           # check for light 
     
-    # let the car go forward, following that white line (3 blocks)
-    go_forward(1.2)    # go forward for a short bit to meet the intersection 
-    RedLight()          # check for light 
-    ObstacleSweep()    # sweep for obstacle 
+    # ObstacleSweep()     # sweep for obstacle 
+    # # rotate steering servo while going forward in small steps until 1 sensor meets the white line 
+    # go_right()
     
-    go_forward(1.45)    # go forward for a short bit to meet the intersection 
-    RedLight()          # check for light 
-    ObstacleSweep()    # sweep for obstacle 
+    # # let the car go forward, following that white line (3 blocks)
+    # go_forward(1.2)    # go forward for a short bit to meet the intersection 
+    # RedLight()          # check for light 
+    # ObstacleSweep()    # sweep for obstacle 
     
-    go_forward(1.45)    # go forward for a short bit to meet the intersection 
-    RedLight()          # check for light 
-    ObstacleSweep()    # sweep for obstacle 
+    # go_forward(1.45)    # go forward for a short bit to meet the intersection 
+    # RedLight()          # check for light 
+    # ObstacleSweep()    # sweep for obstacle 
+    
+    # go_forward(1.45)    # go forward for a short bit to meet the intersection 
+    # RedLight()          # check for light 
+    # ObstacleSweep()    # sweep for obstacle 
         
