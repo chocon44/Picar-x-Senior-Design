@@ -174,7 +174,7 @@ def main():
     ObstacleSweep()     # sweep for obstacle 
 
     # # rotate steering servo while going forward in small steps until 1 sensor meets the white line 
-    # go_right()
+    go_right()
     
     # # let the car go forward, following that white line (3 blocks)
     # go_forward_short()    # go forward for a short bit to meet the intersection 
