@@ -187,7 +187,7 @@ def main():
         #turn_right()
         px.forward(20)
         time.sleep(0.3)
-        px.right(30)
+        px.right(50)
         time.sleep(1)
         
         
