@@ -130,7 +130,7 @@ def ObstacleSweep():
 def ObstacleAhead():
     Vilib.camera_close()
     danger = 10
-    dist = round(car.ultrasonic.read(),2)
+    dist = round(px.ultrasonic.read(),2)
     Vilib.camera_close()
     if (dist > 0) and (dist <= danger):      # if obstacle is detected closely
         px.stop()          # stop the car 
@@ -190,7 +190,6 @@ def main():
     
     # go_forward(1.45)    # go forward for a short bit to meet the intersection 
     # RedLight()          # check for light 
-    # ObstacleSweep()    # sweep for obstacle
-
-
+    # ObstacleSweep()    # sweep for obstacle 
+        
 main()
