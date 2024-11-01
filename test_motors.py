@@ -18,6 +18,6 @@ def main():
     return
 
 
-px.set_dir_servo_angle(0)
+
 main()
 px.set_dir_servo_angle(0)
