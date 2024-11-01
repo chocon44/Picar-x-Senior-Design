@@ -21,7 +21,7 @@ def main():
         px.set_dir_servo_angle(30)
         sleep(0.5)  # Give servo time to turn
         px.forward(20)
-        time.sleep(0.3)
+        time.sleep(0.4)
         
         time_max = time.time() + 3 
         while time.time() <= time_max:
