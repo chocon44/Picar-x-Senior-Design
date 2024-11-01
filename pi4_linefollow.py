@@ -9,7 +9,7 @@ from vilib import Vilib
 import math
 
 px = Picarx()
-px_power = 30
+px_power = 25
 offset = 20
 ref = 600
 # px = Picarx(grayscale_pins=['A0', 'A1', 'A2'])
