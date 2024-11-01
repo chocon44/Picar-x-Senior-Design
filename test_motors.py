@@ -15,8 +15,7 @@ long = 1.65     # time to travel 1 block
 def main():
     Vilib.camera_close()
     px.set_dir_servo_angle(30)
-    return
-
+  
 
 
 main()
