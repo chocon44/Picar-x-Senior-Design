@@ -44,8 +44,7 @@ def go_forward():
 
 def go_forward_short():
     Vilib.camera_close()
-    max_time = time.time() + 0.8
-    #max_time = time.time() + 1.45       # time to travel 1 block, starting from intersection 
+    max_time = time.time() + 1
     while (time.time() < max_time):
         ObstacleAhead()     # scan for obstacle ahead
         gm_val_list = px.get_grayscale_data()
