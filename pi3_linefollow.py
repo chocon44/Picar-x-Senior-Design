@@ -24,7 +24,7 @@ database = firebase.database()
 px = Picarx()
 px_power = 30
 offset = 20
-ref = 600
+ref = 1000
 # px = Picarx(grayscale_pins=['A0', 'A1', 'A2'])
 
 #px.set_line_reference([1400, 1400, 1400])
