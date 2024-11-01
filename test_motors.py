@@ -161,11 +161,13 @@ def pan():
     car.set_cam_pan_angle(0)
 
 
-
+def turn_right():
+    car.set_dir_servo(30)
+    
 
 
 def main():
-    car_forward()
+    turn_right()
     
 
 main()
