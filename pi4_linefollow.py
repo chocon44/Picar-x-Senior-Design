@@ -190,5 +190,7 @@ def main():
     
     # go_forward(1.45)    # go forward for a short bit to meet the intersection 
     # RedLight()          # check for light 
-    # ObstacleSweep()    # sweep for obstacle 
-        
+    # ObstacleSweep()    # sweep for obstacle
+
+
+main()
