@@ -165,7 +165,7 @@ def RedLight():
 
 
 def main():
-    Vilib.camera_close()
+    
     try:
         
         go_forward_short()
