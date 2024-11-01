@@ -44,7 +44,7 @@ def go_forward():
 
 def go_forward_short():
     Vilib.camera_close()
-    max_time = time.time() + 1.0
+    max_time = time.time() + 0.8
     #max_time = time.time() + 1.45       # time to travel 1 block, starting from intersection 
     while (time.time() < max_time):
         ObstacleAhead()     # scan for obstacle ahead
@@ -193,3 +193,4 @@ def main():
     # ObstacleSweep()    # sweep for obstacle 
         
 main()
+px.set_cam_pan_angle(0)    # reset pan servo angle 
