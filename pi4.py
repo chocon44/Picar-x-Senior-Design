@@ -168,6 +168,8 @@ def main():
     try: 
         RedLight()
         go_forward()
+        RedLight()
+        go_forward_short()
         px.stop()
         #RedLight()
         #ObstacleSweep()
