@@ -15,7 +15,7 @@ def reset_dir_servo():
     px.set_dir_servo_angle(0)
 
 def main():
-    reset_dir_servo()
+    #reset_dir_servo()
     try:
         Vilib.camera_close()
         px.set_dir_servo_angle(30)
