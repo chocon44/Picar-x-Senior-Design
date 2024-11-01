@@ -13,7 +13,7 @@ px_power = 50
 offset = 20
 ref = 500
 short = 0.8
-long = 1.1     # time to travel 1 block 
+long = 2    # time to travel 1 block 
 
 # px = Picarx(grayscale_pins=['A0', 'A1', 'A2'])
 
