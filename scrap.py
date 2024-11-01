@@ -13,7 +13,7 @@ def main():
 
         while True:
             
-            car.forward(30)
+            px.forward(30)
             time.sleep(1)
             distance = round(px.ultrasonic.read(), 2)
             print("distance: ",distance)
