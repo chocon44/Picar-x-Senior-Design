@@ -68,7 +68,7 @@ def go_forward_short():
     px.stop()
     return 
 
-def go_right():
+def turn_right():
     Vilib.camera_close()
     
     #time_max = time.time() + 3      # max turning time is 2 sec 
@@ -182,7 +182,7 @@ def main():
     # the above parameters passed
 
     # # rotate steering servo while going forward in small steps until 1 sensor meets the white line 
-    go_right()
+    turn_right()
     
     # # let the car go forward, following that white line (3 blocks)
     # go_forward_short()    # go forward for a short bit to meet the intersection 
