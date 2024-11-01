@@ -84,6 +84,7 @@ def turn_right():
     #    break 
     
     px.set_dir_servo_angle(30)
+    print("Angle set")
 
 
 
