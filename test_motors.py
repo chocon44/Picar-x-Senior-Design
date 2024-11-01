@@ -162,7 +162,7 @@ def pan():
 
 
 def turn_right():
-    car.set_dir_servo(30)
+    car.set_dir_servo_angle(30)
     
 
 
