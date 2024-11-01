@@ -187,8 +187,8 @@ def main():
         #turn_right()
         px.set_dir_servo_angle(30)
         px.forward(20)
-        time.sleep(0.4)
-
+        time.sleep(0.6)
+        px.stop()
         
         
         # # let the car go forward, following that white line (3 blocks)
