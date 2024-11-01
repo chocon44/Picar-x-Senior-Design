@@ -73,7 +73,7 @@ def go_right():
     
     time_max = time.time() + 3      # max turning time is 2 sec 
     while (time.time() <= time_max):
-        px.set_dir_servo_angle(-30)
+        px.set_dir_servo_angle(30)
         px.forward(10)
         gm_val_list = px.get_grayscale_data()
         # check if grayscale is getting the line 
@@ -160,18 +160,20 @@ def RedLight():
 def main():
     Vilib.camera_close()
     
-    go_forward_short()
+    # go_forward_short()
     
-    # car will start at intersection 
+    # # car will start at intersection 
     
-    RedLight()  # check for light 
-    ObstacleSweep() # sweep for obstacle 
+    # RedLight()  # check for light 
+    # ObstacleSweep() # sweep for obstacle 
     
-    go_forward()    # go forward while checking obstacle ahead (1 block) 
+    # go_forward()    # go forward while checking obstacle ahead (1 block) 
     
-    # # prepare to turn right 
-    RedLight()           # check for light 
-    ObstacleSweep()     # sweep for obstacle 
+    # # # prepare to turn right 
+    # RedLight()           # check for light 
+    # ObstacleSweep()     # sweep for obstacle 
+
+    # the above parameters passed
 
     # # rotate steering servo while going forward in small steps until 1 sensor meets the white line 
     go_right()
