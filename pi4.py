@@ -165,10 +165,12 @@ def RedLight():
 
 
 def main():
-    
-    go_forward_short()
+    try: 
+        go_forward_short()
 
-    px.stop()
-        
-        
-main()
+    finally:
+        px.stop()
+
+
+if __name__ == "__main__":
+    main()
