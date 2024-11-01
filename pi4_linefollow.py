@@ -12,6 +12,9 @@ px = Picarx()
 px_power = 25
 offset = 20
 ref = 600
+short = 0.8
+long = 1.55     # time to travel 1 block 
+
 # px = Picarx(grayscale_pins=['A0', 'A1', 'A2'])
 
 #px.set_line_reference([1400, 1400, 1400])
@@ -19,7 +22,7 @@ ref = 600
 
 def go_forward():
     Vilib.camera_close()
-    max_time = time.time() + 1.55 # time to travel 1 block, starting from intersection 
+    max_time = time.time() + long    # time to travel 1 block, starting from intersection 
     while (time.time() < max_time):
         ObstacleAhead()     # scan for obstacle ahead
         gm_val_list = px.get_grayscale_data()
@@ -43,7 +46,7 @@ def go_forward():
 
 def go_forward_short():
     Vilib.camera_close()
-    max_time = time.time() + 1
+    max_time = time.time() + short
     while (time.time() < max_time):
         ObstacleAhead()     # scan for obstacle ahead
         gm_val_list = px.get_grayscale_data()
