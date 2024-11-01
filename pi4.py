@@ -166,49 +166,13 @@ def RedLight():
 
 def main():
     
+    go_forward_short()
+        
+        
+if __name__ == "__main__":
     try:
-        
-        go_forward_short()
-        
-        # # car will start at intersection 
-        
-        #RedLight()  # check for light 
-        #ObstacleSweep() # sweep for obstacle 
-        
-        #go_forward()    # go forward while checking obstacle ahead (1 block) 
-        
-        # # # prepare to turn right 
-        #RedLight()           # check for light 
-        #ObstacleSweep()     # sweep for obstacle 
-
-        # the above parameters passed
-
-        # # rotate steering servo while going forward in small steps until 1 sensor meets the white line 
-        #turn_right()
-        
-        #px.forward(20)
-        #time.sleep(0.3)
-        #px.right(50)
-        #time.sleep(1.8)       # turn right time
-        
-        
-        # # let the car go forward, following that white line (3 blocks)
-        #go_forward_short()    # go forward for a short bit to meet the intersection 
-        #RedLight()          # check for light 
-        #ObstacleSweep()    # sweep for obstacle 
-        
-        # go_forward()    # go forward for a short bit to meet the intersection 
-        # RedLight()          # check for light 
-        # ObstacleSweep()    # sweep for obstacle 
-        
-        # go_forward()    # go forward for a short bit to meet the intersection 
-        # RedLight()          # check for light 
-        # ObstacleSweep()    # sweep for obstacle 
+        main()
     finally:
         px.stop()
         px.set_cam_pan_angle(0)    # reset pan servo angle 
         px.set_dir_servo_angle(0)
-        
-        
-if __name__ == "__main__":
-    main()
