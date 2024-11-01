@@ -9,7 +9,7 @@ from vilib import Vilib
 import math
 
 px = Picarx()
-px_power = 50
+px_power = 60
 offset = 20
 ref = 500
 short = 0.8
@@ -168,9 +168,10 @@ def main():
     try: 
         RedLight()
         go_forward()
+        
         #RedLight()
         #go_forward_short()
-        px.stop()
+       
         #RedLight()
         #ObstacleSweep()
 
