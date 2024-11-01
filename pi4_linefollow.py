@@ -17,10 +17,9 @@ ref = 600
 #px.set_line_reference([1400, 1400, 1400])
 
 
-# x is the time travel forward 
-def go_forward(x):
+def go_forward():
     Vilib.camera_close()
-    max_time = time.time() + x
+    max_time = time.time() + 1.45
     #max_time = time.time() + 1.45       # time to travel 1 block, starting from intersection 
     while (time.time() < max_time):
         ObstacleAhead()     # scan for obstacle ahead
@@ -43,6 +42,30 @@ def go_forward(x):
     px.stop()
     return 
 
+def go_forward_short():
+    Vilib.camera_close()
+    max_time = time.time() + 1.2
+    #max_time = time.time() + 1.45       # time to travel 1 block, starting from intersection 
+    while (time.time() < max_time):
+        ObstacleAhead()     # scan for obstacle ahead
+        gm_val_list = px.get_grayscale_data()
+        if gm_val_list[1] > ref:
+            px.set_dir_servo_angle(0)
+            px.forward(px_power)
+
+        elif (gm_val_list[0] > ref) and (gm_val_list[1] > ref) and (gm_val_list[2] > ref):
+            px.set_dir_servo_angle(0)
+            px.forward(px_power)
+        elif gm_val_list[0] > ref:   # line is on the left -- move right
+            px.set_dir_servo_angle(-offset)
+            px.forward(px_power)
+        elif gm_val_list[2] > ref:   # line is on the right -- move left
+            px.set_dir_servo_angle(offset)
+            px.forward(px_power)
+        else:
+            px.stop()
+    px.stop()
+    return 
 
 def go_right():
     Vilib.camera_close()
@@ -139,7 +162,7 @@ def RedLight():
 def main():
     Vilib.camera_close()
     
-    go_forward(1.2)
+    go_forward_short()
     
     # car will start at intersection 
     
