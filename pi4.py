@@ -9,7 +9,7 @@ from vilib import Vilib
 import math
 
 px = Picarx()
-px_power = 30
+px_power = 40
 offset = 20
 ref = 600
 short = 1
