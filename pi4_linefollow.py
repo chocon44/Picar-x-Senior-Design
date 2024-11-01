@@ -71,16 +71,22 @@ def go_forward_short():
 def go_right():
     Vilib.camera_close()
     
-    time_max = time.time() + 3      # max turning time is 2 sec 
-    while (time.time() <= time_max):
-        px.set_dir_servo_angle(30)
-        px.forward(10)
-        gm_val_list = px.get_grayscale_data()
+    #time_max = time.time() + 3      # max turning time is 2 sec 
+    
+    #while (time.time() <= time_max):
+    #    px.set_dir_servo_angle(30)
+    #    px.forward(10)
+    #    gm_val_list = px.get_grayscale_data()
         # check if grayscale is getting the line 
-        for val in gm_val_list:
-            if val > ref:   # if one of the sensors caught the line break the turnin loop 
-                break
-        break 
+    #    for val in gm_val_list:
+    #        if val > ref:   # if one of the sensors caught the line break the turnin loop 
+    #            break
+    #    break 
+    
+    px.set_dir_servo_angle(30)
+
+
+
     return 
 
 
