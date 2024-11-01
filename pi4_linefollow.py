@@ -170,7 +170,7 @@ def main():
     
     ObstacleSweep() # sweep for obstacle 
     
-    go_forward(1.45)    # go forward while checking obstacle ahead (1 block) 
+    go_forward()    # go forward while checking obstacle ahead (1 block) 
     
     # # prepare to turn right 
     # RedLight()           # check for light 
@@ -180,15 +180,15 @@ def main():
     # go_right()
     
     # # let the car go forward, following that white line (3 blocks)
-    # go_forward(1.2)    # go forward for a short bit to meet the intersection 
+    # go_forward_short()    # go forward for a short bit to meet the intersection 
     # RedLight()          # check for light 
     # ObstacleSweep()    # sweep for obstacle 
     
-    # go_forward(1.45)    # go forward for a short bit to meet the intersection 
+    # go_forward()    # go forward for a short bit to meet the intersection 
     # RedLight()          # check for light 
     # ObstacleSweep()    # sweep for obstacle 
     
-    # go_forward(1.45)    # go forward for a short bit to meet the intersection 
+    # go_forward()    # go forward for a short bit to meet the intersection 
     # RedLight()          # check for light 
     # ObstacleSweep()    # sweep for obstacle 
         
