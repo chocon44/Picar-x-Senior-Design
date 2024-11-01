@@ -188,7 +188,7 @@ def main():
         px.forward(20)
         time.sleep(0.3)
         px.right(50)
-        time.sleep(1)
+        time.sleep(2)
         
         
         # # let the car go forward, following that white line (3 blocks)
