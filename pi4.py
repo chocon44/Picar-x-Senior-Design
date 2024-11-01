@@ -9,7 +9,7 @@ from vilib import Vilib
 import math
 
 px = Picarx()
-px_power = 40
+px_power = 50
 offset = 20
 ref = 600
 short = 1
@@ -165,8 +165,8 @@ def RedLight():
 
 
 def main():
+    Vilib.camera_close()
     try:
-        Vilib.camera_close()
         
         go_forward_short()
         
