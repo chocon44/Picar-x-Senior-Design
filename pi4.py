@@ -169,7 +169,7 @@ def main():
         RedLight()
         go_forward()
         #RedLight()
-        go_forward_short()
+        #go_forward_short()
         px.stop()
         #RedLight()
         #ObstacleSweep()
