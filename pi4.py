@@ -187,12 +187,12 @@ def main():
         #turn_right()
         px.set_dir_servo_angle(30)
         px.forward(20)
-        time.sleep(0.6)
+        time.sleep(1)
         px.stop()
         
         
         # # let the car go forward, following that white line (3 blocks)
-        go_forward_short()    # go forward for a short bit to meet the intersection 
+        #go_forward_short()    # go forward for a short bit to meet the intersection 
         # RedLight()          # check for light 
         # ObstacleSweep()    # sweep for obstacle 
         
