@@ -166,7 +166,17 @@ def RedLight():
 
 def main():
     try: 
-        go_forward_short()
+        go_forward()
+        px.stop()
+        #RedLight()
+        #ObstacleSweep()
+
+
+
+        #go_forward()
+        #RedLight()
+        #ObstacleSweep()
+
 
     finally:
         px.stop()
