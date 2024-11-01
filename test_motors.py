@@ -15,25 +15,32 @@ def reset_dir_servo():
     px.set_dir_servo_angle(0)
 
 def main():
-    #reset_dir_servo()
     try:
         Vilib.camera_close()
+        print("Setting servo angle to 30 degrees...")
         px.set_dir_servo_angle(30)
+        sleep(0.5)  # Give servo time to turn
+        
         time_max = time.time() + 3 
-        while (time.time() <= time_max):
+        while time.time() <= time_max:
             gm_val_list = px.get_grayscale_data()
-            for val in gm_val_list:
-                if val > ref:   # if one of the sensors caught the line break the turnin loop 
-                    px.stop()
-                    break
-                else:
-                    px.forward(20)
+            print("Grayscale values:", gm_val_list)  # Debug print
+            
+            if any(val > ref for val in gm_val_list):
+                print("Line detected, stopping")
+                px.stop()
                 break
-            break
+            else:
+                print("Moving forward")
+                px.forward(20)
+                sleep(0.1)  # Small delay to prevent CPU overload
+                
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        
     finally: 
         px.stop()
         reset_dir_servo()
-                
-  
+
 if __name__ == "__main__":
     main()
