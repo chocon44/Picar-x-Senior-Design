@@ -15,6 +15,18 @@ long = 1.65     # time to travel 1 block
 def main():
     Vilib.camera_close()
     px.set_dir_servo_angle(30)
+    time_max = time.time() + 3 
+    while (time.time() <= time_max):
+        gm_val_list = px.get_grayscale_data()
+        for val in gm_val_list:
+            if val > ref:   # if one of the sensors caught the line break the turnin loop 
+                px.stop()
+                break
+            else:
+                px.forward(20)
+            break
+        break
+                
   
 
 
