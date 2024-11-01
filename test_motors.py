@@ -11,6 +11,8 @@ ref = 600
 short = 0.85
 long = 1.65     # time to travel 1 block 
 
+def reset_dir_servo():
+    px.set_dir_servo_angle(0)
 
 def main():
     Vilib.camera_close()
@@ -26,8 +28,8 @@ def main():
                 px.forward(20)
             break
         break
+    reset_dir_servo()
                 
   
-
-
+reset_dir_servo()
 main()
