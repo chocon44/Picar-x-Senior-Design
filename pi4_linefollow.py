@@ -194,3 +194,4 @@ def main():
         
 main()
 px.set_cam_pan_angle(0)    # reset pan servo angle 
+px.set_dir_servo_angle(0)
