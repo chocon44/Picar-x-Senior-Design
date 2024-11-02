@@ -43,7 +43,7 @@ if __name__ == "__main__":
         tilt_angle = 0
         px = Picarx()
         show_info()
-        power = 20
+        power = 15
         turnPower = 50
         ref = 550
         offset = 20
@@ -61,12 +61,16 @@ if __name__ == "__main__":
                 elif 's' == key:        # go backward
                     px.set_dir_servo_angle(0)
                     px.backward(power)
-                elif 'a' == key:        # turn left with servo
-                    px.set_dir_servo_angle(-35)
+                elif 'a' == key:        # turn left with servo -- pivot left no servo
+                    px.set_dir_servo_angle(0)
+                    px.left(turnPower)
+                    #px.set_dir_servo_angle(-35)
                     #px.forward(power)
                 elif 'd' == key:        # turn right with servo
-                    px.set_dir_servo_angle(35)
+                    #px.set_dir_servo_angle(35)
                     #px.forward(power)
+                    px.set_dir_servo_angle(0)
+                    px.right(turnPower)
                 elif 'g' == key:        # pivot left 
                     px.set_dir_servo_angle(0)
                     px.left(turnPower)
