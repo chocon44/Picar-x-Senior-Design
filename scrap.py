@@ -4,6 +4,7 @@
 from picarx import Picarx
 from time import sleep
 import readchar
+import time
 
 manual = '''
 Press keys on keyboard to control PiCar-X!
