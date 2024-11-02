@@ -1,4 +1,5 @@
 # Monitor while car drives
+# only for pi4, pi3 cannot pivot
 
 from picarx import Picarx
 from time import sleep
