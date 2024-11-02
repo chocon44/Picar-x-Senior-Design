@@ -29,8 +29,8 @@ def show_info():
 
 def main():
     px = Picarx()
-    px.forward(30)
-    time.sleep(0.7)
+    px.forward(20)
+    time.sleep(0.2)
     px.stop()
             
 
