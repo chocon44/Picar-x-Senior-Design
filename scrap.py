@@ -63,10 +63,10 @@ if __name__ == "__main__":
                     px.backward(power)
                 elif 'a' == key:        # turn left with servo
                     px.set_dir_servo_angle(-35)
-                    px.forward(power)
+                    #px.forward(power)
                 elif 'd' == key:        # turn right with servo
                     px.set_dir_servo_angle(35)
-                    px.forward(power)
+                    #px.forward(power)
                 elif 'g' == key:        # pivot left 
                     px.set_dir_servo_angle(0)
                     px.left(turnPower)
