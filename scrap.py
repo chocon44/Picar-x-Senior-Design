@@ -44,6 +44,7 @@ if __name__ == "__main__":
         show_info()
         power = 30
         turnPower = 50
+        ref = 550
         while True:
             key = readchar.readkey()
             key = key.lower()
