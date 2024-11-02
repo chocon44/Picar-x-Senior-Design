@@ -53,7 +53,7 @@ if __name__ == "__main__":
                 if 'w' == key:          # go forward 
                     #px.set_dir_servo_angle(0)
                     #px.forward(power)
-                    max_time = time.time() + 1
+                    max_time = time.time() + 0.2
                     while time.time() < max_time:
                         gm_val_list = px.get_grayscale_data()
                         if gm_val_list[1] > ref:
