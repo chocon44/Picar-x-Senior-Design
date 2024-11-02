@@ -26,7 +26,7 @@ def show_info():
     print("\033[H\033[J",end='')  # clear terminal windows
     print(manual)
 
-<<<<<<< HEAD
+
 def main():
     px = Picarx()
     px.forward(30)
@@ -34,7 +34,6 @@ def main():
     px.stop()
             
 
-=======
 
 if __name__ == "__main__":
     try:
@@ -89,7 +88,6 @@ if __name__ == "__main__":
                 show_info()
                 sleep(0.5)
                 px.forward(0)
->>>>>>> 6f93ab49964c73f6ff69e320eb45edc484c85667
 
             elif key == readchar.key.CTRL_C:
                 print("\n Quit")
