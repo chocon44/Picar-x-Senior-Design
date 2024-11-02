@@ -45,6 +45,7 @@ if __name__ == "__main__":
         power = 30
         turnPower = 50
         ref = 550
+        offset = 20
         while True:
             key = readchar.readkey()
             key = key.lower()
@@ -57,17 +58,17 @@ if __name__ == "__main__":
                         gm_val_list = px.get_grayscale_data()
                         if gm_val_list[1] > ref:
                             px.set_dir_servo_angle(0)
-                            px.forward(px_power)
+                            px.forward(power)
 
                         elif (gm_val_list[0] > ref) and (gm_val_list[1] > ref) and (gm_val_list[2] > ref):
                             px.set_dir_servo_angle(0)
-                            px.forward(px_power)
+                            px.forward(power)
                         elif gm_val_list[0] > ref:   # line is on the left -- move right
                             px.set_dir_servo_angle(-offset)
-                            px.forward(px_power)
+                            px.forward(power)
                         elif gm_val_list[2] > ref:   # line is on the right -- move left
                             px.set_dir_servo_angle(offset)
-                            px.forward(px_power)
+                            px.forward(power)
                         else:
                             px.stop()
 
