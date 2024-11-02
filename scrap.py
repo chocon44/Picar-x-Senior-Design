@@ -52,10 +52,10 @@ if __name__ == "__main__":
             key = key.lower()
             if key in('wsadikjlgh'):        # added g and h
                 if 'w' == key:          # go forward 
-                    #px.set_dir_servo_angle(0)
+                    px.set_dir_servo_angle(0)
                     #px.forward(power)
                     px.set_motor_speed(1, power)
-                    px.set_motor_speed(2, -1*power-20)  
+                    px.set_motor_speed(2, -1*power+20)  
                    
 
                 elif 's' == key:        # go backward
