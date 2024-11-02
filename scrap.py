@@ -5,6 +5,7 @@ from picarx import Picarx
 from time import sleep
 import readchar
 import time
+from robot_hat import Motors
 
 manual = '''
 Press keys on keyboard to control PiCar-X!
@@ -53,24 +54,9 @@ if __name__ == "__main__":
                 if 'w' == key:          # go forward 
                     #px.set_dir_servo_angle(0)
                     #px.forward(power)
-                    max_time = time.time() + 0.2
-                    while time.time() < max_time:
-                        gm_val_list = px.get_grayscale_data()
-                        if gm_val_list[1] > ref:
-                            px.set_dir_servo_angle(0)
-                            px.forward(power)
-
-                        elif (gm_val_list[0] > ref) and (gm_val_list[1] > ref) and (gm_val_list[2] > ref):
-                            px.set_dir_servo_angle(0)
-                            px.forward(power)
-                        elif gm_val_list[0] > ref:   # line is on the left -- move right
-                            px.set_dir_servo_angle(-offset)
-                            px.forward(power)
-                        elif gm_val_list[2] > ref:   # line is on the right -- move left
-                            px.set_dir_servo_angle(offset)
-                            px.forward(power)
-                        else:
-                            px.stop()
+                    self.set_motor_speed(1, power)
+                    self.set_motor_speed(2, -1*power)  
+                   
 
                 elif 's' == key:        # go backward
                     px.set_dir_servo_angle(0)
