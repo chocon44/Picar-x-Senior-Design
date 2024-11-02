@@ -110,4 +110,4 @@ if __name__ == "__main__":
         px.set_cam_pan_angle(0)
         px.set_dir_servo_angle(0)
         px.stop()
-        sleep(.2)
+        sleep(.3)
