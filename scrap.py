@@ -1,11 +1,32 @@
+# Monitor while car drives
+# only for pi4, pi3 cannot pivot
+
 from picarx import Picarx
-import time
+from time import sleep
+import readchar
 
-POWER = 40
-SafeDistance = 40   # > 40 safe
-DangerDistance = 10 # > 20 && < 40 turn around,
-                    # < 20 backward
+manual = '''
+Press keys on keyboard to control PiCar-X!
+    w: Forward
+    a: Turn left
+    s: Backward
+    d: Turn right
+    g: Pivot left          
+    h: Pivot right
+    j: Turn head left
+    l: Turn head right
+    
+    i: Head up
+    k: Head down
+    
+    ctrl+c: Quit
+'''
 
+def show_info():
+    print("\033[H\033[J",end='')  # clear terminal windows
+    print(manual)
+
+<<<<<<< HEAD
 def main():
     px = Picarx()
     px.forward(30)
@@ -13,7 +34,70 @@ def main():
     px.stop()
             
 
-
+=======
 
 if __name__ == "__main__":
-    main()
+    try:
+        pan_angle = 0
+        tilt_angle = 0
+        px = Picarx()
+        show_info()
+        power = 30
+        turnPower = 50
+        while True:
+            key = readchar.readkey()
+            key = key.lower()
+            if key in('wsadikjlgh'):        # added g and h
+                if 'w' == key:          # go forward 
+                    px.set_dir_servo_angle(0)
+                    px.forward(power)
+                elif 's' == key:        # go backward
+                    px.set_dir_servo_angle(0)
+                    px.backward(power)
+                elif 'a' == key:        # turn left with servo
+                    px.set_dir_servo_angle(-35)
+                    px.forward(power)
+                elif 'd' == key:        # turn right with servo
+                    px.set_dir_servo_angle(35)
+                    px.forward(power)
+                elif 'g' == key:        # pivot left 
+                    px.set_dir_servo_angle(0)
+                    px.left(turnPower)
+                elif 'h' == key:        # pivot right 
+                    px.set_dir_servo_angle(0)
+                    px.right(turnPower)
+                
+                elif 'i' == key:                      
+                    tilt_angle+=5
+                    if tilt_angle>35:
+                        tilt_angle=35
+                elif 'k' == key:
+                    tilt_angle-=5
+                    if tilt_angle<-35:
+                        tilt_angle=-35
+                elif 'l' == key:        # head left 
+                    pan_angle+=5
+                    if pan_angle>35:
+                        pan_angle=35
+                elif 'j' == key:        # head right
+                    pan_angle-=5
+                    if pan_angle<-35:
+                        pan_angle=-35
+
+                px.set_cam_tilt_angle(tilt_angle)
+                px.set_cam_pan_angle(pan_angle)
+                show_info()
+                sleep(0.5)
+                px.forward(0)
+>>>>>>> 6f93ab49964c73f6ff69e320eb45edc484c85667
+
+            elif key == readchar.key.CTRL_C:
+                print("\n Quit")
+                break
+
+    finally:
+        px.set_cam_tilt_angle(0)
+        px.set_cam_pan_angle(0)
+        px.set_dir_servo_angle(0)
+        px.stop()
+        sleep(.2)
