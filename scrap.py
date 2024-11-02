@@ -98,7 +98,7 @@ if __name__ == "__main__":
                 px.set_cam_tilt_angle(tilt_angle)
                 px.set_cam_pan_angle(pan_angle)
                 show_info()
-                sleep(0.2)
+                sleep(0.4)          # time for each movement
                 px.forward(0)
 
             elif key == readchar.key.CTRL_C:
@@ -110,4 +110,4 @@ if __name__ == "__main__":
         px.set_cam_pan_angle(0)
         px.set_dir_servo_angle(0)
         px.stop()
-        sleep(.3)
+        sleep(.5)
