@@ -24,9 +24,12 @@ Press keys on keyboard to control PiCar-X!
     ctrl+c: Quit
 '''
 
-def show_info():
-    print("\033[H\033[J",end='')  # clear terminal windows
-    print(manual)
+#def show_info():
+    #print("\033[H\033[J",end='')  # clear terminal windows
+    #print(manual)
+
+
+
 
 
 def main():
@@ -50,14 +53,21 @@ if __name__ == "__main__":
         while True:
             key = readchar.readkey()
             key = key.lower()
-            if key in('wsadikjlgh'):        # added g and h
+            if key in('wsadikjlghqe'):        # added g and h
                 if 'w' == key:          # go forward 
                     px.set_dir_servo_angle(0)
                     #px.forward(power)
                     px.set_motor_speed(1, power+40)
                     px.set_motor_speed(2, -1*power-20)  
                    
-
+                elif 'q' == key:        # look left 
+                    px.set_cam_pan_angle(35)
+                    time.sleep(1)
+                    px.set_dir_servo_angle(0)
+                elif 'e' == key:        # look right
+                    px.set_cam_pan_angle(-35)
+                    time.sleep(1)
+                    px.set_dir_servo_angle(0)
                 elif 's' == key:        # go backward
                     px.set_dir_servo_angle(0)
                     px.backward(power)
@@ -97,7 +107,7 @@ if __name__ == "__main__":
 
                 px.set_cam_tilt_angle(tilt_angle)
                 px.set_cam_pan_angle(pan_angle)
-                show_info()
+                #show_info()
                 sleep(0.3)          # time for each movement
                 px.forward(0)
 
