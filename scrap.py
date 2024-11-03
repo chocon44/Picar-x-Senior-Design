@@ -42,7 +42,7 @@ if __name__ == "__main__":
         pan_angle = 0
         tilt_angle = 0
         px = Picarx()
-        show_info()
+        #show_info()
         power = 15
         turnPower = 50
         ref = 550
