@@ -176,6 +176,8 @@ def main():
 
         
         go_forward()
+
+        
         #px.forward(px_power)
         #time.sleep(1)
 
