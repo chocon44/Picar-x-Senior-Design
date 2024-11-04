@@ -22,7 +22,7 @@ import pyrebase
 
 
 px = Picarx()
-px_power = 15
+px_power = 10
 offset = 20
 ref = 1000
 # px = Picarx(grayscale_pins=['A0', 'A1', 'A2'])
