@@ -60,11 +60,11 @@ if __name__ == "__main__":
                     #px.set_motor_speed(1, power+40)
                     #px.set_motor_speed(2, -1*power-20)  
                    
-                elif 'q' == key:        # look left 
+                elif 'e' == key:        # look left 
                     px.set_cam_pan_angle(35)
                     time.sleep(1)
                     px.set_dir_servo_angle(0)
-                elif 'e' == key:        # look right
+                elif 'q' == key:        # look right
                     px.set_cam_pan_angle(-35)
                     time.sleep(1)
                     px.set_dir_servo_angle(0)
@@ -108,7 +108,7 @@ if __name__ == "__main__":
                 px.set_cam_tilt_angle(tilt_angle)
                 px.set_cam_pan_angle(pan_angle)
                 #show_info()
-                sleep(0.4)          # time for each movement
+                sleep(0.35)          # time for each movement
                 px.forward(0)
 
             elif key == readchar.key.CTRL_C:
