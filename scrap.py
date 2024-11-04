@@ -46,7 +46,7 @@ if __name__ == "__main__":
         tilt_angle = 0
         px = Picarx()
         #show_info()
-        power = 15
+        power = 10
         turnPower = 50
         ref = 550
         offset = 20
