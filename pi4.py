@@ -163,7 +163,8 @@ def ObstacleSweep():
 def main():
     try: 
         go_forward()
-
+        px.stop()
+        time.sleep(0.5)
         px.left(30)
         time.sleep(1.5)
         #px.stop()
