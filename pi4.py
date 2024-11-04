@@ -173,8 +173,6 @@ def main():
         px.left(30)
         time.sleep(2.1)
         
-        px.stop()
-        time.sleep(1.9)
 
         long = 3.9
         go_forward()
