@@ -168,13 +168,13 @@ def main():
         time.sleep(0.2)
 
         px.stop()
-        time.sleep(1)
+        time.sleep(1.5)
 
         px.left(30)
         time.sleep(2.1)
         
         px.stop()
-        time.sleep(1)
+        time.sleep(1.5)
 
         long = 3.9
         go_forward()
