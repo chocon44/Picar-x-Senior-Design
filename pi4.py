@@ -22,7 +22,6 @@ long = 3     # time to travel 1 block
 
 
 def go_forward():
-    Vilib.camera_close()
     max_time = time.time() + long    # time to travel 1 block, starting from intersection 
     while (time.time() < max_time):
         ObstacleAhead()     # scan for obstacle ahead
@@ -46,7 +45,6 @@ def go_forward():
     return 
 
 def go_forward_short():
-    Vilib.camera_close()
     max_time = time.time() + short
     while (time.time() < max_time):
         ObstacleAhead()     # scan for obstacle ahead
@@ -70,7 +68,6 @@ def go_forward_short():
     return 
 
 def turn_right():
-    Vilib.camera_close()
     
     #time_max = time.time() + 3      # max turning time is 2 sec 
     
@@ -95,7 +92,6 @@ def turn_right():
 # this function is used to detected obstacles at intersections by sweeping ultrasonic sensor 
 # 100 degrees left to right 
 def ObstacleSweep():
-    Vilib.camera_close()
     px.set_cam_pan_angle(0)    # reset pan servo angle 
     time.sleep(0.5)
     angle = -50     # initialize to -50 deg
@@ -137,7 +133,6 @@ def ObstacleSweep():
     
 # This function is used to detect other cars when going straight
 def ObstacleAhead():
-    Vilib.camera_close()
     danger = 10
     dist = round(px.ultrasonic.read(),2)
     Vilib.camera_close()
