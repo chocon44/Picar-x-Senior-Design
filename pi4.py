@@ -10,7 +10,7 @@ import time
 import math
 
 px = Picarx()
-px_power = 20           # just changed
+px_power = 25           # just changed
 offset = 20
 ref = 500
 short = 0.8
