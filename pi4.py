@@ -150,19 +150,19 @@ def ObstacleAhead():
     
     
 # This function starts camera to check for red light
-def RedLight():  
-    Vilib.camera_start()
-    #Vilib.display()        # toggle display on when needed
-    Vilib.color_detect("red")
+#def RedLight():  
+#    Vilib.camera_start()
+#    #Vilib.display()        # toggle display on when needed
+#    Vilib.color_detect("red")
     # red signal detect
-    if Vilib.detect_obj_parameter['color_n']!=0:    # if red is detected
-        print("Red light detected")
-        px.stop()      # stop the car immediately
-        time.sleep(0.5)   
-        RedLight()      # check red light again 
-    else:        # if red is not detected -- green or yellow
-        Vilib.camera_close()
-        return    
+#    if Vilib.detect_obj_parameter['color_n']!=0:    # if red is detected
+#        print("Red light detected")
+#        px.stop()      # stop the car immediately
+#        time.sleep(0.5)   
+#        RedLight()      # check red light again 
+#    else:        # if red is not detected -- green or yellow
+#        Vilib.camera_close()
+#        return    
 
 
 def main():
