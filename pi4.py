@@ -164,7 +164,7 @@ def main():
     try: 
         go_forward()
 
-        px.forward(power)
+        px.forward(px_power)
         time.sleep(0.2)
 
         px.stop()
