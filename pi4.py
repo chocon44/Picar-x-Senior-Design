@@ -132,16 +132,16 @@ def ObstacleSweep():
     
     
 # This function is used to detect other cars when going straight
-def ObstacleAhead():
-    danger = 10
-    dist = round(px.ultrasonic.read(),2)
+#def ObstacleAhead():
+#    danger = 10
+#    dist = round(px.ultrasonic.read(),2)
     #Vilib.camera_close()
-    if (dist > 0) and (dist <= danger):      # if obstacle is detected closely
-        px.stop()          # stop the car 
-        print("Obstacle detected at: ", dist)
-        time.sleep(1)       # wait 1 sec before checking again 
-        ObstacleAhead()     # repeat this function until the obstacle is cleared
-    return
+#    if (dist > 0) and (dist <= danger):      # if obstacle is detected closely
+#        px.stop()          # stop the car 
+#        print("Obstacle detected at: ", dist)
+#        time.sleep(1)       # wait 1 sec before checking again 
+#        ObstacleAhead()     # repeat this function until the obstacle is cleared
+#    return
     
     
 # This function starts camera to check for red light
