@@ -14,7 +14,7 @@ px_power = 20           # just changed
 offset = 20
 ref = 500
 short = 0.8
-long = 3     # time to travel 1 block 
+long = 6     # time to travel 1 block 
 
 # px = Picarx(grayscale_pins=['A0', 'A1', 'A2'])
 
@@ -164,11 +164,11 @@ def main():
     try: 
         go_forward()
 
-        px.left(30)
-        time.sleep(1.5)
-        px.stop()
-        time.sleep(0.02)
-        go_forward()
+        #px.left(30)
+        #time.sleep(1.5)
+        #px.stop()
+        #time.sleep(0.02)
+        #go_forward()
 
 
 
