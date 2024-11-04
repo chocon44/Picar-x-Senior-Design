@@ -164,6 +164,9 @@ def main():
     try: 
         #RedLight()
         go_forward()
+
+        car.left(30)
+        time.sleep(1.5)
         
         #RedLight()
         #go_forward_short()
