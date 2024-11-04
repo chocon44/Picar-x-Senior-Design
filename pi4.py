@@ -169,7 +169,7 @@ def main():
 
 
         px.left(30)
-        time.sleep(1.8)
+        time.sleep(2)
 
         go_forward()
 
