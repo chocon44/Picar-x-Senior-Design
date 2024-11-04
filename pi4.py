@@ -1,15 +1,16 @@
 # This code is done for picar 4
 # Go straight for 1 blocks, then turn left
 # Car will start at intersection 
+# Turned off camera to adjust speed
 
 from picarx import Picarx
 from time import sleep
 import time
-from vilib import Vilib
+#from vilib import Vilib
 import math
 
 px = Picarx()
-px_power = 50
+px_power = 25
 offset = 20
 ref = 500
 short = 0.8
