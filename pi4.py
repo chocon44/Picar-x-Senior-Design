@@ -167,7 +167,10 @@ def main():
 
         car.left(30)
         time.sleep(1.5)
-        
+        car.stop()
+        time.sleep(0.02)
+        go_forward()
+
         #RedLight()
         #go_forward_short()
        
