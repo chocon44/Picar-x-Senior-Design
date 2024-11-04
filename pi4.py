@@ -171,7 +171,7 @@ def main():
         time.sleep(0.7)
 
         px.left(30)
-        time.sleep(1.5)
+        time.sleep(1.7)
 
         #px.stop()
         #time.sleep(0.02)
