@@ -10,7 +10,7 @@ import time
 import math
 
 px = Picarx()
-px_power = 25
+px_power = 20           # just changed
 offset = 20
 ref = 500
 short = 0.8
@@ -169,7 +169,7 @@ def main():
         time.sleep(1.5)
         px.stop()
         time.sleep(0.02)
-        #go_forward()
+        go_forward()
 
 
 
