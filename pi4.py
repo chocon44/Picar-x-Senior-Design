@@ -24,7 +24,7 @@ long = 6     # time to travel 1 block
 def go_forward():
     max_time = time.time() + long    # time to travel 1 block, starting from intersection 
     while (time.time() < max_time):
-        ObstacleAhead()     # scan for obstacle ahead
+       # ObstacleAhead()     # scan for obstacle ahead
         gm_val_list = px.get_grayscale_data()
         if gm_val_list[1] > ref:
             px.set_dir_servo_angle(0)
