@@ -167,11 +167,11 @@ def main():
         px.forward(px_power)
         time.sleep(0.2)
 
-        #px.stop()
-        #time.sleep(1)
+        px.stop()
+        time.sleep(1)
 
         px.left(30)
-        time.sleep(1.5)
+        time.sleep(0.9)
         
         time.sleep(3)
 
