@@ -171,11 +171,11 @@ def main():
         time.sleep(0.7)
 
         px.left(30)
-        time.sleep(1.7)
+        time.sleep(1.8)
 
         #px.stop()
         #time.sleep(0.02)
-        #go_forward()
+        go_forward()
 
 
 
