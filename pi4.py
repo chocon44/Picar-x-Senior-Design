@@ -162,7 +162,6 @@ def ObstacleAhead():
 
 def main():
     try: 
-        #RedLight()
         go_forward()
 
         px.left(30)
