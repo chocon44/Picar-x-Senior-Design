@@ -165,9 +165,9 @@ def main():
         #RedLight()
         go_forward()
 
-        car.left(30)
+        px.left(30)
         time.sleep(1.5)
-        car.stop()
+        px.stop()
         time.sleep(0.02)
         #go_forward()
 
