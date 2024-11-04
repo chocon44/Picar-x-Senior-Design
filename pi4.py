@@ -172,7 +172,8 @@ def main():
         time.sleep(2)
 
         go_forward()
-
+        px.forward(px_power)
+        time.sleep(1)
 
 
     finally:
