@@ -167,8 +167,8 @@ def main():
         px.forward(px_power)
         time.sleep(0.2)
 
-        px.stop()
-        time.sleep(0.7)
+        #px.stop()
+        #time.sleep(0.7)
 
         px.left(30)
         time.sleep(1.8)
