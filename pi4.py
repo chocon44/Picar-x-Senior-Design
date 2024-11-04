@@ -171,17 +171,6 @@ def main():
         time.sleep(0.02)
         #go_forward()
 
-        #RedLight()
-        #go_forward_short()
-       
-        #RedLight()
-        #ObstacleSweep()
-
-
-
-        #go_forward()
-        #RedLight()
-        #ObstacleSweep()
 
 
     finally:
