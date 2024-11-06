@@ -18,6 +18,7 @@ offset = 20
 ref = 500
 short = 0.7    # used for speed up only
 long = 2.5     # time to travel 1 block 
+bit = 1.5
 
 # px = Picarx(grayscale_pins=['A0', 'A1', 'A2'])
 
@@ -46,6 +47,33 @@ def go_forward():
             px.stop()
     px.stop()
     return 
+
+def go_forward_bit():
+    max_time = time.time() + bit    # time to travel 1 block, starting from intersection 
+    while (time.time() < max_time):
+       # ObstacleAhead()     # scan for obstacle ahead
+        gm_val_list = px.get_grayscale_data()
+        if gm_val_list[1] > ref:
+            px.set_dir_servo_angle(0)
+            px.forward(px_power)
+
+        elif (gm_val_list[0] > ref) and (gm_val_list[1] > ref) and (gm_val_list[2] > ref):
+            px.set_dir_servo_angle(0)
+            px.forward(px_power)
+        elif gm_val_list[0] > ref:   # line is on the left -- move right
+            px.set_dir_servo_angle(-offset)
+            px.forward(px_power)
+        elif gm_val_list[2] > ref:   # line is on the right -- move left
+            px.set_dir_servo_angle(offset)
+            px.forward(px_power)
+        else:
+            px.stop()
+    px.stop()
+    return 
+
+
+
+
 
 # Used to speed up after turning to catch greenwave
 def speed_up():
@@ -180,7 +208,7 @@ def main():
         
 
         
-        go_forward()
+        go_forward_bit()
 
 
         #px.forward(px_power)
