@@ -13,7 +13,7 @@ import math
 
 px = Picarx()
 px_power = 22           # just changed
-px_power2 = 35    # used for speed up only
+px_power2 = 40    # used for speed up only
 offset = 20
 ref = 500
 short = 0.7    # used for speed up only
@@ -211,8 +211,8 @@ def main():
         go_forward_bit()
 
 
-        px.forward(px_power)
-        time.sleep(1)
+        #px.forward(px_power)
+        #time.sleep(1)
 
 
     finally:
