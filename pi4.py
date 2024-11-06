@@ -174,7 +174,7 @@ def main():
         #time.sleep(1)
 
         px.left(30)
-        time.sleep(1.5)
+        time.sleep(1.65)
 
         speed_up()
         
