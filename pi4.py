@@ -2,6 +2,8 @@
 # Go straight for 1 blocks, then turn left
 # Car will start at intersection 
 # Turned off camera to adjust speed
+# NEED TO SPEED UP AFTER TURNING TO CATCH GREENWAVE -- worked but can improve on speedup
+
 
 from picarx import Picarx
 from time import sleep
