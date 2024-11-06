@@ -183,8 +183,8 @@ def main():
         go_forward()
 
 
-        #px.forward(px_power)
-        #time.sleep(1)
+        px.forward(px_power)
+        time.sleep(0.5)
 
 
     finally:
