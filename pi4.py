@@ -211,8 +211,8 @@ def main():
         go_forward_bit()
 
 
-        #px.forward(px_power)
-        #time.sleep(0.5)
+        px.forward(px_power)
+        time.sleep(1)
 
 
     finally:
