@@ -18,7 +18,7 @@ offset = 20
 ref = 500
 short = 0.7    # used for speed up only
 long = 2.7     # time to travel 1 block 
-bit = 2.7
+bit = 3
 
 # px = Picarx(grayscale_pins=['A0', 'A1', 'A2'])
 
