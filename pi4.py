@@ -173,7 +173,7 @@ def main():
         #px.stop()
         #time.sleep(1)
 
-        px.left(30)
+        px.right(30)
         time.sleep(1.61)
 
         speed_up()
@@ -183,8 +183,8 @@ def main():
         go_forward()
 
 
-        px.forward(px_power)
-        time.sleep(0.5)
+        #px.forward(px_power)
+        #time.sleep(0.5)
 
 
     finally:
