@@ -12,7 +12,7 @@ import time
 import math
 
 px = Picarx()
-px_power = 25           # just changed
+px_power = 22           # just changed
 px_power2 = 35    # used for speed up only
 offset = 20
 ref = 500
