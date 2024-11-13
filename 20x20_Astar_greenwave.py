@@ -340,7 +340,7 @@ def Travel(thisPos,nextPos,i):
                     print("- Pivot left")
                     car.left(turnPower)
                     time.sleep(leftTurnTime)
-                    car.stop(0.1)
+                    car.stop()
                     ObstacleAhead() # check for obstacle before going forward
                     print("- Go forward")
                     car.forward(power)
